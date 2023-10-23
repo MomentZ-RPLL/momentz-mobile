@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">MomentZ</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="setting">Setting</string>
+    <string name="exit">Exit</string>
+    <string name="Logout">Logout</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="log_in">Login</string>
+    <string name="email">Email</string>
+    <string name="register">Register</string>
+    <string name="login_greet">Hello Again!</string>
+    <string name="login_caption">Login to your account!</string>
+    <string name="forgot_password"><u>Forgot your password?</u></string>
+    <string name="or_with">Or with</string>
+    <string name="login_with_google">Login with Google</string>
+    <string name="don_t_have_account_let_s">Don’t have account? Let’s</string>
 </resources>
