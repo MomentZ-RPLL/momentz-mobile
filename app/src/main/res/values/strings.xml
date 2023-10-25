@@ -15,4 +15,10 @@
     <string name="or_with">Or with</string>
     <string name="login_with_google">Login with Google</string>
     <string name="don_t_have_account_let_s">Don’t have account? Let’s</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="create_your_account">Create Your Account!</string>
+    <string name="join_us_and_share_your_moment">Join us and share your moment</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="next">Next</string>
 </resources>
