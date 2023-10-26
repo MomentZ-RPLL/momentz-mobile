@@ -21,4 +21,14 @@
     <string name="join_us_and_share_your_moment">Join us and share your moment</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="next">Next</string>
+    <string name="choose_your_photo">Choose Your Photo!</string>
+    <string name="profile_photo_caption_1">Be yourself; everyone else is already taken.</string>
+    <string name="name">Name</string>
+    <string name="edit_photo">Edit Photo</string>
+    <string name="profile_image">Profile Image</string>
+    <string name="agreement_desc">By continuing, I agree to MomentZ\'s Terms of Service. I also consent to the use of my app usage data to improve MomentZ and the relevancy of advertising campaigns for the app. See our Privacy Policy for more information</string>
+    <string name="agree_terms">I agree to terms and conditions</string>
+    <string name="camera">Camera</string>
+    <string name="choose_method">Choose Method</string>
+    <string name="file_manager">File Manager</string>
 </resources>

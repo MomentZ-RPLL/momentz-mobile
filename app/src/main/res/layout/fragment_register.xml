@@ -9,13 +9,12 @@
     android:background="@color/white"
     tools:context=".view.register.RegisterFragment">
 
-    <com.kai.momentz.customview.LoginButton
+    <com.kai.momentz.customview.DefaultButton
         android:id="@+id/back"
         android:layout_width="46dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="80dp"
         android:drawableStart="@drawable/baseline_arrow_back_24"
         android:drawablePadding="8dp"
         android:shadowColor="@android:color/transparent" />
@@ -83,12 +82,28 @@
         android:textColorHighlight="@color/black"
         android:inputType="textPassword"/>
 
+    <CheckBox
+        android:id="@+id/agreement_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:text="@string/agree_terms" />
 
-    <com.kai.momentz.customview.LoginButton
-        android:id="@+id/next"
+    <TextView
+        android:id="@+id/agreement_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/next"
+        android:text="@string/agreement_desc"
+        android:shadowColor="@android:color/transparent"
+        android:textSize="16sp"
+        android:layout_marginBottom="25dp"
+        android:textColor="@color/dark_gray"/>
+
+    <com.kai.momentz.customview.DefaultButton
+        android:id="@+id/signup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_up"
         android:shadowColor="@android:color/transparent"
         android:padding="15dp"
         android:layout_marginRight="10dp"
@@ -96,6 +111,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:drawableRight="@drawable/baseline_chevron_right_24"/>
+
 
     <ProgressBar
         android:id="@+id/progressBar"

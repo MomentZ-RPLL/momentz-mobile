@@ -38,14 +38,21 @@ class RegisterFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.next.setOnClickListener(this)
+        binding.signup.setOnClickListener(this)
         binding.back.setOnClickListener(this)
-
     }
 
     override fun onClick(v: View) {
         if(v == binding.back){
             activity?.onBackPressed()
+        }else if(v == binding.signup){
+            val profileImageFragment = ProfileImageFragment()
+            val fragmentManager = parentFragmentManager
+            fragmentManager.beginTransaction().apply {
+                replace(R.id.frame_container, profileImageFragment, ProfileImageFragment::class.java.simpleName)
+                addToBackStack(null)
+                commit()
+            }
         }
     }
 }
