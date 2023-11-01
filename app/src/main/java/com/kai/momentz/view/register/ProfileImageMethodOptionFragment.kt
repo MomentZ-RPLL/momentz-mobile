@@ -12,31 +12,34 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.fragment.app.DialogFragment
 import com.kai.momentz.R
+import com.kai.momentz.databinding.FragmentProfileImageBinding
+import com.kai.momentz.databinding.FragmentProfileImageMethodOptionBinding
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class ProfileImageMethodOptionFragment : DialogFragment() {
+class ProfileImageMethodOptionFragment : DialogFragment(), View.OnClickListener {
 
     private lateinit var btnChoose: Button
     private lateinit var btnClose: Button
     private var optionDialogListener: OnOptionDialogListener? = null
-
+    private lateinit var binding: FragmentProfileImageMethodOptionBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_profile_image_method_option, container, false)
+        binding = FragmentProfileImageMethodOptionBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btnChoose = view.findViewById(R.id.btn_choose)
-        btnClose = view.findViewById(R.id.btn_close)
+        
+        binding.btnFileManager.setOnClickListener(this)
+    }
 
-        btnChoose.setOnClickListener {
-
-        }
-        btnClose.setOnClickListener {
-            dialog?.cancel()
+    override fun onClick(v: View) {
+        if(v == binding.btnFileManager){
+            openImagePicker()
         }
     }
 
