@@ -1,33 +1,31 @@
 package com.kai.momentz.repository
 
+import android.util.Log
 import com.kai.momentz.data.UserPreference
+import com.kai.momentz.di.dataStore
 import com.kai.momentz.model.datastore.User
 import com.kai.momentz.model.request.RegisterRequest
 import com.kai.momentz.model.response.RegisterResponse
+import com.kai.momentz.retrofit.ApiConfig
 import com.kai.momentz.retrofit.ApiService
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
 
-abstract class UserRepository(private val apiService: ApiService, private val pref: UserPreference) : Repository {
-
+class UserRepository(private val apiService: ApiService, private val pref: UserPreference) : Repository() {
     override fun login(user: User) {
         GlobalScope.launch {
             pref.login(user)
         }
     }
 
-    override suspend fun register(registerRequest: RegisterRequest): Result<RegisterResponse> {
+    override suspend fun register(username:String, password:String, name:String, email:String): Result<RegisterResponse> {
         return try {
-            val response = apiService.registerUser(registerRequest)
+            val response = apiService.registerUser(username=username, password=password, name=name, email=email)
             if (response.isSuccessful) {
                 val responseBody = response.body()
-                if (responseBody != null && responseBody.status != "200") {
-                    Result.success(responseBody)
-                } else {
-                    Result.failure(Exception("Registration failed"))
-                }
+                Result.success(responseBody!!)
             } else {
                 Result.failure(Exception(response.errorBody()?.string() ?: "Unknown error"))
             }
@@ -36,5 +34,7 @@ abstract class UserRepository(private val apiService: ApiService, private val pr
         }
     }
 
-
+    override fun logout(user: User) {
+        TODO("Not yet implemented")
+    }
 }

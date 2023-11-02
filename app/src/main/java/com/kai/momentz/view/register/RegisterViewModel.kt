@@ -18,15 +18,14 @@ class RegisterViewModel(private val repository: Repository) : ViewModel(){
     private val _registerResponse = MutableLiveData<RegisterResponse>()
     val registerResponse: LiveData<RegisterResponse> = _registerResponse
 
-    fun registerUser(registerRequest : RegisterRequest){
+    fun registerUser(username:String, password:String, name:String, email:String){
 
         viewModelScope.launch {
             _isLoading.value = true
-            var result = repository.register(registerRequest)
+            var result = repository.register(username, password, name, email)
             _isLoading.value = false
 
             _registerResponse.value = result.getOrNull()
-
         }
 
 

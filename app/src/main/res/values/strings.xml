@@ -31,4 +31,5 @@
     <string name="camera">Camera</string>
     <string name="choose_method">Choose Method</string>
     <string name="file_manager">File Manager</string>
+    <string name="field_cant_empty">"This field cannot be empty!"</string>
 </resources>
