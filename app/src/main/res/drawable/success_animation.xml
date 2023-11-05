@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="true">
 
-</selector>
+    <!-- Frame 1 -->
+<!--    <item-->
+<!--        android:drawable="@drawable/success_frame_1"-->
+<!--        android:duration="100" />-->
+
+<!--    &lt;!&ndash; Frame 2 &ndash;&gt;-->
+<!--    <item-->
+<!--        android:drawable="@drawable/success_frame_2"-->
+<!--        android:duration="100" />-->
+
+<!--    &lt;!&ndash; Frame 3 &ndash;&gt;-->
+<!--    <item-->
+<!--        android:drawable="@drawable/success_frame_3"-->
+<!--        android:duration="100" />-->
+
+    <!-- Add more frames as needed -->
+
+</animation-list>

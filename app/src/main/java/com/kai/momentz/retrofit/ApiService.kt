@@ -1,10 +1,12 @@
 package com.kai.momentz.retrofit
 
 import com.kai.momentz.model.request.RegisterRequest
+import com.kai.momentz.model.response.LoginResponse
 import com.kai.momentz.model.response.RegisterResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
@@ -22,4 +24,10 @@ interface ApiService {
         @Part("bio") bio: String? = null,
         @Part("created_at") createdAt: String? = null
     ) : Response<RegisterResponse>
+
+    @POST("/user/login")
+    fun loginUser(
+        @Body username: String,
+        @Body password: String,
+    ): Call<LoginResponse>
 }
