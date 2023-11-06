@@ -1,36 +1,81 @@
 package com.kai.momentz.view.home
 
+import android.content.ContentValues
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.kai.momentz.R
 import com.kai.momentz.databinding.ActivityHomeFragmentBinding
+import com.kai.momentz.databinding.FragmentHomeBinding
 
-class HomeFragment : AppCompatActivity() {
+class HomeFragment : Fragment() {
 
-    private lateinit var binding: ActivityHomeFragmentBinding
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    companion object {
+        fun newInstance() = HomeFragment()
+    }
 
-        binding = ActivityHomeFragmentBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var binding: FragmentHomeBinding
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        val navView: BottomNavigationView = binding.navView
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_home_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
-            )
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        val layoutManager = LinearLayoutManager(requireContext())
+        binding.rvUser.layoutManager = layoutManager
+
+//        setupViewModel()
+    }
+
+//    private fun setupViewModel() {
+//        homeViewModel = ViewModelProvider(
+//            this,
+//            ViewModelFactory(UserPreference.getInstance(requireContext().dataStore))
+//        )[HomeViewModel::class.java]
+//        homeViewModel.getUser().observe(this) { user ->
+//            if (user.accessToken.isNotEmpty()) {
+//                homeViewModel.getProfileUser(user.accessToken)
+//            } else {
+//                Log.e(ContentValues.TAG, "onFailure")
+//            }
+//        }
+//        homeViewModel.isLoading.observe(this) {
+//            showLoading(it)
+//        }
+//
+//        homeViewModel.profileUser.observe(this) { age ->
+//            setUpViewModelId(age.data.age)
+//        }
+//
+//    }
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 }
