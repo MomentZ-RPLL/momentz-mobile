@@ -9,6 +9,7 @@ import com.kai.momentz.databinding.ActivityHomeBinding
 import com.kai.momentz.view.ViewModelFactory
 import com.kai.momentz.view.login.LoginActivity
 import androidx.lifecycle.ViewModelProvider
+import com.kai.momentz.view.register.RegisterFragment
 import com.kai.momentz.view.register.RegisterViewModel
 
 class HomeActivity : AppCompatActivity() {
@@ -42,6 +43,4 @@ class HomeActivity : AppCompatActivity() {
             }
         }
     }
-
-
 }

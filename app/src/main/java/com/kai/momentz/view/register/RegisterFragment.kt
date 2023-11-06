@@ -13,6 +13,7 @@ import com.kai.momentz.R
 import com.kai.momentz.customview.LoginInputEditText
 import com.kai.momentz.databinding.FragmentRegisterBinding
 import com.kai.momentz.model.request.RegisterRequest
+import com.kai.momentz.utils.Validator.isValidInputEmail
 import com.kai.momentz.view.ViewModelFactory
 
 class RegisterFragment : Fragment(), View.OnClickListener {
@@ -82,6 +83,9 @@ class RegisterFragment : Fragment(), View.OnClickListener {
             }
             if (confirmPassword.isEmpty()) {
                 confirmPasswordEditText.error = getString(R.string.field_cant_empty)
+            }
+            if (!isValidInputEmail(binding.email.text.toString())) {
+                emailEditText.error = getString(R.string.email_not_valid)
             }
             if(!agreementCheckBox.isChecked){
                 agreementCheckBox.error = getString(R.string.field_cant_empty)

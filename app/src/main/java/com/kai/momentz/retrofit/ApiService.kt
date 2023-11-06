@@ -1,5 +1,6 @@
 package com.kai.momentz.retrofit
 
+import com.kai.momentz.model.request.LoginRequest
 import com.kai.momentz.model.request.RegisterRequest
 import com.kai.momentz.model.response.LoginResponse
 import com.kai.momentz.model.response.RegisterResponse
@@ -27,7 +28,6 @@ interface ApiService {
 
     @POST("/user/login")
     fun loginUser(
-        @Body username: String,
-        @Body password: String,
+        @Body loginRequest: LoginRequest
     ): Call<LoginResponse>
 }

@@ -7,6 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.kai.momentz.model.datastore.User
+import com.kai.momentz.model.request.LoginRequest
+import com.kai.momentz.model.response.ErrorResponse
 import com.kai.momentz.model.response.LoginResponse
 import com.kai.momentz.repository.Repository
 import com.kai.momentz.retrofit.ApiConfig
@@ -18,42 +20,44 @@ class LoginViewModel(private val repo: Repository) : ViewModel() {
     private val _loginResponse = MutableLiveData<LoginResponse>()
     val loginResponse: LiveData<LoginResponse> = _loginResponse
 
+    private val _errorResponse = MutableLiveData<ErrorResponse>()
+    val errorResponse: LiveData<ErrorResponse> = _errorResponse
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-//    fun loginUser(email: String, password: String){
-//        _isLoading.value = true
-//        val loginRequest = LoginRequest(email, password)
-//        val client = ApiConfig().getApiService().loginUser(loginRequest)
-//
-//        client.enqueue(object : Callback<LoginResponse> {
-//            override fun onResponse(
-//                call: Call<LoginResponse>,
-//                response: Response<LoginResponse>
-//            ) {
-//                _isLoading.value = false
-//                if (response.isSuccessful) {
-//                    val responseBody = response.body()
-//                    if (responseBody != null) {
-//                        _loginResponse.value = response.body()
-//                    }
-//                } else {
-//                    val errBody = response.errorBody()
-//                    val errJsonString = errBody?.string()
-//                    val gson = Gson()
-//                    _errorResponse.value = gson.fromJson(errJsonString, ErrorResponse::class.java)
-//                    Log.e(ContentValues.TAG, "onFailure: ${response.message()}")
-//                }
-//                _errorResponse.value = ErrorResponse(null, null)
-//            }
-//
-//            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-//                _isLoading.value = false
-//                Log.e(ContentValues.TAG, "onFailure: ${t.message}")
-//            }
-//        })
-//    }
+    fun loginUser(username: String, password: String){
+        _isLoading.value = true
+        val loginRequest = LoginRequest(username, password)
+        val client = ApiConfig().getApiService().loginUser(loginRequest)
+
+        client.enqueue(object : Callback<LoginResponse> {
+            override fun onResponse(
+                call: Call<LoginResponse>,
+                response: Response<LoginResponse>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        _loginResponse.value = response.body()
+                    }
+                } else {
+                    val errBody = response.errorBody()
+                    val errJsonString = errBody?.string()
+                    val gson = Gson()
+                    _errorResponse.value = gson.fromJson(errJsonString, ErrorResponse::class.java)
+                    Log.e(ContentValues.TAG, "onFailure: ${response.message()}")
+                }
+                _errorResponse.value = ErrorResponse(null, null)
+            }
+
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                _isLoading.value = false
+                Log.e(ContentValues.TAG, "onFailure: ${t.message}")
+            }
+        })
+    }
 
     fun login(user: User) {
         return repo.login(user)
