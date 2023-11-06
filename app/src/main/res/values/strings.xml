@@ -39,5 +39,6 @@
     <string name="title_search">Search</string>
     <string name="title_profile">Profile</string>
     <string name="title_post">Post</string>
+    <string name="email_not_valid">Email is not valid</string>
 
 </resources>

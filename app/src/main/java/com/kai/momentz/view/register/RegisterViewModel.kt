@@ -14,7 +14,6 @@ class RegisterViewModel(private val repository: Repository) : ViewModel(){
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-
     private val _registerResponse = MutableLiveData<RegisterResponse>()
     val registerResponse: LiveData<RegisterResponse> = _registerResponse
 

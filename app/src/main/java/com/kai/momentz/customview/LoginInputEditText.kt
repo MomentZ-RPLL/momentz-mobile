@@ -26,7 +26,7 @@ class LoginInputEditText : AppCompatEditText {
         input = ContextCompat.getDrawable(context, R.drawable.shape_login_input) as Drawable
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         background = input
     }

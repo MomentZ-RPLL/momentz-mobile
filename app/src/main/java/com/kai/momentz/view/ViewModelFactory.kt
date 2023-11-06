@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.kai.momentz.di.Injection
 import com.kai.momentz.repository.Repository
+import com.kai.momentz.view.home.HomeViewModel
 import com.kai.momentz.view.login.LoginViewModel
 import com.kai.momentz.view.register.RegisterViewModel
 
@@ -15,9 +16,12 @@ class ViewModelFactory(private val repository: Repository)  : ViewModelProvider.
             modelClass.isAssignableFrom(RegisterViewModel::class.java) -> {
                 RegisterViewModel(repository) as T
             }
-//            modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
-//                LoginViewModel(repo) as T
-//            }
+            modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
+                HomeViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
+                LoginViewModel(repository) as T
+            }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

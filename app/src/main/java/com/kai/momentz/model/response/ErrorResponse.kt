@@ -10,3 +10,4 @@ data class ErrorResponse(
     @field:SerializedName("message")
     val message: String?
 )
+

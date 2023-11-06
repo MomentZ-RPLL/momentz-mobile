@@ -7,15 +7,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.kai.momentz.data.UserPreference
+import com.kai.momentz.model.datastore.User
 import com.kai.momentz.model.response.Data
 import com.kai.momentz.model.response.ErrorResponse
 import com.kai.momentz.model.response.PostResponse
+import com.kai.momentz.repository.Repository
 import com.kai.momentz.retrofit.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel(private val pref: UserPreference): ViewModel(){
+class HomeViewModel(private val repo : Repository) : ViewModel() {
     private val _errorResponse = MutableLiveData<ErrorResponse>()
     val errorResponse: LiveData<ErrorResponse> = _errorResponse
 
@@ -28,6 +30,9 @@ class HomeViewModel(private val pref: UserPreference): ViewModel(){
 
     companion object{
         const val TAG = "MainViewModel"
+    }
+    fun getUser(): LiveData<User> {
+        return repo.getUser()
     }
 
 //    suspend fun getProfileUser(token : String){
@@ -78,6 +83,5 @@ class HomeViewModel(private val pref: UserPreference): ViewModel(){
             }
         })
     }
-
 
 }

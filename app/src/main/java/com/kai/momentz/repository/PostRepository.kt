@@ -1,5 +1,6 @@
 package com.kai.momentz.repository
 
+import androidx.lifecycle.LiveData
 import com.kai.momentz.data.UserPreference
 import com.kai.momentz.model.datastore.User
 import com.kai.momentz.model.request.RegisterRequest
@@ -22,6 +23,10 @@ class PostRepository(private val apiService: ApiService, private val pref: UserP
 
 
     override fun logout(user: User) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getUser(): LiveData<User> {
         TODO("Not yet implemented")
     }
 }
