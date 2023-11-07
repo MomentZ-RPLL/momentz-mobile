@@ -3,32 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.home.HomeFragment">
+    tools:context=".view.post.PostFragment">
+
     <TextView
         android:id="@+id/login_greet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tes Home Fragment"
+        android:text="Tes Post Fragment"
         android:shadowColor="@android:color/transparent"
         android:textSize="50sp"
         android:textStyle="bold"
         android:gravity="center"
         android:textColor="@color/black"/>
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        tools:visibility="visible"
-        android:layout_gravity="center"
-        />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_user"
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
-        tools:visibility="visible" />
+        android:text="@string/hello_blank_fragment" />
 
 </FrameLayout>
