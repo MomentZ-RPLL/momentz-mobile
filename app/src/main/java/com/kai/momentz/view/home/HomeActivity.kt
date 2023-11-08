@@ -21,7 +21,6 @@ import com.kai.momentz.view.search.SearchFragment
 
 class HomeActivity : AppCompatActivity() {
 
-    private lateinit var factory: ViewModelFactory
     private lateinit var binding: ActivityHomeBinding
     private lateinit var homeViewModel: HomeViewModel
 
@@ -30,8 +29,16 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val layoutManager = LinearLayoutManager(this)
+
+        setupViewModel()
+        setupNavigation()
+    }
+
+    private fun setupNavigation(){
         val bottomNavigationView = binding.navView
         val fragmentManager = supportFragmentManager
+
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
@@ -55,7 +62,6 @@ class HomeActivity : AppCompatActivity() {
                     true
                 }
                 R.id.navigation_profile -> {
-                    fragmentManager.popBackStackImmediate()
                     val profileFragment = ProfileFragment()
                     fragmentManager.beginTransaction().replace(R.id.frame_container, profileFragment, ProfileFragment::class.java.simpleName).commit()
                     true
@@ -64,12 +70,7 @@ class HomeActivity : AppCompatActivity() {
                 else -> false
             }
         }
-
-        val layoutManager = LinearLayoutManager(this)
-
-        setupViewModel()
     }
-
     private fun setupViewModel(){
         homeViewModel = ViewModelProvider(
             this,

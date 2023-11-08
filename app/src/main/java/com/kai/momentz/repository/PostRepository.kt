@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.kai.momentz.data.UserPreference
 import com.kai.momentz.model.datastore.User
 import com.kai.momentz.model.request.RegisterRequest
+import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.model.response.RegisterResponse
 import com.kai.momentz.retrofit.ApiService
 
@@ -27,6 +28,10 @@ class PostRepository(private val apiService: ApiService, private val pref: UserP
     }
 
     override fun getUser(): LiveData<User> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getProfile(): Result<ProfileResponse> {
         TODO("Not yet implemented")
     }
 }

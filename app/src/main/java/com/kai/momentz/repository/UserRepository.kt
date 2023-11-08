@@ -7,6 +7,7 @@ import com.kai.momentz.data.UserPreference
 import com.kai.momentz.di.dataStore
 import com.kai.momentz.model.datastore.User
 import com.kai.momentz.model.request.RegisterRequest
+import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.model.response.RegisterResponse
 import com.kai.momentz.retrofit.ApiConfig
 import com.kai.momentz.retrofit.ApiService
@@ -27,6 +28,20 @@ class UserRepository(private val apiService: ApiService, private val pref: UserP
     override suspend fun register(username:String, password:String, name:String, email:String): Result<RegisterResponse> {
         return try {
             val response = apiService.registerUser(username=username, password=password, name=name, email=email)
+            if (response.isSuccessful) {
+                val responseBody = response.body()
+                Result.success(responseBody!!)
+            } else {
+                Result.failure(Exception(response.errorBody()?.string() ?: "Unknown error"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    override fun getProfile(username:String): Result<ProfileResponse> {
+        return try {
+            val response = apiService.getProfile(username=username)
             if (response.isSuccessful) {
                 val responseBody = response.body()
                 Result.success(responseBody!!)
