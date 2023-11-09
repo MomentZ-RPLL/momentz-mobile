@@ -7,6 +7,7 @@ import com.kai.momentz.di.Injection
 import com.kai.momentz.repository.Repository
 import com.kai.momentz.view.home.HomeViewModel
 import com.kai.momentz.view.login.LoginViewModel
+import com.kai.momentz.view.profile.ProfileViewModel
 import com.kai.momentz.view.register.RegisterViewModel
 
 class ViewModelFactory(private val repository: Repository)  : ViewModelProvider.NewInstanceFactory(){
@@ -21,6 +22,9 @@ class ViewModelFactory(private val repository: Repository)  : ViewModelProvider.
             }
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
+                ProfileViewModel(repository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)

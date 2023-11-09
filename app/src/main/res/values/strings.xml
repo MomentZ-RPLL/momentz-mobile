@@ -40,5 +40,11 @@
     <string name="title_profile">Profile</string>
     <string name="title_post">Post</string>
     <string name="email_not_valid">Email is not valid</string>
+    <string name="posts">Posts</string>
+    <string name="followers">Followers</string>
+    <string name="followings">Followings</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="bio">Bio</string>
 
 </resources>

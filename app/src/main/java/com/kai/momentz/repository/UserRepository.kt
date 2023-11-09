@@ -7,6 +7,7 @@ import com.kai.momentz.data.UserPreference
 import com.kai.momentz.di.dataStore
 import com.kai.momentz.model.datastore.User
 import com.kai.momentz.model.request.RegisterRequest
+import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.model.response.RegisterResponse
 import com.kai.momentz.retrofit.ApiConfig
 import com.kai.momentz.retrofit.ApiService
@@ -34,6 +35,23 @@ class UserRepository(private val apiService: ApiService, private val pref: UserP
                 Result.failure(Exception(response.errorBody()?.string() ?: "Unknown error"))
             }
         } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun getProfile(token:String, username:String): Result<ProfileResponse> {
+        return try {
+            Log.d("username", username)
+            val response = apiService.getProfile("token=$token", username)
+            if (response.isSuccessful) {
+                val responseBody = response.body()
+                Result.success(responseBody!!)
+            } else {
+                Log.d("username", response.errorBody()?.string()!!)
+                Result.failure(Exception(response.errorBody()?.string() ?: "Unknown error"))
+            }
+        } catch (e: Exception) {
+            Log.d("username", e.toString())
             Result.failure(e)
         }
     }
