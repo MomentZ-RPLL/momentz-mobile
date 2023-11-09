@@ -26,7 +26,5 @@ class RegisterViewModel(private val repository: Repository) : ViewModel(){
 
             _registerResponse.value = result.getOrNull()
         }
-
-
     }
 }

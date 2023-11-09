@@ -31,7 +31,7 @@ class PostRepository(private val apiService: ApiService, private val pref: UserP
         TODO("Not yet implemented")
     }
 
-    override fun getProfile(): Result<ProfileResponse> {
+    override suspend fun getProfile(token:String, username:String): Result<ProfileResponse> {
         TODO("Not yet implemented")
     }
 }

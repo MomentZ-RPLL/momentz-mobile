@@ -49,7 +49,8 @@ interface ApiService {
     ): Call<LoginResponse>
 
     @GET("/user/{username}")
-    fun getProfile(
+    suspend fun getProfile(
+        @Header("Cookie") token: String,
         @Path("username") username: String
     ): Response<ProfileResponse>
 }

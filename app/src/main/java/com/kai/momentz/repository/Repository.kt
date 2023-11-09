@@ -11,5 +11,5 @@ abstract class Repository {
     abstract suspend fun register(username:String, password:String, name:String, email:String) : Result<RegisterResponse>
     abstract fun logout(user:User)
     abstract fun getUser(): LiveData<User>
-    abstract fun getProfile(username:String): Result<ProfileResponse>
+    abstract suspend fun getProfile(token:String, username:String): Result<ProfileResponse>
 }

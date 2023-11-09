@@ -55,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
                     loginViewModel.loginResponse.observe(this) { loginResponse ->
                         Log.d(ContentValues.TAG, "success response")
                         Toast.makeText(this, loginResponse.message, Toast.LENGTH_SHORT).show()
-                        val login = User(loginResponse.data!!.user!!.idUser!!.toString(), loginResponse.data.user!!.name!!, loginResponse.data.token!!)
+                        val login = User(loginResponse.data!!.user!!.idUser!!.toString(), loginResponse.data.user!!.username!!, loginResponse.data.token!!)
 
                         loginViewModel.login(login)
 

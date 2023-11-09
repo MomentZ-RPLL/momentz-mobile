@@ -39,16 +39,19 @@ class UserRepository(private val apiService: ApiService, private val pref: UserP
         }
     }
 
-    override fun getProfile(username:String): Result<ProfileResponse> {
+    override suspend fun getProfile(token:String, username:String): Result<ProfileResponse> {
         return try {
-            val response = apiService.getProfile(username=username)
+            Log.d("username", username)
+            val response = apiService.getProfile("token=$token", username)
             if (response.isSuccessful) {
                 val responseBody = response.body()
                 Result.success(responseBody!!)
             } else {
+                Log.d("username", response.errorBody()?.string()!!)
                 Result.failure(Exception(response.errorBody()?.string() ?: "Unknown error"))
             }
         } catch (e: Exception) {
+            Log.d("username", e.toString())
             Result.failure(e)
         }
     }
