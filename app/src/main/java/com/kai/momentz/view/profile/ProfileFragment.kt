@@ -22,6 +22,7 @@ import com.kai.momentz.databinding.FragmentProfileBinding
 import com.kai.momentz.model.response.PostsItem
 import com.kai.momentz.view.ViewModelFactory
 import com.kai.momentz.view.follow.FollowFragment
+import com.kai.momentz.view.follow.FollowerFollowingFragment
 import com.kai.momentz.view.home.HomeActivity
 import com.kai.momentz.view.home.HomeFragment
 
@@ -47,11 +48,11 @@ class ProfileFragment : Fragment(), View.OnClickListener {
     ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
-        val gridLayoutManager = GridLayoutManager(context, 3) // Mengatur spanCount menjadi 3
+        val gridLayoutManager = GridLayoutManager(context, 3)
         binding.rvPost.layoutManager = gridLayoutManager
 
         setupViewModel()
-        // Inflate the layout for this fragment
+
         return binding.root
     }
 
@@ -63,7 +64,12 @@ class ProfileFragment : Fragment(), View.OnClickListener {
 
         profileViewModel.getUser().observe(requireActivity()){user ->
             if(user != null){
-                profileViewModel.getProfile(user.token, user.username)
+                val data = arguments?.getString("username")
+                if(data != null){
+                    profileViewModel.getProfile(user.token, data.toString())
+                }else {
+                    profileViewModel.getProfile(user.token, user.username)
+                }
                 profileViewModel.profileResponse.observe(requireActivity()) { user ->
                     if(user != null){
                         nameTextView.text = user.data!!.name
@@ -127,6 +133,8 @@ class ProfileFragment : Fragment(), View.OnClickListener {
 
             val followFragment = FollowFragment()
             followFragment.arguments = bundle
+
+
             val fragmentManager = parentFragmentManager
 
             fragmentManager.beginTransaction().apply {

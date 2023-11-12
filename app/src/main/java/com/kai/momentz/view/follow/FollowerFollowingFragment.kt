@@ -6,26 +6,82 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.kai.momentz.R
+import com.kai.momentz.adapter.FollowAdapter
+import com.kai.momentz.databinding.FragmentFollowerFollowingBinding
+import com.kai.momentz.databinding.FragmentProfileBinding
+import com.kai.momentz.model.response.FollowItem
+import com.kai.momentz.view.ViewModelFactory
+import com.kai.momentz.view.profile.ProfileViewModel
 
 
-class FollowerFollowingFragment : Fragment() {
+@Suppress("UNCHECKED_CAST")
+class FollowerFollowingFragment() : Fragment() {
 
-
+    private lateinit var followViewModel: FollowViewModel
+    private lateinit var binding: FragmentFollowerFollowingBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_follower_following, container, false)
+        binding = FragmentFollowerFollowingBinding.inflate(inflater, container, false)
+
+        val linearLayoutManager = LinearLayoutManager(context)
+        binding.rvFollow.layoutManager = linearLayoutManager
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val tvLabel: TextView = view.findViewById(R.id.section_label)
         val index = arguments?.getInt(ARG_SECTION_NUMBER, 0)
-        tvLabel.text = getString(R.string.content_tab_text, index)
+
+        setupViewModel(index!!)
     }
+
+    private fun setupViewModel(index: Int){
+        followViewModel = ViewModelProvider(
+            this,
+            ViewModelFactory.getUserInstance(requireActivity())
+        )[FollowViewModel::class.java]
+
+        followViewModel.getUser().observe(requireActivity()){user ->
+            if(user != null){
+                followViewModel.getFollowers(user.token, user.id)
+                followViewModel.getFollowing(user.token, user.id)
+
+                followViewModel.listFollowing.observe(requireActivity()) { following ->
+                    if(following != null){
+                        if(index == 2){
+                            setFollow(following.data)
+                        }
+                    }else {
+                        Toast.makeText(requireActivity(), getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                followViewModel.listFollowers.observe(requireActivity()) { followers ->
+                    if(followers != null){
+                        if(index == 1){
+                            setFollow(followers.data)
+                        }
+                    }else {
+                        Toast.makeText(requireActivity(), getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setFollow(follows: List<FollowItem?>?) {
+        val listFollowAdapter = FollowAdapter(follows as List<FollowItem>, fragmentManager)
+        binding.rvFollow.adapter = listFollowAdapter
+    }
+
+
 
     companion object {
         const val ARG_SECTION_NUMBER = "section_number"
