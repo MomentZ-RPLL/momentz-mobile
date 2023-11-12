@@ -36,6 +36,8 @@ class FollowFragment : Fragment() {
         val followsPagerAdapter = FollowPagerAdapter(requireActivity() as AppCompatActivity)
         viewPager.adapter = followsPagerAdapter
 
+
+
         TabLayoutMediator(tabs, viewPager) { tab, position ->
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()

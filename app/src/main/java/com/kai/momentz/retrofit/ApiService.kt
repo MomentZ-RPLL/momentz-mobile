@@ -2,6 +2,7 @@ package com.kai.momentz.retrofit
 
 import com.kai.momentz.model.request.LoginRequest
 import com.kai.momentz.model.request.RegisterRequest
+import com.kai.momentz.model.response.FollowingResponse
 import com.kai.momentz.model.response.PostResponse
 import com.kai.momentz.model.response.LoginResponse
 import com.kai.momentz.model.response.ProfileResponse
@@ -54,4 +55,16 @@ interface ApiService {
         @Header("Cookie") token: String,
         @Path("username") username: String
     ): Response<ProfileResponse>
+
+    @GET("/users/{id}/following")
+    suspend fun getFollowing(
+        @Header("Cookie") token: String,
+        @Path("id") id: String
+    ): Response<FollowingResponse>
+
+    @GET("/users/{id}/followers")
+    suspend fun getFollowers(
+        @Header("Cookie") token: String,
+        @Path("id") id: String
+    ): Response<FollowingResponse>
 }

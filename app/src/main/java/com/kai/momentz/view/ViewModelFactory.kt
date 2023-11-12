@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.kai.momentz.di.Injection
 import com.kai.momentz.repository.Repository
+import com.kai.momentz.view.follow.FollowViewModel
 import com.kai.momentz.view.home.HomeViewModel
 import com.kai.momentz.view.login.LoginViewModel
 import com.kai.momentz.view.profile.ProfileViewModel
@@ -25,6 +26,9 @@ class ViewModelFactory(private val repository: Repository)  : ViewModelProvider.
             }
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
                 ProfileViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(FollowViewModel::class.java) -> {
+                FollowViewModel(repository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
