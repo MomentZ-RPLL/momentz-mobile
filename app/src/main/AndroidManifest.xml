@@ -16,6 +16,14 @@
         android:theme="@style/Theme.MomentZ"
         tools:targetApi="31">
         <activity
+            android:name=".view.follow.FollowActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.profile.FollowsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_follows"
+            android:theme="@style/Theme.MomentZ.NoActionBar" />
+        <activity
             android:name=".view.detailprofile.DetailActivity"
             android:exported="false" />
         <activity
@@ -29,7 +37,7 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".view.landing.LandingActivity"
+            android:name=".view.onboarding.LandingActivity"
             android:exported="false" />
         <activity
             android:name=".view.login.LoginActivity"
@@ -39,6 +47,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

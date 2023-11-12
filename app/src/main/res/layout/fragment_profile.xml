@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"> <!-- Mengatur fillViewport menjadi true -->
+    android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -105,7 +105,7 @@
                     android:id="@+id/followerTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="6.4K"
+                    android:text="0"
                     android:textSize="28sp"
                     android:textColor="#000000"
                     />
@@ -134,7 +134,7 @@
                     android:id="@+id/postTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="23"
+                    android:text="0"
                     android:textSize="28sp"
                     android:textColor="#000000"
                     />
@@ -161,7 +161,7 @@
                     android:id="@+id/followingTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2.3K"
+                    android:text="0"
                     android:textSize="28sp"
                     android:textColor="#000000"
                     />
@@ -190,7 +190,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvPost"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/line"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

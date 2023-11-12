@@ -3,20 +3,16 @@ package com.kai.momentz.view.home
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
-import android.widget.Toast
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kai.momentz.R
 import com.kai.momentz.databinding.ActivityHomeBinding
 import com.kai.momentz.view.ViewModelFactory
 import com.kai.momentz.view.login.LoginActivity
 import androidx.lifecycle.ViewModelProvider
+import com.kai.momentz.view.follow.FollowerFollowingFragment
 import com.kai.momentz.view.notification.NotificationFragment
 import com.kai.momentz.view.post.PostFragment
 import com.kai.momentz.view.profile.ProfileFragment
-import com.kai.momentz.view.register.RegisterFragment
-import com.kai.momentz.view.register.RegisterViewModel
 import com.kai.momentz.view.search.SearchFragment
 
 class HomeActivity : AppCompatActivity() {
@@ -28,8 +24,6 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val layoutManager = LinearLayoutManager(this)
 
         setupViewModel()
         setupNavigation()
@@ -43,7 +37,7 @@ class HomeActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.navigation_home -> {
                     val homeFragment = HomeFragment()
-                    fragmentManager.beginTransaction().replace(R.id.frame_container, homeFragment, ProfileFragment::class.java.simpleName).commit()
+                    fragmentManager.beginTransaction().replace(R.id.frame_container, homeFragment, HomeFragment::class.java.simpleName).commit()
                     true
                 }
                 R.id.navigation_search -> {
@@ -85,6 +79,13 @@ class HomeActivity : AppCompatActivity() {
                 finish()
             }
         }
+    }
+
+    companion object {
+        private val TAB_TITLES = intArrayOf(
+            R.string.tab_text_1,
+            R.string.tab_text_2
+        )
     }
 
 

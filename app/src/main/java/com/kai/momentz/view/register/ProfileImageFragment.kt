@@ -1,13 +1,16 @@
 package com.kai.momentz.view.register
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import com.kai.momentz.databinding.FragmentProfileImageBinding
+import com.kai.momentz.view.home.HomeActivity
 
 
 private const val ARG_PARAM1 = "param1"
@@ -40,6 +43,12 @@ class ProfileImageFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            val intent = Intent(activity, HomeActivity::class.java)
+            startActivity(intent)
+            activity?.finish()
+        }
+
         binding.editIcon.setOnClickListener(this)
         binding.next.setOnClickListener(this)
     }
@@ -50,11 +59,10 @@ class ProfileImageFragment : Fragment(), View.OnClickListener {
             val fragmentManager = childFragmentManager
             profileImageDialogFragment.show(fragmentManager, ProfileImageMethodOptionFragment::class.java.simpleName)
         }
-    }
-
-    internal var optionDialogListener: ProfileImageMethodOptionFragment.OnOptionDialogListener = object : ProfileImageMethodOptionFragment.OnOptionDialogListener {
-        override fun onOptionChosen(text: String?) {
-            Toast.makeText(requireActivity(), text, Toast.LENGTH_SHORT).show()
+        if(v==binding.next){
+            val intent = Intent(requireContext(), HomeActivity::class.java)
+            startActivity(intent)
         }
     }
+
 }

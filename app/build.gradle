@@ -82,5 +82,8 @@ dependencies {
     // Jetpack Compose Integration
     implementation "androidx.navigation:navigation-compose:$nav_version"
 
+    implementation 'com.google.android.material:material:1.10.0' //jika belum ada
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+
 
 }

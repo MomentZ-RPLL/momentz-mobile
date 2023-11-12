@@ -1,10 +1,13 @@
 package com.kai.momentz.view.home
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
+import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -25,7 +28,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -35,6 +38,19 @@ class HomeFragment : Fragment() {
 
         val layoutManager = LinearLayoutManager(requireContext())
         binding.rvUser.layoutManager = layoutManager
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setMessage("Are you sure want to quit?")
+            builder.setPositiveButton("Yes") { _, _ ->
+                requireActivity().finishAffinity()
+            }
+            builder.setNegativeButton("No") { _, _ ->
+            }
+            val dialog = builder.create()
+            dialog.show()
+        }
+
 
 //        setupViewModel()
     }
@@ -60,6 +76,9 @@ class HomeFragment : Fragment() {
 //        }
 //
 //    }
+
+
+
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
             binding.progressBar.visibility = View.VISIBLE

@@ -1,13 +1,25 @@
 package com.kai.momentz.view.register
 
+import android.content.ContentValues
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
+import com.kai.momentz.model.datastore.User
+import com.kai.momentz.model.request.LoginRequest
 import com.kai.momentz.model.request.RegisterRequest
+import com.kai.momentz.model.response.ErrorResponse
+import com.kai.momentz.model.response.LoginResponse
 import com.kai.momentz.model.response.RegisterResponse
 import com.kai.momentz.repository.Repository
+import com.kai.momentz.retrofit.ApiConfig
 import kotlinx.coroutines.launch
+import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RegisterViewModel(private val repository: Repository) : ViewModel(){
 
@@ -17,11 +29,12 @@ class RegisterViewModel(private val repository: Repository) : ViewModel(){
     private val _registerResponse = MutableLiveData<RegisterResponse>()
     val registerResponse: LiveData<RegisterResponse> = _registerResponse
 
-    fun registerUser(username:String, password:String, name:String, email:String){
+    fun registerUser(username: RequestBody, password:RequestBody, name:RequestBody, email:RequestBody){
 
         viewModelScope.launch {
+
             _isLoading.value = true
-            var result = repository.register(username, password, name, email)
+            val result = repository.register(username, password, name, email)
             _isLoading.value = false
 
             _registerResponse.value = result.getOrNull()

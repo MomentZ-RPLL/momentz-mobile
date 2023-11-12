@@ -46,5 +46,14 @@
     <string name="profile_picture">Profile Picture</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="bio">Bio</string>
+    <string name="title_activity_follows">FollowsActivity</string>
+
+    <string name="tab_text_1">Followers</string>
+    <string name="tab_text_2">Followings</string>
+    <string name="tab_text_3">Setting</string>
+    <string name="content_tab_home">Welcome Home</string>
+    <string name="content_tab_profile">Change your Profile here</string>
+    <string name="content_tab_text">This is Tab %1$d</string>
+    <string name="unknown_error">Unknown Error</string>
 
 </resources>

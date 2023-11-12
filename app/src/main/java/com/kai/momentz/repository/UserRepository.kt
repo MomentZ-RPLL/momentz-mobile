@@ -14,6 +14,7 @@ import com.kai.momentz.retrofit.ApiService
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import okhttp3.RequestBody
 import java.lang.Exception
 
 
@@ -25,16 +26,18 @@ class UserRepository(private val apiService: ApiService, private val pref: UserP
         }
     }
 
-    override suspend fun register(username:String, password:String, name:String, email:String): Result<RegisterResponse> {
+    override suspend fun register(username: RequestBody, password:RequestBody, name:RequestBody, email:RequestBody): Result<RegisterResponse> {
         return try {
             val response = apiService.registerUser(username=username, password=password, name=name, email=email)
             if (response.isSuccessful) {
                 val responseBody = response.body()
                 Result.success(responseBody!!)
             } else {
+                Log.d("username", response.errorBody()?.string()!!)
                 Result.failure(Exception(response.errorBody()?.string() ?: "Unknown error"))
             }
         } catch (e: Exception) {
+            Log.d("username", e.toString())
             Result.failure(e)
         }
     }
