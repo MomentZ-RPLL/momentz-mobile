@@ -1,4 +1,4 @@
-package com.kai.momentz.view.landing
+package com.kai.momentz.view.onboarding
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

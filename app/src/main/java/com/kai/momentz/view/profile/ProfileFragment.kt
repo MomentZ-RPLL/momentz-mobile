@@ -10,24 +10,23 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.addCallback
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kai.momentz.R
 import com.kai.momentz.adapter.ProfilePostAdapter
-import com.kai.momentz.customview.DefaultButton
-import com.kai.momentz.customview.LoginInputEditText
-import com.kai.momentz.databinding.ActivityLoginBinding
 import com.kai.momentz.databinding.FragmentProfileBinding
-import com.kai.momentz.databinding.FragmentRegisterBinding
-import com.kai.momentz.model.datastore.User
 import com.kai.momentz.model.response.PostsItem
 import com.kai.momentz.view.ViewModelFactory
-import com.kai.momentz.view.login.LoginActivity
-import com.kai.momentz.view.login.LoginViewModel
-import com.kai.momentz.view.register.RegisterViewModel
+import com.kai.momentz.view.follow.FollowFragment
+import com.kai.momentz.view.home.HomeActivity
+import com.kai.momentz.view.home.HomeFragment
 
-class ProfileFragment : Fragment() {
+
+class ProfileFragment : Fragment(), View.OnClickListener {
     private lateinit var binding: FragmentProfileBinding
     private lateinit var profileViewModel: ProfileViewModel
     private lateinit var nameTextView: TextView
@@ -37,12 +36,9 @@ class ProfileFragment : Fragment() {
     private lateinit var followerTextView: TextView
     private lateinit var postTextView: TextView
     private lateinit var followingTextView: TextView
-    private lateinit var userData: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
     }
 
     override fun onCreateView(
@@ -66,21 +62,26 @@ class ProfileFragment : Fragment() {
         )[ProfileViewModel::class.java]
 
         profileViewModel.getUser().observe(requireActivity()){user ->
-            userData = user
-            profileViewModel.getProfile(userData.token, userData.username)
-            profileViewModel.profileResponse.observe(requireActivity()) { user ->
-                nameTextView.text = user.data!!.name
-                usernameTextView.text = user.data.username
-                bioTextView.text = user.data.bio
-                followingTextView.text = user.data.followingCount.toString()
-                followerTextView.text = user.data.followersCount.toString()
-                val z = 0
-                if (user.data.posts!!.isNotEmpty()){
-                    postTextView.text = user.data.posts.count().toString()
-                }else {
-                    postTextView.text = z.toString()
+            if(user != null){
+                profileViewModel.getProfile(user.token, user.username)
+                profileViewModel.profileResponse.observe(requireActivity()) { user ->
+                    if(user != null){
+                        nameTextView.text = user.data!!.name
+                        usernameTextView.text = user.data.username
+                        bioTextView.text = user.data.bio
+                        followingTextView.text = user.data.followingCount.toString()
+                        followerTextView.text = user.data.followersCount.toString()
+                        val z = 0
+                        if (user.data.posts!!.isNotEmpty()){
+                            postTextView.text = user.data.posts.count().toString()
+                        }else {
+                            postTextView.text = z.toString()
+                        }
+                        setProfilePostData(user.data.posts)
+                    }else {
+                        Toast.makeText(requireActivity(), getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
+                    }
                 }
-                setProfilePostData(user.data.posts)
             }
         }
     }
@@ -90,10 +91,9 @@ class ProfileFragment : Fragment() {
         binding.rvPost.adapter = listPostAdapter
     }
 
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         nameTextView = binding.nameTextView
         usernameTextView = binding.usernameTextView
         bioTextView = binding.bioTextView
@@ -101,6 +101,40 @@ class ProfileFragment : Fragment() {
         followerTextView = binding.followerTextView
         postTextView = binding.postTextView
         followingTextView = binding.followingTextView
+
+        binding.followingBox.setOnClickListener(this)
+        binding.followerBox.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+        if(v == binding.followingBox){
+            val bundle = Bundle()
+            bundle.putString("tab", FollowFragment.FOLLOWING_TAB.toString())
+
+            val followFragment = FollowFragment()
+            followFragment.arguments = bundle
+            val fragmentManager = parentFragmentManager
+
+            fragmentManager.beginTransaction().apply {
+                replace(R.id.frame_container, followFragment, FollowFragment::class.java.simpleName)
+                addToBackStack(null)
+                commit()
+            }
+        }
+        if(v == binding.followerBox){
+            val bundle = Bundle()
+            bundle.putString("tab", FollowFragment.FOLLOWER_TAB.toString())
+
+            val followFragment = FollowFragment()
+            followFragment.arguments = bundle
+            val fragmentManager = parentFragmentManager
+
+            fragmentManager.beginTransaction().apply {
+                replace(R.id.frame_container, followFragment, FollowFragment::class.java.simpleName)
+                addToBackStack(null)
+                commit()
+            }
+        }
     }
 
 }

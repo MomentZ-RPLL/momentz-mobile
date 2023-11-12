@@ -7,6 +7,7 @@ import com.kai.momentz.model.request.RegisterRequest
 import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.model.response.RegisterResponse
 import com.kai.momentz.retrofit.ApiService
+import okhttp3.RequestBody
 
 class PostRepository(private val apiService: ApiService, private val pref: UserPreference) : Repository() {
     override fun login(user: User) {
@@ -14,10 +15,10 @@ class PostRepository(private val apiService: ApiService, private val pref: UserP
     }
 
     override suspend fun register(
-        username: String,
-        password: String,
-        name: String,
-        email: String
+        username: RequestBody,
+        password: RequestBody,
+        name: RequestBody,
+        email: RequestBody
     ): Result<RegisterResponse> {
         TODO("Not yet implemented")
     }
