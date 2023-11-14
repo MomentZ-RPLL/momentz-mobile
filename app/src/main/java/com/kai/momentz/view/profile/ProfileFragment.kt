@@ -16,15 +16,19 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.kai.momentz.R
 import com.kai.momentz.adapter.ProfilePostAdapter
 import com.kai.momentz.databinding.FragmentProfileBinding
+import com.kai.momentz.databinding.ProfileBottomDialogBinding
 import com.kai.momentz.model.response.PostsItem
 import com.kai.momentz.view.ViewModelFactory
 import com.kai.momentz.view.follow.FollowFragment
 import com.kai.momentz.view.follow.FollowerFollowingFragment
 import com.kai.momentz.view.home.HomeActivity
 import com.kai.momentz.view.home.HomeFragment
+import com.kai.momentz.view.login.LoginActivity
 
 
 class ProfileFragment : Fragment(), View.OnClickListener {
@@ -38,9 +42,6 @@ class ProfileFragment : Fragment(), View.OnClickListener {
     private lateinit var postTextView: TextView
     private lateinit var followingTextView: TextView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,6 +75,9 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                     if(user != null){
                         nameTextView.text = user.data!!.name
                         usernameTextView.text = user.data.username
+                        Glide.with(requireActivity())
+                            .load( user.data.profilePicture)
+                            .into(binding.profilePicture)
                         bioTextView.text = user.data.bio
                         followingTextView.text = user.data.followingCount.toString()
                         followerTextView.text = user.data.followersCount.toString()
@@ -110,16 +114,19 @@ class ProfileFragment : Fragment(), View.OnClickListener {
 
         binding.followingBox.setOnClickListener(this)
         binding.followerBox.setOnClickListener(this)
+        binding.editProfile.setOnClickListener(this)
+        binding.profileMenu.setOnClickListener(this)
+
     }
 
     override fun onClick(v: View?) {
+        val fragmentManager = parentFragmentManager
         if(v == binding.followingBox){
             val bundle = Bundle()
             bundle.putString("tab", FollowFragment.FOLLOWING_TAB.toString())
 
             val followFragment = FollowFragment()
             followFragment.arguments = bundle
-            val fragmentManager = parentFragmentManager
 
             fragmentManager.beginTransaction().apply {
                 replace(R.id.frame_container, followFragment, FollowFragment::class.java.simpleName)
@@ -134,14 +141,33 @@ class ProfileFragment : Fragment(), View.OnClickListener {
             val followFragment = FollowFragment()
             followFragment.arguments = bundle
 
-
-            val fragmentManager = parentFragmentManager
-
             fragmentManager.beginTransaction().apply {
                 replace(R.id.frame_container, followFragment, FollowFragment::class.java.simpleName)
                 addToBackStack(null)
                 commit()
             }
+        }
+        if(v == binding.editProfile){
+            val editProfileFragment = EditProfileFragment()
+
+            fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_from_bottom, 0).apply {
+                replace(R.id.frame_container, editProfileFragment, EditProfileFragment::class.java.simpleName)
+                addToBackStack(null)
+                commit()
+            }
+        }
+        if(v == binding.profileMenu){
+            val dialog = BottomSheetDialog(requireActivity())
+            val view = layoutInflater.inflate(R.layout.profile_bottom_dialog, null)
+
+            val logout = view.findViewById<TextView>(R.id.logout)
+
+            logout.setOnClickListener{
+                profileViewModel.logout()
+            }
+
+            dialog.setContentView(view)
+            dialog.show()
         }
     }
 

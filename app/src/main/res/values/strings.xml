@@ -55,5 +55,8 @@
     <string name="content_tab_profile">Change your Profile here</string>
     <string name="content_tab_text">This is Tab %1$d</string>
     <string name="unknown_error">Unknown Error</string>
+    <string name="edit">Edit</string>
+    <string name="settings">Settings</string>
+    <string name="your_activity">Your activity</string>
 
 </resources>

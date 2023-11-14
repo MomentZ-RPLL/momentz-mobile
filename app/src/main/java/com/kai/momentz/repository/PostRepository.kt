@@ -25,7 +25,7 @@ class PostRepository(private val apiService: ApiService, private val pref: UserP
     }
 
 
-    override fun logout(user: User) {
+    override fun logout() {
         TODO("Not yet implemented")
     }
 

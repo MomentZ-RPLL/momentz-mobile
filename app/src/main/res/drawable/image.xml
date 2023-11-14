@@ -4,5 +4,5 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <item tools:src="@tools:sample/avatars"/>
-    <item android:drawable="@drawable/circle_background"/>
+    <item android:drawable="@drawable/circle_background_border"/>
 </layer-list>

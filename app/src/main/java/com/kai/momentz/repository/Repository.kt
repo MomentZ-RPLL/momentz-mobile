@@ -11,11 +11,14 @@ import okhttp3.RequestBody
 abstract class Repository {
     abstract fun login(user: User)
     abstract suspend fun register(username: RequestBody, password:RequestBody, name:RequestBody, email:RequestBody) : Result<RegisterResponse>
-    abstract fun logout(user:User)
+    abstract fun logout()
+
     abstract fun getUser(): LiveData<User>
     abstract suspend fun getProfile(token:String, username:String): Result<ProfileResponse>
 
     abstract suspend fun getFollowing(token:String, id:String): Result<FollowingResponse>
 
     abstract suspend fun getFollowers(token:String, id:String): Result<FollowingResponse>
+
+
 }
