@@ -39,19 +39,22 @@
         android:padding="16dp"
         android:layout_gravity="center">
 
-        <ImageView
+
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/profile_image"
             android:layout_width="240dp"
             android:layout_height="240dp"
-            android:background="@drawable/circle_background"
+            android:layout_marginTop="8dp"
             android:src="@drawable/profile_picture"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:contentPadding="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
-            android:contentDescription="@string/profile_image" />
-
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/Circular"
+            app:strokeColor="#00BCD4"
+            app:strokeWidth="1dp" />
 
         <ImageView
             android:id="@+id/edit_icon"

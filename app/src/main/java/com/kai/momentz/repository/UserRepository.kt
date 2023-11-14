@@ -92,7 +92,9 @@ class UserRepository(private val apiService: ApiService, private val pref: UserP
         return pref.getUser().asLiveData()
     }
 
-    override fun logout(user: User) {
-        TODO("Not yet implemented")
+    override fun logout() {
+        GlobalScope.launch {
+            pref.logout()
+        }
     }
 }

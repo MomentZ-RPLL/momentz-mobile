@@ -29,4 +29,8 @@ class ProfileViewModel(private val repository : Repository) : ViewModel()  {
     fun getUser(): LiveData<User> {
         return repository.getUser()
     }
+
+    fun logout() {
+        return repository.logout()
+    }
 }
