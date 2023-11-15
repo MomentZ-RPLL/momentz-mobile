@@ -104,7 +104,7 @@ tools:context=".view.profile.EditProfileFragment"
             android:textColorHighlight="@color/black"/>
 
         <com.kai.momentz.customview.DefaultButton
-            android:id="@+id/signup"
+            android:id="@+id/edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/edit"

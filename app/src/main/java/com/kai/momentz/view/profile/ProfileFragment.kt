@@ -17,12 +17,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.kai.momentz.R
 import com.kai.momentz.adapter.ProfilePostAdapter
 import com.kai.momentz.databinding.FragmentProfileBinding
 import com.kai.momentz.databinding.ProfileBottomDialogBinding
+import com.kai.momentz.model.datastore.User
+import com.kai.momentz.model.request.UpdateProfileRequest
+import com.kai.momentz.model.response.DataProfile
 import com.kai.momentz.model.response.PostsItem
+import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.view.ViewModelFactory
 import com.kai.momentz.view.follow.FollowFragment
 import com.kai.momentz.view.follow.FollowerFollowingFragment
@@ -42,7 +47,8 @@ class ProfileFragment : Fragment(), View.OnClickListener {
     private lateinit var postTextView: TextView
     private lateinit var followingTextView: TextView
 
-
+    private lateinit var dataProfile: DataProfile
+    private lateinit var currentUserData: User
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,39 +66,48 @@ class ProfileFragment : Fragment(), View.OnClickListener {
     private fun setupViewModel(){
         profileViewModel = ViewModelProvider(
             this,
-            ViewModelFactory.getUserInstance(requireActivity())
+            ViewModelFactory.getUserInstance(requireContext())
         )[ProfileViewModel::class.java]
 
-        profileViewModel.getUser().observe(requireActivity()){user ->
+        profileViewModel.getUser().observe(requireActivity()){ user ->
             if(user != null){
-                val data = arguments?.getString("username")
-                if(data != null){
-                    profileViewModel.getProfile(user.token, data.toString())
-                }else {
-                    profileViewModel.getProfile(user.token, user.username)
-                }
+                currentUserData = user
+                profileViewModel.getProfile(user.token, user.username)
                 profileViewModel.profileResponse.observe(requireActivity()) { user ->
                     if(user != null){
-                        nameTextView.text = user.data!!.name
-                        usernameTextView.text = user.data.username
-                        Glide.with(requireActivity())
-                            .load( user.data.profilePicture)
-                            .into(binding.profilePicture)
-                        bioTextView.text = user.data.bio
-                        followingTextView.text = user.data.followingCount.toString()
-                        followerTextView.text = user.data.followersCount.toString()
-                        val z = 0
-                        if (user.data.posts!!.isNotEmpty()){
-                            postTextView.text = user.data.posts.count().toString()
-                        }else {
-                            postTextView.text = z.toString()
-                        }
-                        setProfilePostData(user.data.posts)
+                        dataProfile = DataProfile(name = user.data!!.name,
+                            bio = user.data.bio,
+                            email = user.data.email,
+                            profilePicture = user.data.profilePicture)
+                        setupView(user)
+                        setProfilePostData(user.data.posts!!)
                     }else {
-                        Toast.makeText(requireActivity(), getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
                     }
                 }
             }
+        }
+    }
+
+    private fun setupView(user : ProfileResponse){
+        Log.d("dsfsf", user.data!!.profilePicture!!)
+
+        Glide.with(this)
+            .load( user.data.profilePicture)
+            .skipMemoryCache(true)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .into(binding.profilePicture)
+
+        nameTextView.text = user.data.name
+        usernameTextView.text = user.data.username
+        bioTextView.text = user.data.bio
+        followingTextView.text = user.data.followingCount.toString()
+        followerTextView.text = user.data.followersCount.toString()
+        val z = 0
+        if (user.data.posts!!.isNotEmpty()){
+            postTextView.text = user.data.posts.count().toString()
+        }else {
+            postTextView.text = z.toString()
         }
     }
 
@@ -150,6 +165,12 @@ class ProfileFragment : Fragment(), View.OnClickListener {
         if(v == binding.editProfile){
             val editProfileFragment = EditProfileFragment()
 
+            val bundle = Bundle().apply {
+                putParcelable("user_data", dataProfile)
+                putParcelable("current_user", currentUserData)
+            }
+
+            editProfileFragment.arguments = bundle
             fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_from_bottom, 0).apply {
                 replace(R.id.frame_container, editProfileFragment, EditProfileFragment::class.java.simpleName)
                 addToBackStack(null)
@@ -157,7 +178,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
             }
         }
         if(v == binding.profileMenu){
-            val dialog = BottomSheetDialog(requireActivity())
+            val dialog = BottomSheetDialog(requireContext())
             val view = layoutInflater.inflate(R.layout.profile_bottom_dialog, null)
 
             val logout = view.findViewById<TextView>(R.id.logout)
