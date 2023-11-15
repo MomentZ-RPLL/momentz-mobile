@@ -10,10 +10,8 @@
     tools:context=".view.register.RegisterFragment">
 
     <LinearLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="20dp"
         android:background="@color/white">
@@ -24,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:drawableStart="@drawable/baseline_arrow_back_24_black"
+            android:drawableStart="@drawable/baseline_arrow_back_24_white"
             android:drawablePadding="8dp"
             android:shadowColor="@android:color/transparent" />
 

@@ -2,15 +2,12 @@ package com.kai.momentz.repository
 
 import androidx.lifecycle.LiveData
 import com.kai.momentz.model.datastore.User
-import com.kai.momentz.model.request.RegisterRequest
-import com.kai.momentz.model.request.UpdateProfileRequest
 import com.kai.momentz.model.response.FollowingResponse
 import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.model.response.RegisterResponse
 import com.kai.momentz.model.response.UpdateProfileResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.http.Multipart
 
 abstract class Repository {
     abstract fun login(user: User)

@@ -1,0 +1,76 @@
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="8dp"
+            android:src="@drawable/rounded_side_box"
+            android:layout_marginTop="5dp"
+            />
+
+        <TextView
+            android:id="@+id/method"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:text="@string/choose_image_source"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="2dp"
+            >
+            <TextView
+                android:id="@+id/folderSource"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:text="@string/file_manager"
+                android:gravity="center"
+                app:drawableTopCompat="@drawable/baseline_folder_24"
+                android:layout_marginEnd="60dp"/>
+
+            <TextView
+                android:id="@+id/cameraSource"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:text="@string/camera"
+                android:gravity="center"
+                app:drawableTopCompat="@drawable/baseline_camera_alt_24"
+                android:layout_marginEnd="60dp"/>
+
+            <TextView
+                android:id="@+id/deleteImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:text="@string/delete"
+                android:gravity="center"
+                app:drawableTopCompat="@drawable/baseline_delete_24" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
