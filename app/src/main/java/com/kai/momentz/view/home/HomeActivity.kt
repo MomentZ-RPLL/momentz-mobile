@@ -37,26 +37,31 @@ class HomeActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.navigation_home -> {
                     val homeFragment = HomeFragment()
+
                     fragmentManager.beginTransaction().replace(R.id.frame_container, homeFragment, HomeFragment::class.java.simpleName).commit()
                     true
                 }
                 R.id.navigation_search -> {
                     val searchFragment = SearchFragment()
+
                     fragmentManager.beginTransaction().replace(R.id.frame_container, searchFragment, SearchFragment::class.java.simpleName).commit()
                     true
                 }
                 R.id.navigation_post -> {
                     val postFragment = PostFragment()
+
                     fragmentManager.beginTransaction().replace(R.id.frame_container, postFragment, PostFragment::class.java.simpleName).commit()
                     true
                 }
                 R.id.navigation_notifications -> {
                     val notificationFragment = NotificationFragment()
+
                     fragmentManager.beginTransaction().replace(R.id.frame_container, notificationFragment, NotificationFragment::class.java.simpleName).commit()
                     true
                 }
                 R.id.navigation_profile -> {
                     val profileFragment = ProfileFragment()
+
                     fragmentManager.beginTransaction().replace(R.id.frame_container, profileFragment, ProfileFragment::class.java.simpleName).commit()
                     true
                 }

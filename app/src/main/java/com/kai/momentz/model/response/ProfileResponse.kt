@@ -1,7 +1,10 @@
 package com.kai.momentz.model.response
 
+import kotlinx.parcelize.Parcelize
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
+@Parcelize
 data class ProfileResponse(
 
 	@field:SerializedName("data")
@@ -12,8 +15,9 @@ data class ProfileResponse(
 
 	@field:SerializedName("status")
 	val status: String? = null
-)
+) : Parcelable
 
+@Parcelize
 data class DataProfile(
 
 	@field:SerializedName("password")
@@ -48,8 +52,9 @@ data class DataProfile(
 
 	@field:SerializedName("username")
 	val username: String? = null
-)
+) : Parcelable
 
+@Parcelize
 data class PostsItem(
 
 	@field:SerializedName("id_post")
@@ -62,8 +67,8 @@ data class PostsItem(
 	val caption: String? = null,
 
 	@field:SerializedName("created_at")
-	val createdAt: Any? = null,
+	val createdAt: String? = null,
 
 	@field:SerializedName("id_user")
 	val idUser: Int? = null
-)
+) : Parcelable
