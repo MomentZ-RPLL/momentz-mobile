@@ -1,39 +1,28 @@
 package com.kai.momentz.view.profile
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.addCallback
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.kai.momentz.R
 import com.kai.momentz.adapter.ProfilePostAdapter
 import com.kai.momentz.databinding.FragmentProfileBinding
-import com.kai.momentz.databinding.ProfileBottomDialogBinding
 import com.kai.momentz.model.datastore.User
-import com.kai.momentz.model.request.UpdateProfileRequest
 import com.kai.momentz.model.response.DataProfile
 import com.kai.momentz.model.response.PostsItem
 import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.view.ViewModelFactory
 import com.kai.momentz.view.follow.FollowFragment
-import com.kai.momentz.view.follow.FollowerFollowingFragment
-import com.kai.momentz.view.home.HomeActivity
-import com.kai.momentz.view.home.HomeFragment
-import com.kai.momentz.view.login.LoginActivity
 
 
 class ProfileFragment : Fragment(), View.OnClickListener {
@@ -71,8 +60,13 @@ class ProfileFragment : Fragment(), View.OnClickListener {
 
         profileViewModel.getUser().observe(requireActivity()){ user ->
             if(user != null){
-                currentUserData = user
-                profileViewModel.getProfile(user.token, user.username)
+                val data = arguments?.getString("username")
+                if(data != null){
+                    profileViewModel.getProfile(user.token, data.toString())
+                }else {
+                    profileViewModel.getProfile(user.token, user.username)
+                    currentUserData = user
+                }
                 profileViewModel.profileResponse.observe(requireActivity()) { user ->
                     if(user != null){
                         dataProfile = DataProfile(name = user.data!!.name,

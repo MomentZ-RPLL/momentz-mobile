@@ -4,22 +4,17 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import com.kai.momentz.data.UserPreference
-import com.kai.momentz.di.dataStore
 import com.kai.momentz.model.datastore.User
-import com.kai.momentz.model.request.RegisterRequest
-import com.kai.momentz.model.request.UpdateProfileRequest
 import com.kai.momentz.model.response.FollowingResponse
 import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.model.response.RegisterResponse
 import com.kai.momentz.model.response.UpdateProfileResponse
-import com.kai.momentz.retrofit.ApiConfig
 import com.kai.momentz.retrofit.ApiService
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import java.lang.Exception
 
 
 class UserRepository(private val apiService: ApiService, private val pref: UserPreference) : Repository() {

@@ -3,8 +3,6 @@ package com.kai.momentz.repository
 import androidx.lifecycle.LiveData
 import com.kai.momentz.data.UserPreference
 import com.kai.momentz.model.datastore.User
-import com.kai.momentz.model.request.RegisterRequest
-import com.kai.momentz.model.request.UpdateProfileRequest
 import com.kai.momentz.model.response.FollowingResponse
 import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.model.response.RegisterResponse
