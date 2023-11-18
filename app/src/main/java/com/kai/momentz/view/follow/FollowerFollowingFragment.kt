@@ -55,18 +55,17 @@ class FollowerFollowingFragment() : Fragment() {
 
                 followViewModel.listFollowing.observe(requireActivity()) { following ->
                     if(following != null){
-                        if(index == 2){
-                            setFollow(following.data)
+                        followViewModel.listFollowers.observe(requireActivity()) { followers ->
+                            if(followers != null){
+                                if(index == 1){
+                                    setFollow(followers.data, following.data)
+                                }
+                            }else {
+                                Toast.makeText(requireActivity(), getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
+                            }
                         }
-                    }else {
-                        Toast.makeText(requireActivity(), getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-                followViewModel.listFollowers.observe(requireActivity()) { followers ->
-                    if(followers != null){
-                        if(index == 1){
-                            setFollow(followers.data)
+                        if(index == 2){
+                            setFollow(following.data, following.data)
                         }
                     }else {
                         Toast.makeText(requireActivity(), getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
@@ -76,12 +75,10 @@ class FollowerFollowingFragment() : Fragment() {
         }
     }
 
-    private fun setFollow(follows: List<FollowItem?>?) {
-        val listFollowAdapter = FollowAdapter(follows as List<FollowItem>, fragmentManager)
+    private fun setFollow(follows: List<FollowItem?>?, following:List<FollowItem?>?) {
+        val listFollowAdapter = FollowAdapter(follows as List<FollowItem>, fragmentManager, following as List<FollowItem>)
         binding.rvFollow.adapter = listFollowAdapter
     }
-
-
 
     companion object {
         const val ARG_SECTION_NUMBER = "section_number"

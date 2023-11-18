@@ -18,15 +18,29 @@
             android:layout_marginTop="5dp"
             />
 
+
         <TextView
             android:id="@+id/method"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:text="@string/choose_image_source"
             android:gravity="center"
             android:layout_margin="5dp"
             />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/profilePicturePreview"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="8dp"
+            android:padding="5dp"
+            android:src="@drawable/profile_picture"
+            app:contentPadding="3dp"
+            app:shapeAppearanceOverlay="@style/Circular"
+            app:strokeColor="#00BCD4"
+            app:strokeWidth="1dp"
+            android:layout_marginBottom="10dp"/>
 
         <View
             android:layout_width="match_parent"
@@ -70,6 +84,18 @@
                 android:gravity="center"
                 app:drawableTopCompat="@drawable/baseline_delete_24" />
         </LinearLayout>
+
+        <com.kai.momentz.customview.DefaultButton
+            android:id="@+id/editPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_photo"
+            android:shadowColor="@android:color/transparent"
+            android:padding="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp" />
     </LinearLayout>
 
 

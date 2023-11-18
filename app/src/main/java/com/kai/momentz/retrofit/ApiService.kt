@@ -73,7 +73,8 @@ interface ApiService {
     suspend fun editProfile(
         @Header("Cookie") token: String,
         @Path("username") username: String,
-        @Part profile_picture: MultipartBody.Part?,
+        @Query("del_pict") del_pict: Boolean,
+        @Part photo: MultipartBody.Part?,
         @Part("name") name: RequestBody?,
         @Part("email") email: RequestBody?,
         @Part("bio") bio: RequestBody?,

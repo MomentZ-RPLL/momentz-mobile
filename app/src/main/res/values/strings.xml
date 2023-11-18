@@ -60,5 +60,8 @@
     <string name="your_activity">Your activity</string>
     <string name="choose_image_source">Choose Image Source</string>
     <string name="delete">Delete</string>
+    <string name="follow">Follow</string>
+    <string name="message">Message</string>
+    <string name="following">Following</string>
 
 </resources>

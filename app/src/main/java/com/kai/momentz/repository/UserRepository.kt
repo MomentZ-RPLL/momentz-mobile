@@ -61,10 +61,11 @@ class UserRepository(private val apiService: ApiService, private val pref: UserP
         profilePicture: MultipartBody.Part?,
         name:RequestBody?,
         email: RequestBody?,
-        bio:RequestBody?
+        bio:RequestBody?,
+        delPict: Boolean,
     ): Result<UpdateProfileResponse> {
         return try {
-            val response = apiService.editProfile("token=$token", username,
+            val response = apiService.editProfile("token=$token", username, delPict,
                 profilePicture, name, email, bio)
             if (response.isSuccessful) {
                 val responseBody = response.body()

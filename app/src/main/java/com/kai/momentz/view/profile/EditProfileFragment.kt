@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,7 +26,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.imageview.ShapeableImageView
 import com.kai.momentz.R
+import com.kai.momentz.customview.DefaultButton
 import com.kai.momentz.customview.LoginInputEditText
 import com.kai.momentz.databinding.FragmentEditProfileBinding
 import com.kai.momentz.model.datastore.User
@@ -33,8 +36,11 @@ import com.kai.momentz.model.response.DataProfile
 import com.kai.momentz.utils.Validator
 import com.kai.momentz.utils.createTempFile
 import com.kai.momentz.utils.uriToFile
+import com.kai.momentz.utils.reduceFileImage
 import com.kai.momentz.view.ViewModelFactory
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
@@ -49,7 +55,7 @@ class EditProfileFragment : Fragment(), View.OnClickListener {
     private lateinit var nameEditText: LoginInputEditText
     private lateinit var emailEditText: LoginInputEditText
     private lateinit var bioEditText: LoginInputEditText
-
+    private lateinit var bottomView: View
     private lateinit var currentPhotoPath: String
     private var getFile: File? = null
     override fun onCreateView(
@@ -123,7 +129,7 @@ class EditProfileFragment : Fragment(), View.OnClickListener {
 
             myFile.let { file ->
                 getFile = file
-                binding.profileImage.setImageBitmap(BitmapFactory.decodeFile(file.path))
+                bottomView.findViewById<ShapeableImageView>(R.id.profilePicturePreview).setImageBitmap(BitmapFactory.decodeFile(file.path))
             }
         }
     }
@@ -154,7 +160,7 @@ class EditProfileFragment : Fragment(), View.OnClickListener {
             selectedImg.let { uri ->
                 val myFile = uriToFile(uri, requireContext())
                 getFile = myFile
-                binding.profileImage.setImageURI(uri)
+                bottomView.findViewById<ShapeableImageView>(R.id.profilePicturePreview).setImageURI(uri)
             }
         }
     }
@@ -190,6 +196,8 @@ class EditProfileFragment : Fragment(), View.OnClickListener {
         binding.editIcon.setOnClickListener(this)
         binding.back.setOnClickListener(this)
     }
+
+
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onClick(v: View?) {
         if (v == binding.edit){
@@ -203,32 +211,71 @@ class EditProfileFragment : Fragment(), View.OnClickListener {
                     null,
                     binding.name.text.toString().toRequestBody("text/plain".toMediaType()),
                     binding.email.text.toString().toRequestBody("text/plain".toMediaType()),
-                    binding.bio.text.toString().toRequestBody("text/plain".toMediaType()))
+                    binding.bio.text.toString().toRequestBody("text/plain".toMediaType()),
+                    false,)
             }
         }
         if(v == binding.editIcon){
             val dialog = BottomSheetDialog(requireContext())
-            val view = layoutInflater.inflate(R.layout.edit_photo_bottom_dialog, null)
+            bottomView = layoutInflater.inflate(R.layout.edit_photo_bottom_dialog, null)
+            var deleteProfile: Boolean = false
 
-            val camSrc = view.findViewById<TextView>(R.id.cameraSource)
-            val fileMngrSrc = view.findViewById<TextView>(R.id.folderSource)
-            val delete = view.findViewById<TextView>(R.id.deleteImage)
+
+            val camSrc = bottomView.findViewById<TextView>(R.id.cameraSource)
+            val fileMngrSrc = bottomView.findViewById<TextView>(R.id.folderSource)
+            val delete = bottomView.findViewById<TextView>(R.id.deleteImage)
+            val edit = bottomView.findViewById<DefaultButton>(R.id.editPhoto)
+
+            Glide.with(requireActivity())
+                .load( profileData.profilePicture)
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(bottomView.findViewById<ShapeableImageView>(R.id.profilePicturePreview))
 
             camSrc.setOnClickListener{
+                deleteProfile = false
                 startTakePhoto()
-                dialog.hide()
             }
 
             fileMngrSrc.setOnClickListener{
+                deleteProfile = false
                 startGallery()
-                dialog.hide()
             }
             delete.setOnClickListener{
-                binding.profileImage.setImageDrawable(requireContext().getDrawable(R.drawable.profile_picture))
-                dialog.hide()
+                deleteProfile = true
+                bottomView.findViewById<ShapeableImageView>(R.id.profilePicturePreview).setImageDrawable(requireContext().getDrawable(R.drawable.profile_picture))
             }
+            edit.setOnClickListener{
+                if(getFile != null){
+                    val file = reduceFileImage(getFile as File)
 
-            dialog.setContentView(view)
+                    val requestImageFile = file.asRequestBody("image/jpeg".toMediaType())
+                    val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+                        "photo",
+                        file.name,
+                        requestImageFile
+                    )
+
+                    profileViewModel.editProfile(
+                        currentUser.token,
+                        currentUser.username,
+                        imageMultipart,
+                        binding.name.text.toString().toRequestBody("text/plain".toMediaType()),
+                        binding.email.text.toString().toRequestBody("text/plain".toMediaType()),
+                        binding.bio.text.toString().toRequestBody("text/plain".toMediaType()),
+                        deleteProfile)
+                }else {
+                    profileViewModel.editProfile(
+                        currentUser.token,
+                        currentUser.username,
+                        null,
+                        binding.name.text.toString().toRequestBody("text/plain".toMediaType()),
+                        binding.email.text.toString().toRequestBody("text/plain".toMediaType()),
+                        binding.bio.text.toString().toRequestBody("text/plain".toMediaType()),
+                        true)
+                }
+            }
+            dialog.setContentView(bottomView)
             dialog.show()
         }
         if(v == binding.back){
