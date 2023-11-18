@@ -80,8 +80,6 @@ class FollowerFollowingFragment() : Fragment() {
         binding.rvFollow.adapter = listFollowAdapter
     }
 
-
-
     companion object {
         const val ARG_SECTION_NUMBER = "section_number"
     }

@@ -17,12 +17,14 @@ abstract class Repository {
     abstract fun getUser(): LiveData<User>
     abstract suspend fun getProfile(token:String, username:String): Result<ProfileResponse>
 
-    abstract suspend fun updateProfile(token:String,
+    abstract suspend fun updateProfile(
+                                        token:String,
                                        username:String,
                                        profilePicture:MultipartBody.Part?,
                                        name:RequestBody?,
                                        email: RequestBody?,
-                                       bio:RequestBody? ): Result<UpdateProfileResponse>
+                                       bio:RequestBody?,
+                                        delPict: Boolean, ): Result<UpdateProfileResponse>
 
     abstract suspend fun getFollowing(token:String, id:String): Result<FollowingResponse>
 

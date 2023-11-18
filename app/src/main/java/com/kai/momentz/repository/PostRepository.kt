@@ -44,7 +44,8 @@ class PostRepository(private val apiService: ApiService, private val pref: UserP
         profilePicture: MultipartBody.Part?,
         name: RequestBody?,
         email: RequestBody?,
-        bio: RequestBody?
+        bio: RequestBody?,
+        delPict: Boolean
     ): Result<UpdateProfileResponse> {
         TODO("Not yet implemented")
     }

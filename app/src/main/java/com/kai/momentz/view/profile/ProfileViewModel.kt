@@ -34,15 +34,17 @@ class ProfileViewModel(private val repository : Repository) : ViewModel()  {
 
     fun editProfile(
         token:String,
+
         username:String,
         profilePicture: MultipartBody.Part?,
         name: RequestBody,
         email: RequestBody,
-        bio: RequestBody
+        bio: RequestBody,
+        delPict: Boolean,
     ){
         viewModelScope.launch {
             _isLoading.value = true
-            val result = repository.updateProfile(token, username, profilePicture, name, email, bio)
+            val result = repository.updateProfile(token, username, profilePicture, name, email, bio, delPict)
             _isLoading.value = false
             _updateProfileResponse.value = result.getOrNull()
         }
