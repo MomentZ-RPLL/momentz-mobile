@@ -190,6 +190,8 @@ class EditProfileFragment : Fragment(), View.OnClickListener {
         binding.editIcon.setOnClickListener(this)
         binding.back.setOnClickListener(this)
     }
+
+
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onClick(v: View?) {
         if (v == binding.edit){
@@ -225,6 +227,7 @@ class EditProfileFragment : Fragment(), View.OnClickListener {
             }
             delete.setOnClickListener{
                 binding.profileImage.setImageDrawable(requireContext().getDrawable(R.drawable.profile_picture))
+                getFile = null
                 dialog.hide()
             }
 

@@ -23,11 +23,13 @@ import com.kai.momentz.model.response.PostsItem
 import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.view.ViewModelFactory
 import com.kai.momentz.view.follow.FollowFragment
+import com.kai.momentz.view.follow.FollowViewModel
 
 
 class ProfileFragment : Fragment(), View.OnClickListener {
     private lateinit var binding: FragmentProfileBinding
     private lateinit var profileViewModel: ProfileViewModel
+    private lateinit var followViewModel: FollowViewModel
     private lateinit var nameTextView: TextView
     private lateinit var usernameTextView: TextView
     private lateinit var bioTextView: TextView
@@ -58,11 +60,33 @@ class ProfileFragment : Fragment(), View.OnClickListener {
             ViewModelFactory.getUserInstance(requireContext())
         )[ProfileViewModel::class.java]
 
+        followViewModel = ViewModelProvider(
+            this,
+            ViewModelFactory.getUserInstance(requireActivity())
+        )[FollowViewModel::class.java]
+
         profileViewModel.getUser().observe(requireActivity()){ user ->
             if(user != null){
                 val data = arguments?.getString("username")
                 if(data != null){
                     profileViewModel.getProfile(user.token, data.toString())
+                    binding.message.visibility = View.VISIBLE
+                    binding.editProfile.visibility = View.GONE
+                    binding.follow.visibility = View.VISIBLE
+                    followViewModel.getFollowing(user.token, user.id)
+
+                    followViewModel.listFollowing.observe(requireActivity()) { following ->
+                        if(following != null){
+                            for (i in following.data!!){
+                                if (data == i!!.username){
+                                    binding.following.visibility = View.VISIBLE
+                                    break
+                                }
+                            }
+                        }else {
+                            Toast.makeText(requireActivity(), getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }else {
                     profileViewModel.getProfile(user.token, user.username)
                     currentUserData = user
@@ -84,10 +108,9 @@ class ProfileFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setupView(user : ProfileResponse){
-        Log.d("dsfsf", user.data!!.profilePicture!!)
 
         Glide.with(this)
-            .load( user.data.profilePicture)
+            .load( user.data!!.profilePicture)
             .skipMemoryCache(true)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .into(binding.profilePicture)
