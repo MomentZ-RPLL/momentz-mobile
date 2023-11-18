@@ -4,7 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.home.HomeFragment">
-
+    <TextView
+        android:id="@+id/login_greet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tes Home Fragment"
+        android:shadowColor="@android:color/transparent"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="@color/black"/>
     <ProgressBar
         android:id="@+id/progress_bar"
         style="?android:attr/progressBarStyle"

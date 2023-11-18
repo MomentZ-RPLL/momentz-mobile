@@ -9,12 +9,14 @@ import com.kai.momentz.databinding.ActivityHomeBinding
 import com.kai.momentz.view.ViewModelFactory
 import com.kai.momentz.view.login.LoginActivity
 import androidx.lifecycle.ViewModelProvider
-import com.kai.momentz.view.register.RegisterFragment
-import com.kai.momentz.view.register.RegisterViewModel
+import com.kai.momentz.view.follow.FollowerFollowingFragment
+import com.kai.momentz.view.notification.NotificationFragment
+import com.kai.momentz.view.post.PostFragment
+import com.kai.momentz.view.profile.ProfileFragment
+import com.kai.momentz.view.search.SearchFragment
 
 class HomeActivity : AppCompatActivity() {
 
-    private lateinit var factory: ViewModelFactory
     private lateinit var binding: ActivityHomeBinding
     private lateinit var homeViewModel: HomeViewModel
 
@@ -23,11 +25,51 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val layoutManager = LinearLayoutManager(this)
-
         setupViewModel()
+        setupNavigation()
     }
 
+    private fun setupNavigation(){
+        val bottomNavigationView = binding.navView
+        val fragmentManager = supportFragmentManager
+
+        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_home -> {
+                    val homeFragment = HomeFragment()
+
+                    fragmentManager.beginTransaction().replace(R.id.frame_container, homeFragment, HomeFragment::class.java.simpleName).commit()
+                    true
+                }
+                R.id.navigation_search -> {
+                    val searchFragment = SearchFragment()
+
+                    fragmentManager.beginTransaction().replace(R.id.frame_container, searchFragment, SearchFragment::class.java.simpleName).commit()
+                    true
+                }
+                R.id.navigation_post -> {
+                    val postFragment = PostFragment()
+
+                    fragmentManager.beginTransaction().replace(R.id.frame_container, postFragment, PostFragment::class.java.simpleName).commit()
+                    true
+                }
+                R.id.navigation_notifications -> {
+                    val notificationFragment = NotificationFragment()
+
+                    fragmentManager.beginTransaction().replace(R.id.frame_container, notificationFragment, NotificationFragment::class.java.simpleName).commit()
+                    true
+                }
+                R.id.navigation_profile -> {
+                    val profileFragment = ProfileFragment()
+
+                    fragmentManager.beginTransaction().replace(R.id.frame_container, profileFragment, ProfileFragment::class.java.simpleName).commit()
+                    true
+                }
+
+                else -> false
+            }
+        }
+    }
     private fun setupViewModel(){
         homeViewModel = ViewModelProvider(
             this,
@@ -43,4 +85,13 @@ class HomeActivity : AppCompatActivity() {
             }
         }
     }
+
+    companion object {
+        private val TAB_TITLES = intArrayOf(
+            R.string.tab_text_1,
+            R.string.tab_text_2
+        )
+    }
+
+
 }

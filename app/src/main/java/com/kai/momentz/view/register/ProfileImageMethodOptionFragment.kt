@@ -15,8 +15,6 @@ import com.kai.momentz.R
 import com.kai.momentz.databinding.FragmentProfileImageBinding
 import com.kai.momentz.databinding.FragmentProfileImageMethodOptionBinding
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 class ProfileImageMethodOptionFragment : DialogFragment(), View.OnClickListener {
 
@@ -55,9 +53,9 @@ class ProfileImageMethodOptionFragment : DialogFragment(), View.OnClickListener 
         super.onAttach(context)
         val fragment = parentFragment
 
-        if (fragment is ProfileImageFragment) {
-            this.optionDialogListener = fragment.optionDialogListener
-        }
+//        if (fragment is ProfileImageFragment) {
+//            this.optionDialogListener = fragment.optionDialogListener
+//        }
     }
 
 

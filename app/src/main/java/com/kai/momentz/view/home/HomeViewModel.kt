@@ -35,30 +35,6 @@ class HomeViewModel(private val repo : Repository) : ViewModel() {
         return repo.getUser()
     }
 
-//    suspend fun getProfileUser(token : String){
-//        val client = ApiConfig().getApiService().getUsers("Bearer $token")
-//        client.enqueue(object : Callback<UserResponse> {
-//            override fun onResponse(
-//                call: Call<UserResponse>,
-//                response: Response<UserResponse>
-//            ) {
-//                _isLoading.value = false
-//                if (response.isSuccessful) {
-//                    val responseBody = response.body()
-//                    if (responseBody != null) {
-//                        _profileUser.value = response.body()
-//                    }
-//                } else {
-//                    Log.e(ContentValues.TAG, "onFailure: ${response.message()}")
-//                }
-//            }
-//            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-//
-//                Log.e(ContentValues.TAG, "onFailure: ${t.message}")
-//            }
-//        })
-//    }
-
     suspend fun getPost(id: List<String>, token:String){
         _isLoading.value = true
         val client = ApiConfig().getApiService().getPost("Bearer$token",id)
