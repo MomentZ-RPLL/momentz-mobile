@@ -1,6 +1,7 @@
 package com.kai.momentz.retrofit
 
 import com.kai.momentz.model.request.LoginRequest
+import com.kai.momentz.model.response.FollowResponse
 import com.kai.momentz.model.response.FollowingResponse
 import com.kai.momentz.model.response.LoginResponse
 import com.kai.momentz.model.response.PostResponse
@@ -12,6 +13,7 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
@@ -74,9 +76,22 @@ interface ApiService {
         @Header("Cookie") token: String,
         @Path("username") username: String,
         @Query("del_pict") del_pict: Boolean,
-        @Part photo: MultipartBody.Part?,
+        @Part profile_picture: MultipartBody.Part?,
         @Part("name") name: RequestBody?,
         @Part("email") email: RequestBody?,
         @Part("bio") bio: RequestBody?,
     ): Response<UpdateProfileResponse>
+
+    @POST("/users/follow/{id}")
+    suspend fun followUser(
+        @Header("Cookie") token: String,
+        @Path("id") id: String
+    ): Response<FollowResponse>
+
+    @DELETE("/users/follow/{id}")
+    suspend fun unfollowUser(
+        @Header("Cookie") token: String,
+        @Path("id") id: String
+    ): Response<FollowResponse>
+
 }

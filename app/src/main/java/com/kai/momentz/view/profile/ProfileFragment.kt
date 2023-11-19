@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -40,6 +41,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
 
     private lateinit var dataProfile: DataProfile
     private lateinit var currentUserData: User
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,6 +57,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setupViewModel(){
+        val data = arguments?.getString("username")
         profileViewModel = ViewModelProvider(
             this,
             ViewModelFactory.getUserInstance(requireContext())
@@ -67,42 +70,61 @@ class ProfileFragment : Fragment(), View.OnClickListener {
 
         profileViewModel.getUser().observe(requireActivity()){ user ->
             if(user != null){
-                val data = arguments?.getString("username")
+                currentUserData = user
+
                 if(data != null){
                     profileViewModel.getProfile(user.token, data.toString())
                     binding.message.visibility = View.VISIBLE
                     binding.editProfile.visibility = View.GONE
                     binding.follow.visibility = View.VISIBLE
                     followViewModel.getFollowing(user.token, user.id)
-
-                    followViewModel.listFollowing.observe(requireActivity()) { following ->
-                        if(following != null){
-                            for (i in following.data!!){
-                                if (data == i!!.username){
-                                    binding.following.visibility = View.VISIBLE
-                                    break
-                                }
-                            }
-                        }else {
-                            Toast.makeText(requireActivity(), getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
-                        }
-                    }
                 }else {
                     profileViewModel.getProfile(user.token, user.username)
-                    currentUserData = user
                 }
-                profileViewModel.profileResponse.observe(requireActivity()) { user ->
-                    if(user != null){
-                        dataProfile = DataProfile(name = user.data!!.name,
-                            bio = user.data.bio,
-                            email = user.data.email,
-                            profilePicture = user.data.profilePicture)
-                        setupView(user)
-                        setProfilePostData(user.data.posts!!)
-                    }else {
-                        Toast.makeText(requireContext(), getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
+
+            }
+        }
+
+        followViewModel.listFollowing.observe(requireActivity()) { following ->
+            if(following != null){
+                for (i in following.data!!){
+                    if (data == i!!.username){
+                        binding.follow.visibility = View.GONE
+                        binding.following.visibility = View.VISIBLE
+                        break
                     }
                 }
+            }else {
+                Toast.makeText(requireActivity(), getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        profileViewModel.profileResponse.observe(requireActivity()) { user ->
+            if(user != null){
+                dataProfile = DataProfile(name = user.data!!.name,
+                    bio = user.data.bio,
+                    email = user.data.email,
+                    profilePicture = user.data.profilePicture, idUser = user.data.idUser)
+                setupView(user)
+                setProfilePostData(user.data.posts!!)
+            }else {
+                Toast.makeText(requireContext(), getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        profileViewModel.followResponse.observe(requireActivity()) { data ->
+            if(data != null){
+                if(data.status =="200"){
+                    if(binding.follow.isVisible){
+                        binding.follow.visibility = View.GONE
+                        binding.following.visibility = View.VISIBLE
+                    }else{
+                        binding.follow.visibility = View.VISIBLE
+                        binding.following.visibility = View.GONE
+                    }
+                }
+            }else{
+                Toast.makeText(requireContext(), getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -148,10 +170,18 @@ class ProfileFragment : Fragment(), View.OnClickListener {
         binding.followerBox.setOnClickListener(this)
         binding.editProfile.setOnClickListener(this)
         binding.profileMenu.setOnClickListener(this)
+        binding.following.setOnClickListener(this)
+        binding.follow.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         val fragmentManager = parentFragmentManager
+        if(v == binding.follow){
+            profileViewModel.followUser(currentUserData.token, dataProfile.idUser.toString())
+        }
+        if(v == binding.following){
+            profileViewModel.unfollowUser(currentUserData.token, dataProfile.idUser.toString())
+        }
         if(v == binding.followingBox){
             val bundle = Bundle()
             bundle.putString("tab", FollowFragment.FOLLOWING_TAB.toString())

@@ -2,6 +2,7 @@ package com.kai.momentz.repository
 
 import androidx.lifecycle.LiveData
 import com.kai.momentz.model.datastore.User
+import com.kai.momentz.model.response.FollowResponse
 import com.kai.momentz.model.response.FollowingResponse
 import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.model.response.RegisterResponse
@@ -17,19 +18,19 @@ abstract class Repository {
     abstract fun getUser(): LiveData<User>
     abstract suspend fun getProfile(token:String, username:String): Result<ProfileResponse>
 
-    abstract suspend fun updateProfile(
-                                        token:String,
+    abstract suspend fun updateProfile(token:String,
                                        username:String,
                                        profilePicture:MultipartBody.Part?,
                                        name:RequestBody?,
                                        email: RequestBody?,
                                        bio:RequestBody?,
-                                        delPict: Boolean, ): Result<UpdateProfileResponse>
+                                        delPict: Boolean,): Result<UpdateProfileResponse>
 
     abstract suspend fun getFollowing(token:String, id:String): Result<FollowingResponse>
 
     abstract suspend fun getFollowers(token:String, id:String): Result<FollowingResponse>
 
+    abstract suspend fun followUser(token:String, id:String): Result<FollowResponse>
 
-
+    abstract suspend fun unfollowUser(token:String, id:String): Result<FollowResponse>
 }
