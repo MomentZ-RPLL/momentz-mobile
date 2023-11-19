@@ -218,7 +218,7 @@ class EditProfileFragment : Fragment(), View.OnClickListener {
         if(v == binding.editIcon){
             val dialog = BottomSheetDialog(requireContext())
             bottomView = layoutInflater.inflate(R.layout.edit_photo_bottom_dialog, null)
-            var deleteProfile: Boolean = false
+            var delPict = false
 
 
             val camSrc = bottomView.findViewById<TextView>(R.id.cameraSource)
@@ -233,16 +233,16 @@ class EditProfileFragment : Fragment(), View.OnClickListener {
                 .into(bottomView.findViewById<ShapeableImageView>(R.id.profilePicturePreview))
 
             camSrc.setOnClickListener{
-                deleteProfile = false
+                delPict = false
                 startTakePhoto()
             }
 
             fileMngrSrc.setOnClickListener{
-                deleteProfile = false
+                delPict = false
                 startGallery()
             }
             delete.setOnClickListener{
-                deleteProfile = true
+                delPict = true
                 bottomView.findViewById<ShapeableImageView>(R.id.profilePicturePreview).setImageDrawable(requireContext().getDrawable(R.drawable.profile_picture))
             }
             edit.setOnClickListener{
@@ -251,7 +251,7 @@ class EditProfileFragment : Fragment(), View.OnClickListener {
 
                     val requestImageFile = file.asRequestBody("image/jpeg".toMediaType())
                     val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
-                        "photo",
+                        "profile_picture",
                         file.name,
                         requestImageFile
                     )
@@ -263,16 +263,22 @@ class EditProfileFragment : Fragment(), View.OnClickListener {
                         binding.name.text.toString().toRequestBody("text/plain".toMediaType()),
                         binding.email.text.toString().toRequestBody("text/plain".toMediaType()),
                         binding.bio.text.toString().toRequestBody("text/plain".toMediaType()),
-                        deleteProfile)
+                        delPict)
+
+                    dialog.hide()
                 }else {
-                    profileViewModel.editProfile(
-                        currentUser.token,
-                        currentUser.username,
-                        null,
-                        binding.name.text.toString().toRequestBody("text/plain".toMediaType()),
-                        binding.email.text.toString().toRequestBody("text/plain".toMediaType()),
-                        binding.bio.text.toString().toRequestBody("text/plain".toMediaType()),
-                        true)
+                    if(delPict){
+                        profileViewModel.editProfile(
+                            currentUser.token,
+                            currentUser.username,
+                            null,
+                            binding.name.text.toString().toRequestBody("text/plain".toMediaType()),
+                            binding.email.text.toString().toRequestBody("text/plain".toMediaType()),
+                            binding.bio.text.toString().toRequestBody("text/plain".toMediaType()),
+                            delPict)
+
+                        dialog.hide()
+                    }
                 }
             }
             dialog.setContentView(bottomView)

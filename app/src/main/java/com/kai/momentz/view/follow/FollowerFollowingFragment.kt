@@ -1,21 +1,18 @@
 package com.kai.momentz.view.follow
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kai.momentz.R
 import com.kai.momentz.adapter.FollowAdapter
 import com.kai.momentz.databinding.FragmentFollowerFollowingBinding
-import com.kai.momentz.databinding.FragmentProfileBinding
 import com.kai.momentz.model.response.FollowItem
 import com.kai.momentz.view.ViewModelFactory
-import com.kai.momentz.view.profile.ProfileViewModel
 
 
 @Suppress("UNCHECKED_CAST")

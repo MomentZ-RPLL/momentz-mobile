@@ -148,6 +148,8 @@ class ProfileFragment : Fragment(), View.OnClickListener {
         binding.followerBox.setOnClickListener(this)
         binding.editProfile.setOnClickListener(this)
         binding.profileMenu.setOnClickListener(this)
+        binding.following.setOnClickListener(this)
+        binding.following.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {

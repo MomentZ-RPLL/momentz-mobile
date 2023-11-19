@@ -110,12 +110,7 @@ tools:context=".view.profile.EditProfileFragment"
             android:text="@string/edit"
             android:shadowColor="@android:color/transparent"
             android:padding="15dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp" />
-
-
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
