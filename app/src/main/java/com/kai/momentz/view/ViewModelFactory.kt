@@ -45,11 +45,11 @@ class ViewModelFactory(private val repository: Repository)  : ViewModelProvider.
             }.also { instance = it }
         }
 
-        fun getPostInstance(context: Context): ViewModelFactory {
-            return instance ?: synchronized(this) {
-                instance ?: ViewModelFactory(Injection.providePostRepository(context))
-            }.also { instance = it }
-        }
+//        fun getPostInstance(context: Context): ViewModelFactory {
+//            return instance ?: synchronized(this) {
+//                instance ?: ViewModelFactory(Injection.providePostRepository(context))
+//            }.also { instance = it }
+//        }
 
     }
 }
