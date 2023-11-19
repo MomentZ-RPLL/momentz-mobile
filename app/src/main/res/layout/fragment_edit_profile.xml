@@ -47,7 +47,8 @@ tools:context=".view.profile.EditProfileFragment"
                 app:layout_constraintTop_toTopOf="parent"
                 app:shapeAppearanceOverlay="@style/Circular"
                 app:strokeColor="#00BCD4"
-                app:strokeWidth="1dp" />
+                app:strokeWidth="1dp"
+                android:scaleType="centerCrop"/>
 
             <ImageView
                 android:id="@+id/edit_icon"
