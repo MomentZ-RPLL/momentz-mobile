@@ -50,7 +50,7 @@ class UserPreference (private val dataStore : DataStore<Preferences>){
         private val ID_KEY = stringPreferencesKey("id")
         private val TOKEN_KEY = stringPreferencesKey("token")
 
-        fun getInstance(dataStore: DataStore<androidx.datastore.preferences.core.Preferences>): UserPreference {
+        fun getInstance(dataStore: DataStore<Preferences>): UserPreference {
             return INSTANCE ?: synchronized(this) {
                 val instance = UserPreference(dataStore)
                 INSTANCE = instance
