@@ -140,6 +140,12 @@ class UserRepository(private val apiService: ApiService, private val pref: UserP
         return pref.getUser().asLiveData()
     }
 
+    override fun getToken(): String {
+        return pref.getToken()
+    }
+
+
+
     override fun logout() {
         GlobalScope.launch {
             pref.logout()

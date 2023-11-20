@@ -1,14 +1,10 @@
 package com.kai.momentz.view.register
 
-import android.content.ContentValues
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.CheckBox
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -19,7 +15,6 @@ import com.kai.momentz.model.datastore.User
 import com.kai.momentz.model.request.RegisterRequest
 import com.kai.momentz.utils.Validator.isValidInputEmail
 import com.kai.momentz.view.ViewModelFactory
-import com.kai.momentz.view.home.HomeActivity
 import com.kai.momentz.view.login.LoginViewModel
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -113,6 +108,8 @@ class RegisterFragment : Fragment(), View.OnClickListener {
         val password = passwordEditText.text.toString()
         val confirmPassword = confirmPasswordEditText.text.toString()
 
+        val registerRequest = RegisterRequest(username, password, name, email, null)
+
         if(v == binding.back){
             activity?.onBackPressed()
         }else if(v == binding.signup){
@@ -134,7 +131,10 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                                 val login = User(loginResponse.data!!.user!!.idUser!!.toString(), loginResponse.data.user!!.username!!, loginResponse.data.token!!)
 
                                 loginViewModel.login(login)
-
+                                val bundle = Bundle()
+                                bundle.putParcelable("key_person", registerRequest)
+                                profileImageFragment.arguments = bundle
+                                fragmentManager.popBackStack()
                                 fragmentManager.beginTransaction().apply {
                                     replace(R.id.frame_container, profileImageFragment, ProfileImageFragment::class.java.simpleName)
                                     addToBackStack(null)

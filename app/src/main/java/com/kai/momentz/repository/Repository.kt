@@ -16,6 +16,7 @@ abstract class Repository {
     abstract fun logout()
 
     abstract fun getUser(): LiveData<User>
+    abstract fun getToken(): String
     abstract suspend fun getProfile(token:String, username:String): Result<ProfileResponse>
 
     abstract suspend fun updateProfile(token:String,
