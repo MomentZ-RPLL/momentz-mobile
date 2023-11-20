@@ -77,10 +77,10 @@ class HomeActivity : AppCompatActivity() {
         )[HomeViewModel::class.java]
 
         homeViewModel.getUser().observe(this) { user ->
-            if (user.token.isNotEmpty()) {
-//                binding.greeting.text = getString(R.string.greeting, user.name)
-            } else {
-                startActivity(Intent(this, LoginActivity::class.java))
+            if (user.token.isEmpty()) {
+                val intent = Intent(this, LoginActivity::class.java)
+                intent.putExtra("fromHome", "tes")
+                startActivity(intent)
                 finish()
             }
         }

@@ -107,8 +107,6 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                     profilePicture = user.data.profilePicture, idUser = user.data.idUser)
                 setupView(user)
                 setProfilePostData(user.data.posts!!)
-            }else {
-                Toast.makeText(requireContext(), getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
             }
         }
 

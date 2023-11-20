@@ -62,4 +62,8 @@ class LoginViewModel(private val repo: Repository) : ViewModel() {
     fun login(user: User) {
         return repo.login(user)
     }
+
+    fun getUser(): LiveData<User> {
+        return repo.getUser()
+    }
 }

@@ -94,4 +94,10 @@ interface ApiService {
         @Path("id") id: String
     ): Response<FollowResponse>
 
+    @GET("/users/{id}/likes")
+    suspend fun likeNotif(
+        @Header("Cookie") token: String,
+        @Path("id") id: String
+    ): Response<FollowResponse>
+
 }

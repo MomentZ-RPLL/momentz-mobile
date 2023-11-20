@@ -16,9 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.kai.momentz.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
-
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
-
     companion object {
         fun newInstance() = HomeFragment()
     }
