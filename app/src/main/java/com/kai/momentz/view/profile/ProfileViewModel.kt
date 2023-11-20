@@ -85,6 +85,10 @@ class ProfileViewModel(private val repository : Repository) : ViewModel()  {
         return repository.getUser()
     }
 
+    fun getToken(): String {
+        return repository.getToken()
+    }
+
     fun logout() {
         return repository.logout()
     }

@@ -188,9 +188,10 @@ class EditProfileFragment : Fragment(), View.OnClickListener {
         emailEditText = binding.email
         bioEditText = binding.bio
 
-        nameEditText.text = profileData.name!!.toEditable()
-        emailEditText.text = profileData.email!!.toEditable()
-        bioEditText.text = profileData.bio!!.toEditable()
+        nameEditText.text = profileData.name?.toEditable() ?: "".toEditable()
+        emailEditText.text = profileData.email?.toEditable() ?: "".toEditable()
+        bioEditText.text = profileData.bio?.toEditable() ?: "".toEditable()
+
 
         binding.edit.setOnClickListener(this)
         binding.editIcon.setOnClickListener(this)

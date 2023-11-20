@@ -1,14 +1,24 @@
 package com.kai.momentz.model.request
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import okhttp3.MultipartBody
-import retrofit2.http.Part
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class RegisterRequest (
-    @Part("username") var username: String,
-    @Part("password") var password: String,
-    @Part("name") var name: String,
-    @Part("email") var email: String,
-    @Part("bio") var bio: String? = null,
-    @Part("created_at") var createdAt: String? = null
-)
+
+    @field:SerializedName("username")
+    val username: String? = null,
+
+    @field:SerializedName("message")
+    var password: String,
+
+    @field:SerializedName("name")
+    var name: String,
+
+    @field:SerializedName("email")
+    var email: String,
+
+    @field:SerializedName("email")
+    var bio: String? = null,
+): Parcelable
