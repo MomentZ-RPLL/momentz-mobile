@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import com.kai.momentz.data.UserPreference
 import com.kai.momentz.model.datastore.User
+import com.kai.momentz.model.response.CommentNotificationResponse
 import com.kai.momentz.model.response.FollowResponse
 import com.kai.momentz.model.response.FollowingResponse
 import com.kai.momentz.model.response.LikeNotificationResponse
@@ -137,9 +138,23 @@ class UserRepository(private val apiService: ApiService, private val pref: UserP
         }
     }
 
-    override suspend fun likeNotif(token: String): Result<LikeNotificationResponse> {
+    override suspend fun likeNotification(token: String): Result<LikeNotificationResponse> {
         return try {
             val response = apiService.likeNotif("token=$token")
+            if (response.isSuccessful) {
+                val responseBody = response.body()
+                Result.success(responseBody!!)
+            } else {
+                Result.failure(Exception(response.errorBody()?.string() ?: "Unknown error"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun commentNotification(token: String): Result<CommentNotificationResponse> {
+        return try {
+            val response = apiService.commentNotif("token=$token")
             if (response.isSuccessful) {
                 val responseBody = response.body()
                 Result.success(responseBody!!)

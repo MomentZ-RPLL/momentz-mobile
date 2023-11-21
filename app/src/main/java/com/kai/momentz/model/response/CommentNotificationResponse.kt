@@ -2,10 +2,10 @@ package com.kai.momentz.model.response
 
 import com.google.gson.annotations.SerializedName
 
-data class LikeNotificationResponse(
+data class CommentNotificationResponse(
 
 	@field:SerializedName("data")
-	val data: List<LikeNotificationDataItem?>? = null,
+	val data: List<CommentNotificationDataItem?>? = null,
 
 	@field:SerializedName("message")
 	val message: String? = null,
@@ -14,7 +14,7 @@ data class LikeNotificationResponse(
 	val status: String? = null
 )
 
-data class LikeNotificationDataItem(
+data class CommentNotificationDataItem(
 
 	@field:SerializedName("id_post")
 	val idPost: Int? = null,
@@ -25,8 +25,8 @@ data class LikeNotificationDataItem(
 	@field:SerializedName("created_at")
 	val createdAt: String? = null,
 
-	@field:SerializedName("id_like")
-	val idLike: Int? = null,
+	@field:SerializedName("id_comment")
+	val idComment: Int? = null,
 
 	@field:SerializedName("username")
 	val username: String? = null

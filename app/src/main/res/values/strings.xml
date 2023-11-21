@@ -72,8 +72,8 @@
     <string name="time">Time</string>
     <string name="notification">Notification</string>
     <string name="mark_all_as_read">Mark all as read</string>
-    <string name="liked_your_post">Liked your post</string>
-    <string name="start_following_you">Start following you</string>
-    <string name="start_follow_you">Start follow you</string>
+    <string name="liked_your_post">liked your post</string>
+    <string name="start_follow_you">started follow you</string>
+    <string name="commented_on_your_post">commented on your post</string>
 
 </resources>
