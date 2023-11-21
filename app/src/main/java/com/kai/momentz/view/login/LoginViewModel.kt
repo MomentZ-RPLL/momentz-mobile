@@ -16,7 +16,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoginViewModel(private val repo: Repository) : ViewModel() {
+class LoginViewModel(private val repository: Repository) : ViewModel() {
     private val _loginResponse = MutableLiveData<LoginResponse>()
     val loginResponse: LiveData<LoginResponse> = _loginResponse
 
@@ -60,10 +60,10 @@ class LoginViewModel(private val repo: Repository) : ViewModel() {
     }
 
     fun login(user: User) {
-        return repo.login(user)
+        return repository.login(user)
     }
 
     fun getUser(): LiveData<User> {
-        return repo.getUser()
+        return repository.getUser()
     }
 }

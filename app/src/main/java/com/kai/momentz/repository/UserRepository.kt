@@ -7,6 +7,7 @@ import com.kai.momentz.data.UserPreference
 import com.kai.momentz.model.datastore.User
 import com.kai.momentz.model.response.FollowResponse
 import com.kai.momentz.model.response.FollowingResponse
+import com.kai.momentz.model.response.LikeNotificationResponse
 import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.model.response.RegisterResponse
 import com.kai.momentz.model.response.UpdateProfileResponse
@@ -136,6 +137,20 @@ class UserRepository(private val apiService: ApiService, private val pref: UserP
         }
     }
 
+    override suspend fun likeNotif(token: String): Result<LikeNotificationResponse> {
+        return try {
+            val response = apiService.likeNotif("token=$token")
+            if (response.isSuccessful) {
+                val responseBody = response.body()
+                Result.success(responseBody!!)
+            } else {
+                Result.failure(Exception(response.errorBody()?.string() ?: "Unknown error"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
     override fun getUser(): LiveData<User> {
         return pref.getUser().asLiveData()
     }
@@ -143,8 +158,6 @@ class UserRepository(private val apiService: ApiService, private val pref: UserP
     override fun getToken(): String {
         return pref.getToken()
     }
-
-
 
     override fun logout() {
         GlobalScope.launch {

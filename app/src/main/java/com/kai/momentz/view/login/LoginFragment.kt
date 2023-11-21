@@ -35,7 +35,6 @@ class LoginFragment : Fragment() {
     ): View? {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
 
-
         passwordEditText = binding.password
         usernameEditText = binding.username
         loginButton = binding.login
