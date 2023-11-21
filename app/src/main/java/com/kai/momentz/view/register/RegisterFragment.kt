@@ -66,6 +66,10 @@ class RegisterFragment : Fragment(), View.OnClickListener {
             this,
             ViewModelFactory.getUserInstance(requireActivity())
         )[LoginViewModel::class.java]
+
+        registerViewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
     }
 
     private fun fieldCheck(username: String, name: String, email: String,password: String, confirmPassword: String) : Boolean{
@@ -149,6 +153,14 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                     }
                 }
             }
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 }

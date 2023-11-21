@@ -111,6 +111,10 @@ class ProfileImageFragment : Fragment(), View.OnClickListener {
             }
         }
 
+        profileViewModel.isLoading.observe(requireActivity()) {
+            showLoading(it)
+        }
+
 
     }
 
@@ -257,6 +261,14 @@ class ProfileImageFragment : Fragment(), View.OnClickListener {
             val intent = Intent(requireContext(), HomeActivity::class.java)
             startActivity(intent)
             activity?.finish()
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 

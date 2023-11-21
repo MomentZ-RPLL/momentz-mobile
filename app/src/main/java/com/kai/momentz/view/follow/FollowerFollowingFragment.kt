@@ -70,11 +70,23 @@ class FollowerFollowingFragment() : Fragment() {
                 }
             }
         }
+
+        followViewModel.isLoading.observe(requireActivity()) {
+            showLoading(it)
+        }
     }
 
     private fun setFollow(follows: List<FollowItem?>?, following:List<FollowItem?>?) {
         val listFollowAdapter = FollowAdapter(follows as List<FollowItem>, fragmentManager, following as List<FollowItem>)
         binding.rvFollow.adapter = listFollowAdapter
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 
     companion object {

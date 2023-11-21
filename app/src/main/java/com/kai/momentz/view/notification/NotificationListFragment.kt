@@ -51,6 +51,7 @@ class NotificationListFragment : Fragment() {
 
         notificationViewModel.likeNotification(token)
         notificationViewModel.commentNotification(token)
+
         notificationViewModel.likeNotificationResponse.observe(requireActivity()){ likeNotif ->
             if(likeNotif!=null){
                 if(index==1){
@@ -66,6 +67,10 @@ class NotificationListFragment : Fragment() {
                 }
             }
         }
+
+        notificationViewModel.isLoading.observe(requireActivity()) {
+            showLoading(it)
+        }
     }
 
     private fun setLikeNotif(notif: List<LikeNotificationDataItem?>?) {
@@ -80,5 +85,13 @@ class NotificationListFragment : Fragment() {
 
     companion object {
         const val ARG_SECTION_NUMBER = "section_number"
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 }

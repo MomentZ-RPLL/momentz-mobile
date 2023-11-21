@@ -125,6 +125,10 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                 Toast.makeText(requireContext(), getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
             }
         }
+
+        profileViewModel.isLoading.observe(requireActivity()) {
+            showLoading(it)
+        }
     }
 
     private fun setupView(user : ProfileResponse){
@@ -233,6 +237,14 @@ class ProfileFragment : Fragment(), View.OnClickListener {
 
             dialog.setContentView(view)
             dialog.show()
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 
