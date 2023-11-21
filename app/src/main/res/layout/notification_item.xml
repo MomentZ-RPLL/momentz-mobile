@@ -17,8 +17,8 @@
         android:padding="8dp">
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/img_user_photo"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:scaleType="centerCrop"
             android:src="@drawable/profile_picture"
             card_view:layout_constraintBottom_toBottomOf="parent"
@@ -46,7 +46,7 @@
                     android:id="@+id/notif_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     tools:text="@string/username" />
 
@@ -55,8 +55,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="@string/activity"
-                    android:textSize="16sp"
-                    android:layout_marginStart="8dp"/>
+                    android:textSize="14sp"
+                    android:layout_marginStart="4dp"/>
             </LinearLayout>
 
 
@@ -64,6 +64,7 @@
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="12sp"
                 android:layout_marginTop="8dp"
                 tools:text="@string/time" />
         </LinearLayout>
@@ -72,8 +73,8 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/img_post_photo"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:scaleType="centerCrop"
             android:src="@drawable/momentz"
             card_view:layout_constraintBottom_toBottomOf="parent"

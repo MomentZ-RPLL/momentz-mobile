@@ -103,6 +103,10 @@ class EditProfileFragment : Fragment(), View.OnClickListener {
                 Toast.makeText(requireContext(), getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
             }
         }
+
+        profileViewModel.isLoading.observe(requireActivity()) {
+            showLoading(it)
+        }
     }
 
     private fun fieldCheck(name: String, email: String, bio: String) : Boolean{
@@ -288,6 +292,14 @@ class EditProfileFragment : Fragment(), View.OnClickListener {
         if(v == binding.back){
             val fragmentManager = parentFragmentManager
             fragmentManager.popBackStack()
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 

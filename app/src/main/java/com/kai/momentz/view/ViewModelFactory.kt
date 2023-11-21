@@ -3,7 +3,6 @@ package com.kai.momentz.view
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.kai.momentz.adapter.NotificationAdapter
 import com.kai.momentz.di.Injection
 import com.kai.momentz.repository.Repository
 import com.kai.momentz.view.follow.FollowViewModel

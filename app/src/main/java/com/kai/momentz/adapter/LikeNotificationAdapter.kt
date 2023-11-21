@@ -9,11 +9,10 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kai.momentz.R
-import com.kai.momentz.model.response.NotificationDataItem
+import com.kai.momentz.model.response.LikeNotificationDataItem
 
-class NotificationAdapter(private val listNotification: List<NotificationDataItem>,
-                          private val fragmentManager: FragmentManager?,
-                          private val index: Int) : RecyclerView.Adapter<NotificationAdapter.ListViewHolder>() {
+class LikeNotificationAdapter(private val listNotification: List<LikeNotificationDataItem>,
+                              private val fragmentManager: FragmentManager?) : RecyclerView.Adapter<LikeNotificationAdapter.ListViewHolder>() {
 
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -22,7 +21,7 @@ class NotificationAdapter(private val listNotification: List<NotificationDataIte
         private var activity: TextView = itemView.findViewById(R.id.activity)
         private var time: TextView = itemView.findViewById(R.id.time)
 
-        fun bind(listNotificationItem: NotificationDataItem?, fragmentManager: FragmentManager?, index: Int){
+        fun bind(listNotificationItem: LikeNotificationDataItem?, fragmentManager: FragmentManager?){
             Glide.with(itemView.context)
                 .load(listNotificationItem!!.postMedia)
                 .into(postPhoto)
@@ -37,15 +36,7 @@ class NotificationAdapter(private val listNotification: List<NotificationDataIte
 
             username.text = listNotificationItem.username
             time.text = listNotificationItem.createdAt
-            when (index) {
-                1 -> activity.text = itemView.context.getString(R.string.liked_your_post)
-                2 -> activity.text = itemView.context.getString(R.string.start_following_you)
-                3 -> activity.text = itemView.context.getString(R.string.start_follow_you)
-                else -> {
-
-                }
-            }
-
+            activity.text = itemView.context.getString(R.string.liked_your_post)
 
             itemView.setOnClickListener {
 //                val newFragment = ProfileFragment()
@@ -68,7 +59,7 @@ class NotificationAdapter(private val listNotification: List<NotificationDataIte
 
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.bind(listNotification[position], fragmentManager, index)
+        holder.bind(listNotification[position], fragmentManager)
     }
 
     override fun getItemCount() = listNotification.size
