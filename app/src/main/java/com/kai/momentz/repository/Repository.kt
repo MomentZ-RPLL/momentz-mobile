@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.kai.momentz.model.datastore.User
 import com.kai.momentz.model.response.FollowResponse
 import com.kai.momentz.model.response.FollowingResponse
+import com.kai.momentz.model.response.LikeNotificationResponse
 import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.model.response.RegisterResponse
 import com.kai.momentz.model.response.UpdateProfileResponse
@@ -34,4 +35,6 @@ abstract class Repository {
     abstract suspend fun followUser(token:String, id:String): Result<FollowResponse>
 
     abstract suspend fun unfollowUser(token:String, id:String): Result<FollowResponse>
+
+    abstract suspend fun likeNotif(token: String): Result<LikeNotificationResponse>
 }

@@ -85,13 +85,4 @@ class HomeActivity : AppCompatActivity() {
             }
         }
     }
-
-    companion object {
-        private val TAB_TITLES = intArrayOf(
-            R.string.tab_text_1,
-            R.string.tab_text_2
-        )
-    }
-
-
 }

@@ -11,18 +11,23 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kai.momentz.R
+import com.kai.momentz.databinding.FragmentFollowBinding
+import com.kai.momentz.databinding.FragmentLoginBinding
 import com.kai.momentz.view.follow.adapter.FollowPagerAdapter
 
 
 class FollowFragment : Fragment() {
     private lateinit var viewPager: ViewPager2
     private lateinit var tabs: TabLayout
+    private lateinit var binding: FragmentFollowBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_follow, container, false)
+    ): View {
+        binding = FragmentFollowBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,8 +67,8 @@ class FollowFragment : Fragment() {
 
     companion object {
         private val TAB_TITLES = intArrayOf(
-            R.string.tab_text_1,
-            R.string.tab_text_2
+            R.string.follow_tab_text_1,
+            R.string.follow_tab_text_2
         )
 
         const val FOLLOWER_TAB = 0
