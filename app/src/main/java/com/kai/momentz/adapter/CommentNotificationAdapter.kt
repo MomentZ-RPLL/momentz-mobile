@@ -17,6 +17,7 @@ class CommentNotificationAdapter(private val listCommentNotification: List<Comme
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var postPhoto: ImageView = itemView.findViewById(R.id.img_post_photo)
+        private var profilePhoto: ImageView = itemView.findViewById(R.id.img_user_photo)
         private var username: TextView = itemView.findViewById(R.id.notif_username)
         private var activity: TextView = itemView.findViewById(R.id.activity)
         private var time: TextView = itemView.findViewById(R.id.time)
@@ -25,6 +26,11 @@ class CommentNotificationAdapter(private val listCommentNotification: List<Comme
             Glide.with(itemView.context)
                 .load(listNotificationItem!!.postMedia)
                 .into(postPhoto)
+
+            Glide.with(itemView.context)
+                .load(listNotificationItem.profilePicture)
+                .into(profilePhoto)
+
 
 //            for (i in followingItem){
 //                if (listFollowItem.username == i.username){

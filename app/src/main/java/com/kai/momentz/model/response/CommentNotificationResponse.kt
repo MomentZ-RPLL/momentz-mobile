@@ -19,6 +19,9 @@ data class CommentNotificationDataItem(
 	@field:SerializedName("id_post")
 	val idPost: Int? = null,
 
+	@field:SerializedName("profile_picture")
+	val profilePicture: String? = null,
+
 	@field:SerializedName("post_media")
 	val postMedia: String? = null,
 
