@@ -11,8 +11,8 @@ import com.bumptech.glide.Glide
 import com.kai.momentz.R
 import com.kai.momentz.model.response.CommentNotificationDataItem
 
-class CommentNotificationAdapter(private val listCommentNotification: List<CommentNotificationDataItem>,
-                                 private val fragmentManager: FragmentManager?) : RecyclerView.Adapter<CommentNotificationAdapter.ListViewHolder>() {
+class FollowNotificationAdapter(private val listCommentNotification: List<CommentNotificationDataItem>,
+                                 private val fragmentManager: FragmentManager?) : RecyclerView.Adapter<FollowNotificationAdapter.ListViewHolder>() {
 
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

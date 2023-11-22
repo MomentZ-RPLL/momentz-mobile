@@ -59,6 +59,13 @@
                     android:layout_marginStart="4dp"/>
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/comment"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                tools:text="@string/comment"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/time"
@@ -80,6 +87,35 @@
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <Button
+            android:id="@+id/follow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/follow"
+            android:radius="120dp"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/dark_gray"
+            android:backgroundTint="@color/primary"
+            android:visibility="gone"
+            />
+
+        <Button
+            android:id="@+id/following"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/following"
+            android:radius="120dp"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/dark_gray"
+            android:drawableEnd="@drawable/baseline_check_24"
+            android:backgroundTint="@color/light_blue_50"
+            android:visibility="gone"
             />
 
 
