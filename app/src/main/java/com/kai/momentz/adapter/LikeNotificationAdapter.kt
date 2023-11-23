@@ -21,6 +21,8 @@ class LikeNotificationAdapter(private val listNotification: List<LikeNotificatio
         private var username: TextView = itemView.findViewById(R.id.notif_username)
         private var activity: TextView = itemView.findViewById(R.id.activity)
         private var time: TextView = itemView.findViewById(R.id.time)
+        private var length: Int = 0
+        private var space: String = "     "
 
         fun bind(listNotificationItem: LikeNotificationDataItem?, fragmentManager: FragmentManager?){
             Glide.with(itemView.context)
@@ -31,17 +33,15 @@ class LikeNotificationAdapter(private val listNotification: List<LikeNotificatio
                 .load(listNotificationItem.profilePicture)
                 .into(profilePhoto)
 
-//            for (i in followingItem){
-//                if (listFollowItem.username == i.username){
-//                    follow.visibility = View.INVISIBLE
-//                    following.visibility = View.VISIBLE
-//                    break
-//                }
-//            }
+            length = listNotificationItem.username!!.length
+            for(i in 0..length){
+                space += " "
+            }
+
 
             username.text = listNotificationItem.username
             time.text = listNotificationItem.createdAt
-            activity.text = itemView.context.getString(R.string.liked_your_post)
+            activity.text = "$space${itemView.context.getString(R.string.liked_your_post)}"
 
             itemView.setOnClickListener {
 //                val newFragment = ProfileFragment()

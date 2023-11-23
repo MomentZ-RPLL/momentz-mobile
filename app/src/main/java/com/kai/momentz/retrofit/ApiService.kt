@@ -2,6 +2,7 @@ package com.kai.momentz.retrofit
 
 import com.kai.momentz.model.request.LoginRequest
 import com.kai.momentz.model.response.CommentNotificationResponse
+import com.kai.momentz.model.response.FollowNotificationResponse
 import com.kai.momentz.model.response.FollowResponse
 import com.kai.momentz.model.response.FollowingResponse
 import com.kai.momentz.model.response.LikeNotificationResponse
@@ -97,13 +98,18 @@ interface ApiService {
     ): Response<FollowResponse>
 
     @GET("/notification/likes")
-    suspend fun likeNotif(
+    suspend fun likeNotification(
         @Header("Cookie") token: String,
     ): Response<LikeNotificationResponse>
 
     @GET("/notification/comments")
-    suspend fun commentNotif(
+    suspend fun commentNotification(
         @Header("Cookie") token: String,
     ): Response<CommentNotificationResponse>
+
+    @GET("/notification/follow")
+    suspend fun followNotification(
+        @Header("Cookie") token: String,
+    ): Response<FollowNotificationResponse>
 
 }

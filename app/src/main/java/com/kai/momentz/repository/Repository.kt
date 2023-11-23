@@ -3,6 +3,7 @@ package com.kai.momentz.repository
 import androidx.lifecycle.LiveData
 import com.kai.momentz.model.datastore.User
 import com.kai.momentz.model.response.CommentNotificationResponse
+import com.kai.momentz.model.response.FollowNotificationResponse
 import com.kai.momentz.model.response.FollowResponse
 import com.kai.momentz.model.response.FollowingResponse
 import com.kai.momentz.model.response.LikeNotificationResponse
@@ -40,4 +41,6 @@ abstract class Repository {
     abstract suspend fun likeNotification(token: String): Result<LikeNotificationResponse>
 
     abstract suspend fun commentNotification(token: String): Result<CommentNotificationResponse>
+
+    abstract suspend fun followNotification(token: String): Result<FollowNotificationResponse>
 }

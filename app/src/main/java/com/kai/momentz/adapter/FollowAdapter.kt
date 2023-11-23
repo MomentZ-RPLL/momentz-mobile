@@ -37,7 +37,7 @@ class FollowAdapter(private val listFollow: List<FollowItem>,
 
             for (i in followingItem){
                 if (listFollowItem.username == i.username){
-                    follow.visibility = View.INVISIBLE
+                    follow.visibility = View.GONE
                     following.visibility = View.VISIBLE
                     break
                 }

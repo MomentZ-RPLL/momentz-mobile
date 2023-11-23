@@ -22,6 +22,8 @@ class CommentNotificationAdapter(private val listCommentNotification: List<Comme
         private var activity: TextView = itemView.findViewById(R.id.activity)
         private var time: TextView = itemView.findViewById(R.id.time)
         private var comment: TextView = itemView.findViewById(R.id.comment)
+        private var length: Int = 0
+        private var space: String = "     "
 
         fun bind(listNotificationItem: CommentNotificationDataItem?, fragmentManager: FragmentManager?){
             Glide.with(itemView.context)
@@ -32,12 +34,18 @@ class CommentNotificationAdapter(private val listCommentNotification: List<Comme
                 .load(listNotificationItem.profilePicture)
                 .into(profilePhoto)
 
+            length = listNotificationItem.username!!.length
+            for(i in 0..length){
+                space += " "
+            }
+
             comment.visibility = View.VISIBLE
             comment.text = "\"${listNotificationItem.comment}\""
             username.text = listNotificationItem.username
             time.text = listNotificationItem.createdAt
 
-            activity.text = itemView.context.getString(R.string.commented_on_your_post)
+
+            activity.text = "$space${itemView.context.getString(R.string.commented_on_your_post)}"
 
             itemView.setOnClickListener {
             }
