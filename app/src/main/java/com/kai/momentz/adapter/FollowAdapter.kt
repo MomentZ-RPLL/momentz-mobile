@@ -21,7 +21,8 @@ import com.kai.momentz.view.profile.ProfileFragment
 
 class FollowAdapter(private val listFollow: List<FollowItem>,
                     private val fragmentManager: FragmentManager?,
-                    private val following: List<FollowItem>) : RecyclerView.Adapter<FollowAdapter.ListViewHolder>() {
+                    private val following: List<FollowItem>,
+                    private val listener: FollowAdapterListener) : RecyclerView.Adapter<FollowAdapter.ListViewHolder>() {
 
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -29,7 +30,7 @@ class FollowAdapter(private val listFollow: List<FollowItem>,
         private var username: TextView = itemView.findViewById(R.id.name)
         private var follow: Button = itemView.findViewById(R.id.follow)
         private var following: Button = itemView.findViewById(R.id.following)
-        fun bind(listFollowItem: FollowItem?, fragmentManager: FragmentManager?, followingItem: List<FollowItem>){
+        fun bind(listFollowItem: FollowItem?, fragmentManager: FragmentManager?, followingItem: List<FollowItem>, listener: FollowAdapterListener){
             Glide.with(itemView.context)
                 .load(listFollowItem!!.profilePicture)
                 .into(imgPhoto)
@@ -54,6 +55,14 @@ class FollowAdapter(private val listFollow: List<FollowItem>,
                     .addToBackStack(null)
                     .commit()
             }
+
+            follow.setOnClickListener {
+                listener.onFollowClicked(listFollowItem.idUser ?: 0, itemView)
+            }
+
+            following.setOnClickListener {
+                listener.onFollowingClicked(listFollowItem.idUser ?: 0, itemView)
+            }
         }
     }
 
@@ -62,9 +71,13 @@ class FollowAdapter(private val listFollow: List<FollowItem>,
         return ListViewHolder(view)
     }
 
-
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.bind(listFollow[position], fragmentManager, following)
+        holder.bind(listFollow[position], fragmentManager, following, listener)
+    }
+
+    interface FollowAdapterListener {
+        fun onFollowClicked(id:Int, itemView: View)
+        fun onFollowingClicked(id:Int, itemView: View)
     }
 
     override fun getItemCount() = listFollow.size
