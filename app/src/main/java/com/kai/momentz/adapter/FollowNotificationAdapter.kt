@@ -1,5 +1,6 @@
 package com.kai.momentz.adapter
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.kai.momentz.R
 import com.kai.momentz.model.response.FollowItem
 import com.kai.momentz.model.response.FollowNotificationDataItem
+import com.kai.momentz.view.profile.ProfileFragment
 
 class FollowNotificationAdapter(private val listFollowNotification: List<FollowNotificationDataItem>,
                                 private val fragmentManager: FragmentManager?,
@@ -59,6 +61,18 @@ class FollowNotificationAdapter(private val listFollowNotification: List<FollowN
 
             following.setOnClickListener {
                 listener.onFollowingClicked(listNotificationItem.userId ?: 0, itemView)
+            }
+
+            itemView.setOnClickListener {
+                val newFragment = ProfileFragment()
+                val bundle = Bundle()
+                bundle.putString("username", listNotificationItem.username)
+                newFragment.arguments = bundle
+
+                fragmentManager!!.beginTransaction()
+                    .replace(R.id.frame_container, newFragment)
+                    .addToBackStack(null)
+                    .commit()
             }
         }
     }
