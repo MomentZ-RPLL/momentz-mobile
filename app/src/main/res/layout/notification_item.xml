@@ -37,7 +37,7 @@
             android:orientation="vertical"
             android:layout_marginStart="20dp">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -48,20 +48,23 @@
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    tools:text="@string/username" />
+                    tools:text="@string/username"
+                    card_view:layout_constraintStart_toStartOf="parent"
+                    card_view:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
                     android:id="@+id/activity"
-                    android:layout_width="match_parent"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     tools:text="@string/activity"
-                    android:textSize="14sp"
-                    android:layout_marginStart="4dp"/>
-            </LinearLayout>
+                    android:layout_marginStart="4dp"
+                    card_view:layout_constraintStart_toStartOf="parent"
+                    card_view:layout_constraintTop_toTopOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/comment"
-                android:layout_width="260dp"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 tools:text="@string/comment"
@@ -113,12 +116,9 @@
             card_view:layout_constraintTop_toTopOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             android:textColor="@color/dark_gray"
-            android:drawableEnd="@drawable/baseline_check_24"
             android:backgroundTint="@color/light_blue_50"
             android:visibility="gone"
             />
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -19,6 +19,9 @@ data class FollowNotificationDataItem(
 	@field:SerializedName("followed_at")
 	val followedAt: String? = null,
 
+	@field:SerializedName("id_user")
+	val userId: Int? = null,
+
 	@field:SerializedName("profile_picture")
 	val profilePicture: String? = null,
 
