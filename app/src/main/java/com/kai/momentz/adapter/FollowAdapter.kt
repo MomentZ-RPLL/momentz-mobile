@@ -27,7 +27,7 @@ class FollowAdapter(private val listFollow: List<FollowItem>,
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var imgPhoto: ImageView = itemView.findViewById(R.id.img_item_photo)
-        private var username: TextView = itemView.findViewById(R.id.name)
+        private var username: TextView = itemView.findViewById(R.id.username)
         private var follow: Button = itemView.findViewById(R.id.follow)
         private var following: Button = itemView.findViewById(R.id.following)
         fun bind(listFollowItem: FollowItem?, fragmentManager: FragmentManager?, followingItem: List<FollowItem>, listener: FollowAdapterListener){

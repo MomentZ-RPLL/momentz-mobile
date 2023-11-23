@@ -10,6 +10,7 @@ import com.kai.momentz.model.response.LoginResponse
 import com.kai.momentz.model.response.PostResponse
 import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.model.response.RegisterResponse
+import com.kai.momentz.model.response.SearchUserResponse
 import com.kai.momentz.model.response.UpdateProfileResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -111,5 +112,11 @@ interface ApiService {
     suspend fun followNotification(
         @Header("Cookie") token: String,
     ): Response<FollowNotificationResponse>
+
+    @GET("/users/search")
+    suspend fun searchUser(
+        @Header("Cookie") token: String,
+        @Query("username") username: String,
+    ): Response<SearchUserResponse>
 
 }
