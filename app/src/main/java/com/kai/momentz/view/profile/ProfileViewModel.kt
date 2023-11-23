@@ -18,9 +18,6 @@ class ProfileViewModel(private val repository : Repository) : ViewModel()  {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _isFollowed = MutableLiveData<Boolean>()
-    val isFollowed: LiveData<Boolean> = _isFollowed
-
     private val _followResponse = MutableLiveData<FollowResponse>()
     val followResponse: LiveData<FollowResponse> = _followResponse
 
@@ -59,11 +56,11 @@ class ProfileViewModel(private val repository : Repository) : ViewModel()  {
 
     fun followUser(
         token:String,
-        username:String,
+        id:String,
     ){
         viewModelScope.launch {
             _isLoading.value = true
-            val result = repository.followUser(token, username)
+            val result = repository.followUser(token, id)
             _isLoading.value = false
             _followResponse.value = result.getOrNull()
         }
@@ -71,11 +68,11 @@ class ProfileViewModel(private val repository : Repository) : ViewModel()  {
 
     fun unfollowUser(
         token:String,
-        username:String,
+        id:String,
     ){
         viewModelScope.launch {
             _isLoading.value = true
-            val result = repository.unfollowUser(token, username)
+            val result = repository.unfollowUser(token, id)
             _isLoading.value = false
             _followResponse.value = result.getOrNull()
         }
