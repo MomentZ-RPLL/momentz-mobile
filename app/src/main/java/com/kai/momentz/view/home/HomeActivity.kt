@@ -3,6 +3,7 @@ package com.kai.momentz.view.home
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kai.momentz.R
 import com.kai.momentz.databinding.ActivityHomeBinding
@@ -43,25 +44,25 @@ class HomeActivity : AppCompatActivity() {
                 }
                 R.id.navigation_search -> {
                     val searchFragment = SearchFragment()
-
+                    fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                     fragmentManager.beginTransaction().replace(R.id.frame_container, searchFragment, SearchFragment::class.java.simpleName).commit()
                     true
                 }
                 R.id.navigation_post -> {
                     val postFragment = PostFragment()
-
+                    fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                     fragmentManager.beginTransaction().replace(R.id.frame_container, postFragment, PostFragment::class.java.simpleName).commit()
                     true
                 }
                 R.id.navigation_notifications -> {
                     val notificationFragment = NotificationFragment()
-
+                    fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                     fragmentManager.beginTransaction().replace(R.id.frame_container, notificationFragment, NotificationFragment::class.java.simpleName).commit()
                     true
                 }
                 R.id.navigation_profile -> {
                     val profileFragment = ProfileFragment()
-
+                    fragmentManager.popBackStackImmediate("ProfileFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE)
                     fragmentManager.beginTransaction().replace(R.id.frame_container, profileFragment, ProfileFragment::class.java.simpleName).commit()
                     true
                 }
