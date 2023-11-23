@@ -9,10 +9,10 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kai.momentz.R
-import com.kai.momentz.model.response.CommentNotificationDataItem
+import com.kai.momentz.model.response.FollowNotificationDataItem
 
-class FollowNotificationAdapter(private val listCommentNotification: List<CommentNotificationDataItem>,
-                                 private val fragmentManager: FragmentManager?) : RecyclerView.Adapter<FollowNotificationAdapter.ListViewHolder>() {
+class FollowNotificationAdapter(private val listFollowNotification: List<FollowNotificationDataItem>,
+                                private val fragmentManager: FragmentManager?) : RecyclerView.Adapter<FollowNotificationAdapter.ListViewHolder>() {
 
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -21,23 +21,17 @@ class FollowNotificationAdapter(private val listCommentNotification: List<Commen
         private var username: TextView = itemView.findViewById(R.id.notif_username)
         private var activity: TextView = itemView.findViewById(R.id.activity)
         private var time: TextView = itemView.findViewById(R.id.time)
-        private var comment: TextView = itemView.findViewById(R.id.comment)
 
-        fun bind(listNotificationItem: CommentNotificationDataItem?, fragmentManager: FragmentManager?){
-            Glide.with(itemView.context)
-                .load(listNotificationItem!!.postMedia)
-                .into(postPhoto)
+        fun bind(listNotificationItem: FollowNotificationDataItem?, fragmentManager: FragmentManager?){
+            postPhoto.visibility = View.GONE
 
             Glide.with(itemView.context)
-                .load(listNotificationItem.profilePicture)
+                .load(listNotificationItem!!.profilePicture)
                 .into(profilePhoto)
 
-            comment.visibility = View.VISIBLE
-            comment.text = "\"${listNotificationItem.comment}\""
             username.text = listNotificationItem.username
-            time.text = listNotificationItem.createdAt
-
-            activity.text = itemView.context.getString(R.string.commented_on_your_post)
+            time.text = listNotificationItem.followedAt
+            activity.text = itemView.context.getString(R.string.start_follow_you)
 
             itemView.setOnClickListener {
             }
@@ -51,8 +45,8 @@ class FollowNotificationAdapter(private val listCommentNotification: List<Commen
 
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.bind(listCommentNotification[position], fragmentManager)
+        holder.bind(listFollowNotification[position], fragmentManager)
     }
 
-    override fun getItemCount() = listCommentNotification.size
+    override fun getItemCount() = listFollowNotification.size
 }
