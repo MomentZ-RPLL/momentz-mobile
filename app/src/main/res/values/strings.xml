@@ -76,5 +76,6 @@
     <string name="start_follow_you">started follow you</string>
     <string name="commented_on_your_post">commented on your post</string>
     <string name="comment">Comment</string>
+    <string name="search">Search...</string>
 
 </resources>

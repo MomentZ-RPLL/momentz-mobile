@@ -9,6 +9,7 @@ import com.kai.momentz.model.response.FollowingResponse
 import com.kai.momentz.model.response.LikeNotificationResponse
 import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.model.response.RegisterResponse
+import com.kai.momentz.model.response.SearchUserResponse
 import com.kai.momentz.model.response.UpdateProfileResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -43,4 +44,6 @@ abstract class Repository {
     abstract suspend fun commentNotification(token: String): Result<CommentNotificationResponse>
 
     abstract suspend fun followNotification(token: String): Result<FollowNotificationResponse>
+
+    abstract suspend fun searchUser(token: String, username: String): Result<SearchUserResponse>
 }

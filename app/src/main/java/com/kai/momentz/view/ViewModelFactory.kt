@@ -11,6 +11,7 @@ import com.kai.momentz.view.login.LoginViewModel
 import com.kai.momentz.view.notification.NotificationViewModel
 import com.kai.momentz.view.profile.ProfileViewModel
 import com.kai.momentz.view.register.RegisterViewModel
+import com.kai.momentz.view.search.SearchViewModel
 
 class ViewModelFactory(private val repository: Repository)  : ViewModelProvider.NewInstanceFactory(){
     @Suppress("UNCHECKED_CAST")
@@ -33,6 +34,9 @@ class ViewModelFactory(private val repository: Repository)  : ViewModelProvider.
             }
             modelClass.isAssignableFrom(NotificationViewModel::class.java) -> {
                 NotificationViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(SearchViewModel::class.java) -> {
+                SearchViewModel(repository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
