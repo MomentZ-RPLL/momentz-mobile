@@ -1,6 +1,7 @@
 package com.kai.momentz.retrofit
 
 import com.kai.momentz.model.request.LoginRequest
+import com.kai.momentz.model.response.ChatListResponse
 import com.kai.momentz.model.response.CommentNotificationResponse
 import com.kai.momentz.model.response.FollowNotificationResponse
 import com.kai.momentz.model.response.FollowResponse
@@ -118,5 +119,10 @@ interface ApiService {
         @Header("Cookie") token: String,
         @Query("username") username: String,
     ): Response<SearchUserResponse>
+
+    @GET("/chats")
+    suspend fun getChat(
+        @Header("Cookie") token: String,
+    ): Response<ChatListResponse>
 
 }

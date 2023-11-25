@@ -2,6 +2,7 @@ package com.kai.momentz.repository
 
 import androidx.lifecycle.LiveData
 import com.kai.momentz.model.datastore.User
+import com.kai.momentz.model.response.ChatListResponse
 import com.kai.momentz.model.response.CommentNotificationResponse
 import com.kai.momentz.model.response.FollowNotificationResponse
 import com.kai.momentz.model.response.FollowResponse
@@ -46,4 +47,6 @@ abstract class Repository {
     abstract suspend fun followNotification(token: String): Result<FollowNotificationResponse>
 
     abstract suspend fun searchUser(token: String, username: String): Result<SearchUserResponse>
+
+    abstract suspend fun getChatList(token: String): Result<ChatListResponse>
 }
