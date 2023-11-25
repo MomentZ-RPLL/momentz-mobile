@@ -25,6 +25,7 @@ import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.view.ViewModelFactory
 import com.kai.momentz.view.follow.FollowFragment
 import com.kai.momentz.view.follow.FollowViewModel
+import com.kai.momentz.view.map.MapsFragment
 
 
 class ProfileFragment : Fragment(), View.OnClickListener {
@@ -174,10 +175,20 @@ class ProfileFragment : Fragment(), View.OnClickListener {
         binding.profileMenu.setOnClickListener(this)
         binding.following.setOnClickListener(this)
         binding.follow.setOnClickListener(this)
+        binding.mapMenu.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         val fragmentManager = parentFragmentManager
+        if(v == binding.mapMenu){
+            val mapFragment = MapsFragment()
+
+            fragmentManager.beginTransaction().apply {
+                replace(R.id.frame_container, mapFragment, MapsFragment::class.java.simpleName)
+                addToBackStack(null)
+                commit()
+            }
+        }
         if(v == binding.follow){
             profileViewModel.followUser(currentUserData.token, dataProfile.idUser.toString())
         }
