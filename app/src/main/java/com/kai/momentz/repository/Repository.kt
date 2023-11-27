@@ -2,6 +2,7 @@ package com.kai.momentz.repository
 
 import androidx.lifecycle.LiveData
 import com.kai.momentz.model.datastore.User
+import com.kai.momentz.model.request.SendMessageRequest
 import com.kai.momentz.model.response.ChatDetailResponse
 import com.kai.momentz.model.response.ChatListResponse
 import com.kai.momentz.model.response.CommentNotificationResponse
@@ -12,6 +13,7 @@ import com.kai.momentz.model.response.LikeNotificationResponse
 import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.model.response.RegisterResponse
 import com.kai.momentz.model.response.SearchUserResponse
+import com.kai.momentz.model.response.SendChatResponse
 import com.kai.momentz.model.response.UpdateProfileResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -52,4 +54,6 @@ abstract class Repository {
     abstract suspend fun getChatList(token: String): Result<ChatListResponse>
 
     abstract suspend fun getChatDetail(token: String, id: String): Result<ChatDetailResponse>
+
+    abstract suspend fun sendChat(token: String, id: String, message: SendMessageRequest): Result<SendChatResponse>
 }

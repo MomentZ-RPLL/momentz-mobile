@@ -11,22 +11,27 @@ import com.kai.momentz.R
 import com.kai.momentz.adapter.ChatDetailListAdapter
 import com.kai.momentz.databinding.FragmentChatDetailBinding
 import com.kai.momentz.model.datastore.User
+import com.kai.momentz.model.request.SendMessageRequest
 import com.kai.momentz.model.response.ChatDetailListDataItem
 import com.kai.momentz.view.ViewModelFactory
 import com.kai.momentz.view.profile.ProfileFragment
 
 
-class ChatDetailFragment : Fragment(), ChatDetailListAdapter.ChatDetailListAdapterListener {
+class ChatDetailFragment : Fragment(), ChatDetailListAdapter.ChatDetailListAdapterListener, View.OnClickListener {
 
     private lateinit var chatViewModel: ChatViewModel
     private lateinit var binding: FragmentChatDetailBinding
     private lateinit var user: User
+    private lateinit var dataId: String
+    private lateinit var dataUsername: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentChatDetailBinding.inflate(inflater, container, false)
+        dataId = arguments?.getString("id")!!
+        dataUsername = arguments?.getString("username")!!
 
         val linearLayoutManager = LinearLayoutManager(context)
         binding.recyclerGchat.layoutManager = linearLayoutManager
@@ -36,6 +41,8 @@ class ChatDetailFragment : Fragment(), ChatDetailListAdapter.ChatDetailListAdapt
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.buttonGchatSend.setOnClickListener(this)
 
         setupViewModel()
     }
@@ -52,16 +59,25 @@ class ChatDetailFragment : Fragment(), ChatDetailListAdapter.ChatDetailListAdapt
             }
         }
 
-        val data = arguments?.getString("id")
-
         chatViewModel.getChatList(user.token)
-        chatViewModel.getChatDetail(user.token, data!!)
+        chatViewModel.getChatDetail(user.token, dataId)
 
         chatViewModel.chatDetailResponse.observe(requireActivity()){
             if(it != null){
                 setDetailChatList(it.data)
             }
         }
+
+        chatViewModel.sendChatResponse.observe(requireActivity()){
+            if(it != null){
+                chatViewModel.chatDetailResponse.observe(requireActivity()){ chatDetailResponse ->
+                    if(chatDetailResponse != null){
+                        setDetailChatList(chatDetailResponse.data)
+                    }
+                }
+            }
+        }
+
     }
 
     private fun setDetailChatList(listChat: List<ChatDetailListDataItem?>?) {
@@ -80,13 +96,21 @@ class ChatDetailFragment : Fragment(), ChatDetailListAdapter.ChatDetailListAdapt
     override fun onProfileImageClicked(username: String, itemView: View) {
         val fragmentManager = parentFragmentManager
         val newFragment = ProfileFragment()
+
         val bundle = Bundle()
-        bundle.putString("username", user.username)
+        bundle.putString("username", dataUsername)
         newFragment.arguments = bundle
 
         fragmentManager.beginTransaction()
             .replace(R.id.frame_container, newFragment)
             .addToBackStack(null)
             .commit()
+    }
+
+    override fun onClick(v: View?) {
+        if(v == binding.buttonGchatSend){
+            val sendMessageRequest = SendMessageRequest(binding.editGchatMessage.text.toString())
+            chatViewModel.sendChat(user.token, dataId, sendMessageRequest)
+        }
     }
 }

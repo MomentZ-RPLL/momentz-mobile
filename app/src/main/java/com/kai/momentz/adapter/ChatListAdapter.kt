@@ -37,7 +37,7 @@ class ChatListAdapter (private val chatList: List<ChatListDataItem>, private val
             }
 
             itemView.setOnClickListener {
-                listener.onViewClicked(userId, itemView)
+                listener.onViewClicked(userId, listChatItem.otherUsername!!, itemView)
             }
         }
     }
@@ -54,7 +54,7 @@ class ChatListAdapter (private val chatList: List<ChatListDataItem>, private val
     }
 
     interface ChatListAdapterListener {
-        fun onViewClicked(id: String, itemView: View)
+        fun onViewClicked(id: String, username: String, itemView: View)
     }
 
 }

@@ -73,11 +73,12 @@ class ChatListFragment : Fragment(), ChatListAdapter.ChatListAdapterListener {
         binding.rvChat.adapter = chatListAdapter
     }
 
-    override fun onViewClicked(id: String, itemView: View) {
+    override fun onViewClicked(id: String, username:String, itemView: View) {
         val fragmentManager = parentFragmentManager
         val newFragment = ChatDetailFragment()
         val bundle = Bundle()
         bundle.putString("id", id)
+        bundle.putString("username", username)
         newFragment.arguments = bundle
 
         fragmentManager.beginTransaction()
