@@ -25,6 +25,9 @@ data class ChatListDataItem(
 	@field:SerializedName("other_username")
 	val otherUsername: String? = null,
 
+	@field:SerializedName("other_profile_picture")
+	val otherProfilePicture: String? = null,
+
 	@field:SerializedName("message")
 	val message: String? = null,
 

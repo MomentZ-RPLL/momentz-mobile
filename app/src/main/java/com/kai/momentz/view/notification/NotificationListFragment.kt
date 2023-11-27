@@ -13,7 +13,7 @@ import com.kai.momentz.R
 import com.kai.momentz.adapter.CommentNotificationAdapter
 import com.kai.momentz.adapter.FollowNotificationAdapter
 import com.kai.momentz.adapter.LikeNotificationAdapter
-import com.kai.momentz.databinding.FragmentNotificationListBinding
+import com.kai.momentz.databinding.FragmentNotificationItemListBinding
 import com.kai.momentz.model.datastore.User
 import com.kai.momentz.model.response.CommentNotificationDataItem
 import com.kai.momentz.model.response.FollowItem
@@ -26,7 +26,7 @@ import com.kai.momentz.view.follow.FollowerFollowingFragment
 
 class NotificationListFragment : Fragment(), FollowNotificationAdapter.FollowNotificationAdapterListener {
 
-    private lateinit var binding: FragmentNotificationListBinding
+    private lateinit var binding: FragmentNotificationItemListBinding
     private lateinit var notificationViewModel: NotificationViewModel
     private lateinit var user: User
 
@@ -35,7 +35,7 @@ class NotificationListFragment : Fragment(), FollowNotificationAdapter.FollowNot
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentNotificationListBinding.inflate(inflater, container, false)
+        binding = FragmentNotificationItemListBinding.inflate(inflater, container, false)
         val linearLayoutManager = LinearLayoutManager(context)
         binding.rvNotification.layoutManager = linearLayoutManager
 
