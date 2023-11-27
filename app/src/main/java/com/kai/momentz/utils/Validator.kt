@@ -1,5 +1,7 @@
 package com.kai.momentz.utils
 
+import java.text.SimpleDateFormat
+import java.util.Locale
 import java.util.regex.Pattern
 
 object Validator {
@@ -9,4 +11,5 @@ object Validator {
         val matcher = pattern.matcher(email)
         return matcher.matches()
     }
+
 }
