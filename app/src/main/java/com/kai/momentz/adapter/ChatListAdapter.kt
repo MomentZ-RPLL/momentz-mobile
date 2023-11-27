@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.kai.momentz.R
 import com.kai.momentz.model.response.ChatListDataItem
 
-class ChatListAdapter (private val chatList: List<ChatListDataItem>, private val listener: ChatListAdapterListener
+class ChatListAdapter (private val chatList: List<ChatListDataItem>, private val listener: ChatListAdapterListener, private val id: String
 ) : RecyclerView.Adapter<ChatListAdapter.ListViewHolder>()  {
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -20,7 +20,7 @@ class ChatListAdapter (private val chatList: List<ChatListDataItem>, private val
         private var chat: TextView = itemView.findViewById(R.id.chat)
         private var time: TextView = itemView.findViewById(R.id.time)
 
-        fun bind(listChatItem: ChatListDataItem?, listener: ChatListAdapterListener){
+        fun bind(listChatItem: ChatListDataItem?, listener: ChatListAdapterListener, id: String){
 
             Glide.with(itemView.context)
                 .load( listChatItem!!.otherProfilePicture)
@@ -30,8 +30,14 @@ class ChatListAdapter (private val chatList: List<ChatListDataItem>, private val
             chat.text = listChatItem.message
             time.text = listChatItem.sentAt
 
-            itemView.setOnClickListener{
-                listener.onViewClicked(listChatItem.otherUsername ?: "", itemView)
+            val userId = if (listChatItem.idSender.toString() != id) {
+                listChatItem.idSender.toString() ?: ""
+            } else {
+                listChatItem.idReceiver.toString() ?: ""
+            }
+
+            itemView.setOnClickListener {
+                listener.onViewClicked(userId, itemView)
             }
         }
     }
@@ -44,11 +50,11 @@ class ChatListAdapter (private val chatList: List<ChatListDataItem>, private val
     override fun getItemCount(): Int = chatList.size
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.bind(chatList[position], listener)
+        holder.bind(chatList[position], listener, id)
     }
 
     interface ChatListAdapterListener {
-        fun onViewClicked(username: String, itemView: View)
+        fun onViewClicked(id: String, itemView: View)
     }
 
 }

@@ -69,16 +69,16 @@ class ChatListFragment : Fragment(), ChatListAdapter.ChatListAdapterListener {
 
     private fun setChatList(listChat: List<ChatListDataItem?>?) {
         val chatListAdapter = ChatListAdapter(listChat as List<ChatListDataItem>,
-            this)
+            this, user.id)
         binding.rvChat.adapter = chatListAdapter
     }
 
-    override fun onViewClicked(username: String, itemView: View) {
+    override fun onViewClicked(id: String, itemView: View) {
         val fragmentManager = parentFragmentManager
         val newFragment = ChatDetailFragment()
-//        val bundle = Bundle()
-//        bundle.putString("username", username)
-//        newFragment.arguments = bundle
+        val bundle = Bundle()
+        bundle.putString("id", id)
+        newFragment.arguments = bundle
 
         fragmentManager.beginTransaction()
             .replace(R.id.frame_container, newFragment)
