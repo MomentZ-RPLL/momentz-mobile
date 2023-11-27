@@ -70,11 +70,7 @@ class ChatDetailFragment : Fragment(), ChatDetailListAdapter.ChatDetailListAdapt
 
         chatViewModel.sendChatResponse.observe(requireActivity()){
             if(it != null){
-                chatViewModel.chatDetailResponse.observe(requireActivity()){ chatDetailResponse ->
-                    if(chatDetailResponse != null){
-                        setDetailChatList(chatDetailResponse.data)
-                    }
-                }
+                chatViewModel.getChatDetail(user.token, dataId)
             }
         }
 
@@ -109,8 +105,12 @@ class ChatDetailFragment : Fragment(), ChatDetailListAdapter.ChatDetailListAdapt
 
     override fun onClick(v: View?) {
         if(v == binding.buttonGchatSend){
-            val sendMessageRequest = SendMessageRequest(binding.editGchatMessage.text.toString())
-            chatViewModel.sendChat(user.token, dataId, sendMessageRequest)
+            if(binding.editGchatMessage.text.toString().isNotEmpty()){
+                val sendMessageRequest = SendMessageRequest(binding.editGchatMessage.text.toString())
+                chatViewModel.sendChat(user.token, dataId, sendMessageRequest)
+                binding.editGchatMessage.text = null
+            }
+
         }
     }
 }
