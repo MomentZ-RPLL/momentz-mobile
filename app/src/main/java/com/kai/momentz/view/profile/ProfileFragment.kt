@@ -23,6 +23,8 @@ import com.kai.momentz.model.response.DataProfile
 import com.kai.momentz.model.response.PostsItem
 import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.view.ViewModelFactory
+import com.kai.momentz.view.chat.ChatDetailFragment
+import com.kai.momentz.view.chat.ChatListFragment
 import com.kai.momentz.view.follow.FollowFragment
 import com.kai.momentz.view.follow.FollowViewModel
 import com.kai.momentz.view.map.MapsFragment
@@ -176,10 +178,20 @@ class ProfileFragment : Fragment(), View.OnClickListener {
         binding.following.setOnClickListener(this)
         binding.follow.setOnClickListener(this)
         binding.mapMenu.setOnClickListener(this)
+        binding.chatMenu.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         val fragmentManager = parentFragmentManager
+        if(v == binding.chatMenu){
+            val mapFragment = ChatListFragment()
+
+            fragmentManager.beginTransaction().apply {
+                replace(R.id.frame_container, mapFragment, ChatListFragment()::class.java.simpleName)
+                addToBackStack(null)
+                commit()
+            }
+        }
         if(v == binding.mapMenu){
             val mapFragment = MapsFragment()
 

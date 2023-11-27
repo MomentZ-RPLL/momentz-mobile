@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import com.kai.momentz.data.UserPreference
 import com.kai.momentz.model.datastore.User
+import com.kai.momentz.model.response.ChatListResponse
 import com.kai.momentz.model.response.CommentNotificationResponse
 import com.kai.momentz.model.response.FollowNotificationResponse
 import com.kai.momentz.model.response.FollowResponse
@@ -185,6 +186,20 @@ class UserRepository(private val apiService: ApiService, private val pref: UserP
     override suspend fun searchUser(token: String, username: String): Result<SearchUserResponse> {
         return try {
             val response = apiService.searchUser("token=$token", username)
+            if (response.isSuccessful) {
+                val responseBody = response.body()
+                Result.success(responseBody!!)
+            } else {
+                Result.failure(Exception(response.errorBody()?.string() ?: "Unknown error"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun getChatList(token: String): Result<ChatListResponse> {
+        return try {
+            val response = apiService.getChat("token=$token")
             if (response.isSuccessful) {
                 val responseBody = response.body()
                 Result.success(responseBody!!)

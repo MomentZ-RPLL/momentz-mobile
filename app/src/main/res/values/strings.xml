@@ -77,5 +77,12 @@
     <string name="commented_on_your_post">commented on your post</string>
     <string name="comment">Comment</string>
     <string name="search">Search...</string>
+    <string name="chat">Chat</string>
+    <string name="enter_message">Enter Message</string>
+    <string name="send">Send</string>
+    <string name="date">Date</string>
+    <string name="this_is_a_message">This is a Message</string>
+    <string name="_10_00">10:00</string>
+    <string name="user_icon">User Icon</string>
 
 </resources>
