@@ -9,13 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.lifecycle.ViewModelProvider
 import com.kai.momentz.R
 import com.kai.momentz.customview.DefaultButton
 import com.kai.momentz.customview.LoginInputEditText
-import com.kai.momentz.databinding.ActivityLoginBinding
 import com.kai.momentz.databinding.FragmentLoginBinding
-import com.kai.momentz.databinding.FragmentRegisterBinding
 import com.kai.momentz.model.datastore.User
 import com.kai.momentz.view.ViewModelFactory
 import com.kai.momentz.view.home.HomeActivity
@@ -43,6 +42,14 @@ class LoginFragment : Fragment() {
         setupAction()
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            requireActivity().finishAffinity()
+        }
     }
 
     private fun setupAction(){
