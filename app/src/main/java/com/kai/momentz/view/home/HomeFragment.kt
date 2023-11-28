@@ -49,7 +49,7 @@ class HomeFragment : Fragment() {
         setupViewModel()
 
     }
-    
+
     private fun setupViewModel() {
         homeViewModel = ViewModelProvider(
             this,

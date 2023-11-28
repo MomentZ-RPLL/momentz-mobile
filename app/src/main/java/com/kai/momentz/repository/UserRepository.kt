@@ -5,6 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import com.kai.momentz.data.UserPreference
 import com.kai.momentz.model.datastore.User
+import com.kai.momentz.model.request.SendMessageRequest
+import com.kai.momentz.model.response.ChatDetailResponse
+import com.kai.momentz.model.response.ChatListResponse
 import com.kai.momentz.model.response.CommentNotificationResponse
 import com.kai.momentz.model.response.FollowNotificationResponse
 import com.kai.momentz.model.response.FollowResponse
@@ -14,6 +17,7 @@ import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.model.response.RegisterResponse
 import com.kai.momentz.model.response.SearchUserResponse
 import com.kai.momentz.model.response.TimelineResponse
+import com.kai.momentz.model.response.SendChatResponse
 import com.kai.momentz.model.response.UpdateProfileResponse
 import com.kai.momentz.retrofit.ApiService
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -197,9 +201,55 @@ class UserRepository(private val apiService: ApiService, private val pref: UserP
         }
     }
 
-    override suspend fun getTimeline(token: String, id: String): Result<TimelineResponse> {
+    override suspend fun getTimeline(token: String): Result<TimelineResponse> {
         return try {
             val response = apiService.getTimeline("token=$token")
+            if (response.isSuccessful) {
+                val responseBody = response.body()
+                Result.success(responseBody!!)
+            } else {
+                Result.failure(Exception(response.errorBody()?.string() ?: "Unknown error"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }    }
+
+
+    override suspend fun getChatList(token: String): Result<ChatListResponse> {
+        return try {
+            val response = apiService.getChat("token=$token")
+            if (response.isSuccessful) {
+                val responseBody = response.body()
+                Result.success(responseBody!!)
+            } else {
+                Result.failure(Exception(response.errorBody()?.string() ?: "Unknown error"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun getChatDetail(token: String, id: String): Result<ChatDetailResponse> {
+        return try {
+            val response = apiService.getChatDetail("token=$token", id)
+            if (response.isSuccessful) {
+                val responseBody = response.body()
+                Result.success(responseBody!!)
+            } else {
+                Result.failure(Exception(response.errorBody()?.string() ?: "Unknown error"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun sendChat(
+        token: String,
+        id: String,
+        message: SendMessageRequest
+    ): Result<SendChatResponse> {
+        return try {
+            val response = apiService.sendChat("token=$token", id, message)
             if (response.isSuccessful) {
                 val responseBody = response.body()
                 Result.success(responseBody!!)

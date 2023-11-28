@@ -1,6 +1,9 @@
 package com.kai.momentz.retrofit
 
 import com.kai.momentz.model.request.LoginRequest
+import com.kai.momentz.model.request.SendMessageRequest
+import com.kai.momentz.model.response.ChatDetailResponse
+import com.kai.momentz.model.response.ChatListResponse
 import com.kai.momentz.model.response.CommentNotificationResponse
 import com.kai.momentz.model.response.FollowNotificationResponse
 import com.kai.momentz.model.response.FollowResponse
@@ -12,6 +15,7 @@ import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.model.response.RegisterResponse
 import com.kai.momentz.model.response.SearchUserResponse
 import com.kai.momentz.model.response.TimelineResponse
+import com.kai.momentz.model.response.SendChatResponse
 import com.kai.momentz.model.response.UpdateProfileResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -112,5 +116,23 @@ interface ApiService {
         @Header("Cookie") token: String,
         @Query("username") username: String,
     ): Response<SearchUserResponse>
+
+    @GET("/chats")
+    suspend fun getChat(
+        @Header("Cookie") token: String,
+    ): Response<ChatListResponse>
+
+    @GET("/chats/{id}")
+    suspend fun getChatDetail(
+        @Header("Cookie") token: String,
+        @Path("id") id: String
+    ): Response<ChatDetailResponse>
+
+    @POST("/chats/{id}")
+    suspend fun sendChat(
+        @Header("Cookie") token: String,
+        @Path("id") id: String,
+        @Body message: SendMessageRequest
+    ): Response<SendChatResponse>
 
 }

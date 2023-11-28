@@ -30,6 +30,14 @@
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/baseline_map_24"/>
 
+        <ImageView
+            android:id="@+id/chatMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/mapMenu"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/baseline_chat_bubble_24"/>
+
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/profilePicture"
