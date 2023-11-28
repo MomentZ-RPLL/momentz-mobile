@@ -25,7 +25,10 @@ abstract class Repository {
 
     abstract fun getUser(): LiveData<User>
     abstract fun getToken(): String
+    abstract fun getIsFirst(): Boolean
     abstract suspend fun getProfile(token:String, username:String): Result<ProfileResponse>
+
+    abstract fun setIsFirst(isFirst: Boolean)
 
     abstract suspend fun updateProfile(token:String,
                                        username:String,
@@ -33,7 +36,7 @@ abstract class Repository {
                                        name:RequestBody?,
                                        email: RequestBody?,
                                        bio:RequestBody?,
-                                        delPict: Boolean,): Result<UpdateProfileResponse>
+                                       delPict: Boolean,): Result<UpdateProfileResponse>
 
     abstract suspend fun getFollowing(token:String, id:String): Result<FollowingResponse>
 

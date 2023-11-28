@@ -64,6 +64,8 @@ class UserRepository(private val apiService: ApiService, private val pref: UserP
         }
     }
 
+
+
     override suspend fun updateProfile(
         token: String,
         username:String,
@@ -246,12 +248,21 @@ class UserRepository(private val apiService: ApiService, private val pref: UserP
         }
     }
 
+    override fun setIsFirst(isFirst: Boolean) {
+        GlobalScope.launch {
+            pref.setIsFirst(isFirst)
+        }
+    }
     override fun getUser(): LiveData<User> {
         return pref.getUser().asLiveData()
     }
 
     override fun getToken(): String {
         return pref.getToken()
+    }
+
+    override fun getIsFirst(): Boolean {
+        return pref.getIsFirst()
     }
 
     override fun logout() {

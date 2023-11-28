@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 
 class UserPreference (private val dataStore : DataStore<Preferences>){
@@ -15,6 +16,17 @@ class UserPreference (private val dataStore : DataStore<Preferences>){
     fun getToken() : String {
         val preferences = runBlocking{ dataStore.data.first() }
         return preferences[TOKEN_KEY] ?: ""
+    }
+
+    fun getIsFirst(): Boolean {
+        val preferences = runBlocking{ dataStore.data.first() }
+        return preferences[IS_FIRST] ?: true
+    }
+
+    suspend fun setIsFirst(isFirst: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[IS_FIRST] = isFirst
+        }
     }
 
     fun getUser(): Flow<User> {
@@ -49,6 +61,8 @@ class UserPreference (private val dataStore : DataStore<Preferences>){
         private val NAME_KEY = stringPreferencesKey("name")
         private val ID_KEY = stringPreferencesKey("id")
         private val TOKEN_KEY = stringPreferencesKey("token")
+
+        private val IS_FIRST = booleanPreferencesKey("isFirst")
 
         fun getInstance(dataStore: DataStore<Preferences>): UserPreference {
             return INSTANCE ?: synchronized(this) {
