@@ -5,14 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.view.menu.MenuView
-import com.kai.momentz.model.response.DataItem
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kai.momentz.R
-import com.kai.momentz.model.response.CommentNotificationDataItem
-import com.kai.momentz.model.response.Data
+import com.kai.momentz.model.response.DataItem
+import com.kai.momentz.utils.getDate
+import com.kai.momentz.utils.getTime
 
 
 class TimelineAdapter (private val listTimeline: List<DataItem>, private val fragmentManager : FragmentManager?) : RecyclerView.Adapter<TimelineAdapter.ListViewHolder>(){
@@ -23,6 +22,7 @@ class TimelineAdapter (private val listTimeline: List<DataItem>, private val fra
         private var username : TextView = itemView.findViewById(R.id.username)
         private var postPhoto: ImageView = itemView.findViewById(R.id.ivPostmage)
         private var caption : TextView = itemView.findViewById(R.id.caption)
+        private var time : TextView = itemView.findViewById(R.id.time)
 
         fun bind(listPostItem: DataItem?, fragmentManager: FragmentManager?){
             Glide.with(itemView.context)
@@ -33,6 +33,7 @@ class TimelineAdapter (private val listTimeline: List<DataItem>, private val fra
                 .load(listPostItem.profilePicture)
                 .into(profilePhoto)
 
+            time.text = "${getDate(listPostItem.createdAt!!)}, ${getTime(listPostItem.createdAt)} "
             username.text = listPostItem.username
             caption.text = listPostItem.caption
         }

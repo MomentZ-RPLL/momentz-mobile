@@ -3,6 +3,7 @@ package com.kai.momentz.view.home
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kai.momentz.R
@@ -26,6 +27,13 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        if (savedInstanceState == null) {
+            val homeFragment = HomeFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.frame_container, homeFragment, HomeFragment::class.java.simpleName)
+                .commit()
+        }
+
         setupViewModel()
         setupNavigation()
     }
@@ -34,11 +42,13 @@ class HomeActivity : AppCompatActivity() {
         val bottomNavigationView = binding.navView
         val fragmentManager = supportFragmentManager
 
+
+
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
                     val homeFragment = HomeFragment()
-
+                    Log.d("tess", "ini")
                     fragmentManager.beginTransaction().replace(R.id.frame_container, homeFragment, HomeFragment::class.java.simpleName).commit()
                     true
                 }

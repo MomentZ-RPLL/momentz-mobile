@@ -59,9 +59,6 @@
             android:name=".view.register.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".view.onboarding.LandingActivity"
-            android:exported="false" />
-        <activity
             android:name=".view.home.HomeActivity"
             android:exported="false" />
         <activity

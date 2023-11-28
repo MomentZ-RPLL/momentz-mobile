@@ -17,6 +17,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,6 +39,7 @@ class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var binding: FragmentHomeBinding
     private lateinit var token: String
+    private lateinit var fragmentManager:FragmentManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +49,8 @@ class HomeFragment : Fragment() {
         val linearLayoutManager = LinearLayoutManager(context)
         binding.rvUser.layoutManager = linearLayoutManager
 
+        fragmentManager = parentFragmentManager
+
         (activity as? AppCompatActivity)?.setSupportActionBar(binding.toolbar)
         setHasOptionsMenu(true)
 
@@ -55,7 +59,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view:View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
-        val index = arguments?.getInt(ARG_SECTION_NUMBER,0)
+
         setupViewModel()
 
     }
@@ -80,20 +84,24 @@ class HomeFragment : Fragment() {
                 Toast.makeText(requireActivity(), getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
             }
         }
+
+
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val fragmentManager = parentFragmentManager
+//        val fragmentManager = parentFragmentManager
         when (item.itemId) {
             R.id.chatMenu -> {
-                val mapFragment = ChatListFragment()
+                val chatFragment = ChatListFragment()
                 fragmentManager.beginTransaction().apply {
-                    replace(R.id.frame_container, mapFragment, ChatListFragment()::class.java.simpleName)
+                    replace(R.id.frame_container, chatFragment, ChatListFragment::class.java.simpleName)
                     addToBackStack(null)
                     commit()
                 }
@@ -110,8 +118,6 @@ class HomeFragment : Fragment() {
                 return true
             }
 
-
-
             else -> return super.onOptionsItemSelected(item)
         }
     }
@@ -121,6 +127,8 @@ class HomeFragment : Fragment() {
             fragmentManager)
         binding.rvUser.adapter = listTimeline
     }
+
+
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
             binding.progressBar.visibility = View.VISIBLE
