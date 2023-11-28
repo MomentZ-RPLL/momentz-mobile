@@ -177,30 +177,10 @@ class ProfileFragment : Fragment(), View.OnClickListener {
         binding.profileMenu.setOnClickListener(this)
         binding.following.setOnClickListener(this)
         binding.follow.setOnClickListener(this)
-        binding.mapMenu.setOnClickListener(this)
-        binding.chatMenu.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         val fragmentManager = parentFragmentManager
-        if(v == binding.chatMenu){
-            val mapFragment = ChatListFragment()
-
-            fragmentManager.beginTransaction().apply {
-                replace(R.id.frame_container, mapFragment, ChatListFragment()::class.java.simpleName)
-                addToBackStack(null)
-                commit()
-            }
-        }
-        if(v == binding.mapMenu){
-            val mapFragment = MapsFragment()
-
-            fragmentManager.beginTransaction().apply {
-                replace(R.id.frame_container, mapFragment, MapsFragment::class.java.simpleName)
-                addToBackStack(null)
-                commit()
-            }
-        }
         if(v == binding.follow){
             profileViewModel.followUser(currentUserData.token, dataProfile.idUser.toString())
         }
