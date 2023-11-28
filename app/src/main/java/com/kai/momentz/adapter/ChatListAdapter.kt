@@ -1,5 +1,6 @@
 package com.kai.momentz.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ class ChatListAdapter (private val chatList: List<ChatListDataItem>, private val
         private var chat: TextView = itemView.findViewById(R.id.chat)
         private var time: TextView = itemView.findViewById(R.id.time)
 
+        @SuppressLint("SetTextI18n")
         fun bind(listChatItem: ChatListDataItem?, listener: ChatListAdapterListener, id: String){
 
             Glide.with(itemView.context)
@@ -27,12 +29,13 @@ class ChatListAdapter (private val chatList: List<ChatListDataItem>, private val
                 .into(imgPhoto)
 
             username.text = listChatItem.otherUsername
-            chat.text = listChatItem.message
             time.text = listChatItem.sentAt
 
             val userId = if (listChatItem.idSender.toString() != id) {
+                chat.text = "${listChatItem.otherUsername}: ${listChatItem.message}"
                 listChatItem.idSender.toString() ?: ""
             } else {
+                chat.text = "You: ${listChatItem.message}"
                 listChatItem.idReceiver.toString() ?: ""
             }
 

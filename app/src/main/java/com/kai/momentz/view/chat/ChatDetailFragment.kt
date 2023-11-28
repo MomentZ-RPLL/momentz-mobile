@@ -84,6 +84,8 @@ class ChatDetailFragment : Fragment(), ChatDetailListAdapter.ChatDetailListAdapt
 
         binding.recyclerGchat.adapter = chatListAdapter
 
+        binding.chatUsername.text = dataUsername
+
         reversedList.size.let {
             binding.recyclerGchat.scrollToPosition(it - 1)
         }
@@ -110,7 +112,6 @@ class ChatDetailFragment : Fragment(), ChatDetailListAdapter.ChatDetailListAdapt
                 chatViewModel.sendChat(user.token, dataId, sendMessageRequest)
                 binding.editGchatMessage.text = null
             }
-
         }
     }
 }
