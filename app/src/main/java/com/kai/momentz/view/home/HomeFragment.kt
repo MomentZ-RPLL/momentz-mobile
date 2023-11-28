@@ -85,6 +85,9 @@ class HomeFragment : Fragment() {
             }
         }
 
+        homeViewModel.isLoading.observe(requireActivity()) {
+            showLoading(it)
+        }
 
     }
 

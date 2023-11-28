@@ -42,8 +42,6 @@ class HomeActivity : AppCompatActivity() {
         val bottomNavigationView = binding.navView
         val fragmentManager = supportFragmentManager
 
-
-
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
