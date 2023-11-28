@@ -5,6 +5,7 @@ import com.kai.momentz.model.request.SendMessageRequest
 import com.kai.momentz.model.response.ChatDetailResponse
 import com.kai.momentz.model.response.ChatListResponse
 import com.kai.momentz.model.response.CommentNotificationResponse
+import com.kai.momentz.model.response.ErrorResponse
 import com.kai.momentz.model.response.FollowNotificationResponse
 import com.kai.momentz.model.response.FollowResponse
 import com.kai.momentz.model.response.FollowingResponse
@@ -134,5 +135,14 @@ interface ApiService {
         @Path("id") id: String,
         @Body message: SendMessageRequest
     ): Response<SendChatResponse>
+
+    @POST("/posts")
+    fun createPost(
+        @Header("Authorization") token: String,
+        @Part file: MultipartBody.Part,
+        @Part("caption") description: RequestBody,
+        @Part("lat") lat : Double?,
+        @Part("lon") lon : Double?,
+    ): Call<ErrorResponse>
 
 }
