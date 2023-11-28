@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/chatMenu"
-        android:icon="@drawable/baseline_chat_bubble_24"
+        android:icon="@drawable/baseline_chat_bubble_24_white"
         android:title="@string/chat"
         app:showAsAction="ifRoom" />
 

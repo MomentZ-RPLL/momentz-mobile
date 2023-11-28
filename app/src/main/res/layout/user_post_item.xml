@@ -64,7 +64,7 @@
             android:id="@+id/caption"
             android:layout_width="389dp"
             android:layout_height="29dp"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:layout_marginTop="8dp"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/ivPostmage"
@@ -79,7 +79,8 @@
             android:layout_marginTop="8dp"
             android:text="@string/like"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="14sp"
+            android:paddingTop="10dp"
             android:textStyle="bold"
             android:drawablePadding="8dp"
             card_view:layout_constraintBottom_toBottomOf="parent"
@@ -94,14 +95,15 @@
             android:layout_marginTop="8dp"
             android:text="@string/comment"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:drawablePadding="8dp"
+            android:paddingTop="10dp"
             android:textStyle="bold"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toEndOf="@+id/tvViews"
             card_view:layout_constraintTop_toBottomOf="@+id/caption"
-            card_view:drawableLeftCompat="@drawable/baseline_chat_bubble_24" />
+            card_view:drawableLeftCompat="@drawable/baseline_comment_24" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
