@@ -66,4 +66,12 @@ class LoginViewModel(private val repository: Repository) : ViewModel() {
     fun getUser(): LiveData<User> {
         return repository.getUser()
     }
+
+    fun getIsFirst(): Boolean {
+        return repository.getIsFirst()
+    }
+
+    fun setIsFirst(isFirst: Boolean){
+        return repository.setIsFirst(isFirst)
+    }
 }

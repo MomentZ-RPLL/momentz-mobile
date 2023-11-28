@@ -90,4 +90,16 @@
     <string name="post">Post</string>
     <string name="upload_location">Add Location</string>
 
+<!--    <string name="title_menu_1">Let\'s connect!</string>-->
+<!--    <string name="title_menu_2">Location Based</string>-->
+<!--    <string name="title_menu_3">Get started!</string>-->
+
+    <string name="title_menu_1">Let\'s connect!</string>
+    <string name="title_menu_2">Location Based Post!</string>
+    <string name="title_menu_3">Keep Connect!</string>
+    <string name="title_menu_4">Start!</string>
+    <string name="desc_menu_1">Connect with people around the world.</string>
+    <string name="desc_menu_2">Show your friend where you are, share everytime, everywhere.</string>
+    <string name="desc_menu_3">Keep connect with your friend</string>
+    <string name="desc_menu_4">Start Your Journey!</string>
 </resources>
