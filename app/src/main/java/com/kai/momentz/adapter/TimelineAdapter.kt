@@ -15,7 +15,7 @@ import com.kai.momentz.model.response.CommentNotificationDataItem
 import com.kai.momentz.model.response.Data
 
 
-class TimeLineAdapter (private val listTimeline: List<DataItem>, private val fragmentManager : FragmentManager?) : RecyclerView.Adapter<TimeLineAdapter.ListViewHolder>(){
+class TimelineAdapter (private val listTimeline: List<DataItem>, private val fragmentManager : FragmentManager?) : RecyclerView.Adapter<TimelineAdapter.ListViewHolder>(){
 
 
     class ListViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){

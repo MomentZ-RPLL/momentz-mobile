@@ -22,7 +22,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kai.momentz.R
 import com.kai.momentz.adapter.FollowAdapter
-import com.kai.momentz.adapter.TimeLineAdapter
+import com.kai.momentz.adapter.TimelineAdapter
 import com.kai.momentz.databinding.FragmentFollowBinding
 import com.kai.momentz.databinding.FragmentHomeBinding
 import com.kai.momentz.model.response.DataItem
@@ -117,7 +117,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setTimeline(timeline: List<DataItem?>?) {
-        val listTimeline = TimeLineAdapter(timeline as List<DataItem>,
+        val listTimeline = TimelineAdapter(timeline as List<DataItem>,
             fragmentManager)
         binding.rvUser.adapter = listTimeline
     }
