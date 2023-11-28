@@ -77,5 +77,6 @@
     <string name="commented_on_your_post">commented on your post</string>
     <string name="comment">Comment</string>
     <string name="search">Search...</string>
+    <string name="caption">caption post</string>
 
 </resources>

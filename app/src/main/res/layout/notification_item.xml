@@ -56,10 +56,10 @@
                     android:id="@+id/activity"
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
-                    tools:text="@string/activity"
                     android:layout_marginStart="4dp"
                     card_view:layout_constraintStart_toStartOf="parent"
-                    card_view:layout_constraintTop_toTopOf="parent"/>
+                    card_view:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/activity" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView

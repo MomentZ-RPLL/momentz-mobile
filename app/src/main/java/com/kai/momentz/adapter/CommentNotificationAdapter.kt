@@ -57,7 +57,6 @@ class CommentNotificationAdapter(private val listCommentNotification: List<Comme
         return ListViewHolder(view)
     }
 
-
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         holder.bind(listCommentNotification[position], fragmentManager)
     }

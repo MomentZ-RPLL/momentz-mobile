@@ -13,6 +13,7 @@ import com.kai.momentz.model.response.LikeNotificationResponse
 import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.model.response.RegisterResponse
 import com.kai.momentz.model.response.SearchUserResponse
+import com.kai.momentz.model.response.TimelineResponse
 import com.kai.momentz.model.response.UpdateProfileResponse
 import com.kai.momentz.retrofit.ApiService
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -185,6 +186,20 @@ class UserRepository(private val apiService: ApiService, private val pref: UserP
     override suspend fun searchUser(token: String, username: String): Result<SearchUserResponse> {
         return try {
             val response = apiService.searchUser("token=$token", username)
+            if (response.isSuccessful) {
+                val responseBody = response.body()
+                Result.success(responseBody!!)
+            } else {
+                Result.failure(Exception(response.errorBody()?.string() ?: "Unknown error"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun getTimeline(token: String, id: String): Result<TimelineResponse> {
+        return try {
+            val response = apiService.getTimeline("token=$token")
             if (response.isSuccessful) {
                 val responseBody = response.body()
                 Result.success(responseBody!!)
