@@ -40,6 +40,9 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         val linearLayoutManager = LinearLayoutManager(context)
         binding.rvUser.layoutManager = linearLayoutManager
+
+
+
         return binding.root
     }
 

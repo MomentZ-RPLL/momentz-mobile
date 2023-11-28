@@ -36,7 +36,6 @@ class TimeLineAdapter (private val listTimeline: List<DataItem>, private val fra
             username.text = listPostItem.username
             caption.text = listPostItem.caption
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
