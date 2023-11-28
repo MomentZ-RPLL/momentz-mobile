@@ -8,7 +8,6 @@
         android:id="@+id/login_greet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tes Home Fragment"
         android:shadowColor="@android:color/transparent"
         android:textSize="50sp"
         android:textStyle="bold"

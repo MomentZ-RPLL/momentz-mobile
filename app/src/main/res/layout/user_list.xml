@@ -27,8 +27,6 @@
             card_view:shapeAppearanceOverlay="@style/Circular"
              />
 
-
-
         <LinearLayout
             android:id="@+id/user_data"
             android:layout_width="wrap_content"

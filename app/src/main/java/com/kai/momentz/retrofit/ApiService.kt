@@ -14,6 +14,7 @@ import com.kai.momentz.model.response.PostResponse
 import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.model.response.RegisterResponse
 import com.kai.momentz.model.response.SearchUserResponse
+import com.kai.momentz.model.response.TimelineResponse
 import com.kai.momentz.model.response.SendChatResponse
 import com.kai.momentz.model.response.UpdateProfileResponse
 import okhttp3.MultipartBody
@@ -32,7 +33,6 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
-
     @Multipart
     @POST("/users/register")
     suspend fun registerUser(
@@ -45,16 +45,10 @@ interface ApiService {
         @Part("created_at") createdAt: RequestBody? = null
     ) : Response<RegisterResponse>
 
-    @POST()
-    suspend fun getUsers(
-        @Header("Authorization") token : String
-    )
-    
-    @GET()
-    suspend fun getPost(
-        @Header("Authorization")token:String,
-        @Query("id") ids:List<String>
-    ): Call<PostResponse>
+    @GET("/timeline/")
+    suspend fun getTimeline(
+        @Header("Cookie") token: String,
+    ): Response<TimelineResponse>
 
     @POST("/users/login")
     fun loginUser(

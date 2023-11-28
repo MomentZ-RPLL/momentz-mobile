@@ -13,6 +13,7 @@ import com.kai.momentz.model.response.LikeNotificationResponse
 import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.model.response.RegisterResponse
 import com.kai.momentz.model.response.SearchUserResponse
+import com.kai.momentz.model.response.TimelineResponse
 import com.kai.momentz.model.response.SendChatResponse
 import com.kai.momentz.model.response.UpdateProfileResponse
 import okhttp3.MultipartBody
@@ -53,6 +54,8 @@ abstract class Repository {
     abstract suspend fun followNotification(token: String): Result<FollowNotificationResponse>
 
     abstract suspend fun searchUser(token: String, username: String): Result<SearchUserResponse>
+
+    abstract suspend fun getTimeline(token: String):Result<TimelineResponse>
 
     abstract suspend fun getChatList(token: String): Result<ChatListResponse>
 
