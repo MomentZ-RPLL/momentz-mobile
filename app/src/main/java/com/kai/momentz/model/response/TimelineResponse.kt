@@ -13,16 +13,6 @@ data class TimelineResponse(
 	@field:SerializedName("status")
 	val status: String? = null
 )
-
-data class CommentsItem(
-
-	@field:SerializedName("date")
-	val date: String? = null,
-
-	@field:SerializedName("comment")
-	val comment: String? = null
-)
-
 data class DataItem(
 
 	@field:SerializedName("comments")

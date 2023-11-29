@@ -61,7 +61,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupViewModel()
-
     }
 
     private fun setupViewModel() {
@@ -90,10 +89,9 @@ class HomeFragment : Fragment() {
         }
 
     }
-
     @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu, menu)
+        inflater.inflate(R.menu.toolbar, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -124,13 +122,11 @@ class HomeFragment : Fragment() {
             else -> return super.onOptionsItemSelected(item)
         }
     }
-
     private fun setTimeline(timeline: List<DataItem?>?) {
         val listTimeline = TimelineAdapter(timeline as List<DataItem>,
             fragmentManager)
         binding.rvUser.adapter = listTimeline
     }
-
 
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {

@@ -41,7 +41,6 @@ class ProfileFragment : Fragment(), View.OnClickListener {
     private lateinit var followerTextView: TextView
     private lateinit var postTextView: TextView
     private lateinit var followingTextView: TextView
-
     private lateinit var dataProfile: DataProfile
     private lateinit var currentUserData: User
 

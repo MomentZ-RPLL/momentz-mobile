@@ -9,6 +9,7 @@ import com.kai.momentz.model.request.SendMessageRequest
 import com.kai.momentz.model.response.ChatDetailResponse
 import com.kai.momentz.model.response.ChatListResponse
 import com.kai.momentz.model.response.CommentNotificationResponse
+import com.kai.momentz.model.response.CommentResponse
 import com.kai.momentz.model.response.FollowNotificationResponse
 import com.kai.momentz.model.response.FollowResponse
 import com.kai.momentz.model.response.FollowingResponse
@@ -64,8 +65,6 @@ class UserRepository(private val apiService: ApiService, private val pref: UserP
             Result.failure(e)
         }
     }
-
-
 
     override suspend fun updateProfile(
         token: String,
@@ -216,6 +215,19 @@ class UserRepository(private val apiService: ApiService, private val pref: UserP
             Result.failure(e)
         }    }
 
+    override suspend fun getDetailPost(token: String, id :String): Result<CommentResponse>{
+        return try{
+            val response = apiService.getDetailPost("token=$token", id)
+            if ( response.isSuccessful){
+                val responseBody = response.body()
+                Result.success(responseBody!!)
+            }else{
+                Result.failure(Exception(response.errorBody()?.string()?:"Unknown error"))
+            }
+        } catch (e: Exception){
+            Result.failure(e)
+        }
+    }
 
     override suspend fun getChatList(token: String): Result<ChatListResponse> {
         return try {

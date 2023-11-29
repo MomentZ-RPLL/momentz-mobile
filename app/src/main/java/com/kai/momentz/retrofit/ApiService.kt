@@ -5,6 +5,7 @@ import com.kai.momentz.model.request.SendMessageRequest
 import com.kai.momentz.model.response.ChatDetailResponse
 import com.kai.momentz.model.response.ChatListResponse
 import com.kai.momentz.model.response.CommentNotificationResponse
+import com.kai.momentz.model.response.CommentResponse
 import com.kai.momentz.model.response.ErrorResponse
 import com.kai.momentz.model.response.FollowNotificationResponse
 import com.kai.momentz.model.response.FollowResponse
@@ -50,6 +51,13 @@ interface ApiService {
     suspend fun getTimeline(
         @Header("Cookie") token: String,
     ): Response<TimelineResponse>
+
+
+    @GET("/posts")
+    suspend fun getDetailPost(
+        @Header("Cookie") token : String,
+        @Path("id") id: String
+    ): Response<CommentResponse>
 
     @POST("/users/login")
     fun loginUser(
@@ -144,5 +152,9 @@ interface ApiService {
         @Part("lat") lat : Double?,
         @Part("lon") lon : Double?,
     ): Call<ErrorResponse>
+    @POST("/post/1/comments")
+    fun createComment(
+
+    )
 
 }
