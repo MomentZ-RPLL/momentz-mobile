@@ -83,7 +83,6 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                 }else {
                     profileViewModel.getProfile(user.token, user.username)
                 }
-
             }
         }
 

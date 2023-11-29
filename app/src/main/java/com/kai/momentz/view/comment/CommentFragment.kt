@@ -5,15 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.kai.momentz.adapter.CommentAdapter
 import com.kai.momentz.databinding.FragmentCommentBinding
 import com.kai.momentz.model.response.CommentsItem
 import com.kai.momentz.model.response.Datas
 import com.kai.momentz.view.ViewModelFactory
+import android.content.Intent
+
 
 class CommentFragment : Fragment() {
 
@@ -21,6 +26,8 @@ class CommentFragment : Fragment() {
     private lateinit var binding : FragmentCommentBinding
     private lateinit var token:String
     private lateinit var fragmentManager: FragmentManager
+    private lateinit var captionTextView: TextView
+    private lateinit var usernameTextView: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +63,7 @@ class CommentFragment : Fragment() {
         commentViewModel.commentResponse.observe(requireActivity()){comment ->
             if(comment != null){
                 setComment(comment.data)
+                setupUser()
             }else{
                 Toast.makeText(requireActivity(),"Unknown Error", Toast.LENGTH_SHORT).show()
             }
@@ -64,7 +72,9 @@ class CommentFragment : Fragment() {
             showLoading(it)
         }
     }
+    private fun setupUser(){
 
+    }
     private fun setComment(comment: Datas?){
         val listComment = CommentAdapter(comment as List<CommentsItem> ,
         fragmentManager)

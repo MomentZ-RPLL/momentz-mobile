@@ -1,7 +1,5 @@
 package com.kai.momentz.view.home
 
-import android.app.AlertDialog
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -10,28 +8,17 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat.finishAffinity
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kai.momentz.R
-import com.kai.momentz.adapter.FollowAdapter
 import com.kai.momentz.adapter.TimelineAdapter
-import com.kai.momentz.databinding.FragmentFollowBinding
 import com.kai.momentz.databinding.FragmentHomeBinding
 import com.kai.momentz.model.response.DataItem
-import com.kai.momentz.model.response.FollowItem
 import com.kai.momentz.view.ViewModelFactory
 import com.kai.momentz.view.chat.ChatListFragment
-import com.kai.momentz.view.follow.FollowViewModel
-import com.kai.momentz.view.follow.FollowerFollowingFragment.Companion.ARG_SECTION_NUMBER
 import com.kai.momentz.view.map.MapsFragment
 
 class HomeFragment : Fragment() {

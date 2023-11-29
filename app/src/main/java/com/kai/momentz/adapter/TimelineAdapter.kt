@@ -1,5 +1,7 @@
 package com.kai.momentz.adapter
 
+import android.content.Intent
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +14,7 @@ import com.kai.momentz.R
 import com.kai.momentz.model.response.DataItem
 import com.kai.momentz.utils.getDate
 import com.kai.momentz.utils.getTime
+import com.kai.momentz.view.comment.CommentFragment
 
 
 class TimelineAdapter (private val listTimeline: List<DataItem>, private val fragmentManager : FragmentManager?) : RecyclerView.Adapter<TimelineAdapter.ListViewHolder>(){
@@ -24,7 +27,7 @@ class TimelineAdapter (private val listTimeline: List<DataItem>, private val fra
         private var caption : TextView = itemView.findViewById(R.id.caption)
         private var time : TextView = itemView.findViewById(R.id.time)
 
-        fun bind(listPostItem: DataItem?, fragmentManager: FragmentManager?){
+        fun bind(listPostItem: DataItem, fragmentManager: FragmentManager?){
             Glide.with(itemView.context)
                 .load(listPostItem!!.postmedia)
                 .into(postPhoto)
@@ -36,6 +39,13 @@ class TimelineAdapter (private val listTimeline: List<DataItem>, private val fra
             time.text = "${getDate(listPostItem.createdAt!!)}, ${getTime(listPostItem.createdAt)} "
             username.text = listPostItem.username
             caption.text = listPostItem.caption
+
+            itemView.setOnClickListener {
+                val intent = Intent(itemView.context, CommentFragment::class.java)
+                intent.putExtra("Comment Fragment", listPostItem.username)
+                intent.putExtra("Comment Fragment", listPostItem.)
+                itemView.context.startActivity(intent)
+            }
         }
     }
 
@@ -52,3 +62,5 @@ class TimelineAdapter (private val listTimeline: List<DataItem>, private val fra
 
 
 }
+
+
