@@ -78,7 +78,7 @@ class HomeFragment : Fragment() {
     }
     @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.toolbar, menu)
+        inflater.inflate(R.menu.menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -110,7 +110,7 @@ class HomeFragment : Fragment() {
         }
     }
     private fun setTimeline(timeline: List<DataItem?>?) {
-        val listTimeline = TimelineAdapter(timeline as List<DataItem>,
+        val listTimeline = TimelineAdapter(timeline!!.filterNotNull()?.reversed() as List<DataItem>,
             fragmentManager)
         binding.rvUser.adapter = listTimeline
     }

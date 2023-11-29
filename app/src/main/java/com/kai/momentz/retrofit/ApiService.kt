@@ -12,7 +12,6 @@ import com.kai.momentz.model.response.FollowResponse
 import com.kai.momentz.model.response.FollowingResponse
 import com.kai.momentz.model.response.LikeNotificationResponse
 import com.kai.momentz.model.response.LoginResponse
-import com.kai.momentz.model.response.PostResponse
 import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.model.response.RegisterResponse
 import com.kai.momentz.model.response.SearchUserResponse
@@ -82,7 +81,7 @@ interface ApiService {
         @Path("id") id: String
     ): Response<FollowingResponse>
     @Multipart
-    @PUT("/users/{username}")
+    @PUT("/users/profile/{username}")
     suspend fun editProfile(
         @Header("Cookie") token: String,
         @Path("username") username: String,

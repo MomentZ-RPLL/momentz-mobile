@@ -2,6 +2,7 @@ package com.kai.momentz.adapter
 
 import android.content.Intent
 import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,8 +30,10 @@ class TimelineAdapter (private val listTimeline: List<DataItem>, private val fra
 
         fun bind(listPostItem: DataItem, fragmentManager: FragmentManager?){
             Glide.with(itemView.context)
-                .load(listPostItem!!.postmedia)
+                .load(listPostItem.postmedia)
                 .into(postPhoto)
+
+            Log.d("tess", listPostItem.postmedia!!)
 
             Glide.with(itemView.context)
                 .load(listPostItem.profilePicture)
@@ -43,7 +46,6 @@ class TimelineAdapter (private val listTimeline: List<DataItem>, private val fra
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, CommentFragment::class.java)
                 intent.putExtra("Comment Fragment", listPostItem.username)
-                intent.putExtra("Comment Fragment", listPostItem.)
                 itemView.context.startActivity(intent)
             }
         }
