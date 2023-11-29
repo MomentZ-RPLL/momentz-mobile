@@ -142,11 +142,11 @@ interface ApiService {
         @Path("id") id: String,
         @Body message: SendMessageRequest
     ): Response<SendChatResponse>
-
+    @Multipart
     @POST("/posts")
     fun createPost(
-        @Header("Authorization") token: String,
-        @Part file: MultipartBody.Part,
+        @Header("Cookie") token: String,
+        @Part post_media: MultipartBody.Part,
         @Part("caption") description: RequestBody,
         @Part("lat") lat : Double?,
         @Part("lon") lon : Double?,
