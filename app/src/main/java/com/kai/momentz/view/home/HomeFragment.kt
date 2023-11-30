@@ -110,7 +110,8 @@ class HomeFragment : Fragment() {
         }
     }
     private fun setTimeline(timeline: List<DataItem?>?) {
-        val listTimeline = TimelineAdapter(timeline!!.filterNotNull()?.reversed() as List<DataItem>,
+        val listTimeline = TimelineAdapter(
+            timeline as List<DataItem>,
             fragmentManager)
         binding.rvUser.adapter = listTimeline
     }
