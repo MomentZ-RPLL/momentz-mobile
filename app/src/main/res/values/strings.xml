@@ -54,7 +54,7 @@
     <string name="notification_tab_text_1">Like</string>
     <string name="notification_tab_text_2">Comment</string>
     <string name="notification_tab_text_3">Follow</string>
-
+    <string name="like">Like</string>
     <string name="tab_text_3">Setting</string>
     <string name="content_tab_home">Welcome Home</string>
     <string name="content_tab_profile">Change your Profile here</string>

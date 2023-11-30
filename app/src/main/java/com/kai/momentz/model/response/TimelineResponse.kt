@@ -21,7 +21,7 @@ data class DataItem(
 	@field:SerializedName("like_count")
 	val likeCount: Int? = null,
 
-	@field:SerializedName("postmedia")
+	@field:SerializedName("post_media")
 	val postmedia: String? = null,
 
 	@field:SerializedName("caption")

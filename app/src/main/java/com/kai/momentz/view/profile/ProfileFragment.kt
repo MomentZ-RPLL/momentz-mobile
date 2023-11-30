@@ -154,7 +154,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setProfilePostData(post : List<PostsItem?>){
-        val listPostAdapter = ProfilePostAdapter(post)
+        val listPostAdapter = ProfilePostAdapter(post.filterNotNull().reversed())
         binding.rvPost.adapter = listPostAdapter
     }
 
