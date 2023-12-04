@@ -22,6 +22,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.FileProvider
+import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -65,8 +66,8 @@ class PostFragment : Fragment() {
         if (!allPermissionsGranted()) {
             ActivityCompat.requestPermissions(
                 requireActivity(),
-                PostFragment.REQUIRED_PERMISSIONS,
-                PostFragment.REQUEST_CODE_PERMISSIONS
+                REQUIRED_PERMISSIONS,
+                REQUEST_CODE_PERMISSIONS
             )
         }
 
@@ -76,6 +77,45 @@ class PostFragment : Fragment() {
         setupViewModel()
 
         return binding.root
+    }
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            if (isGranted) {
+                getMyLocation()
+            }
+        }
+
+    private fun getMyLocation(): Pair<Double?, Double?> {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            val locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+            try {
+                val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+                    ?: locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+
+                location?.let {
+                    val latitude = location.latitude
+                    val longitude = location.longitude
+
+                    return Pair(latitude, longitude)
+                }
+            } catch (exception: SecurityException) {
+                Log.e("Location", "Error: ${exception.localizedMessage}")
+                return Pair(null, null)
+            }
+        } else {
+            requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+            return Pair(null, null)
+        }
+
+        return Pair(null, null)
     }
 
     private fun setupViewModel() {
@@ -102,11 +142,11 @@ class PostFragment : Fragment() {
                 file.name,
                 requestImageFile
             )
-//            if(binding.checkbox.isChecked){
-//                val (lat, long) = getMyLocation()
-//                latitude = lat
-//                longitude = long
-//            }
+            if(binding.checkbox.isChecked){
+                val (lat, long) = getMyLocation()
+                latitude = lat
+                longitude = long
+            }
             postViewModel.createPost(token!!, imageMultipart, description, latitude, longitude)
 
             postViewModel.errorResponse.observe(viewLifecycleOwner){response ->
@@ -184,8 +224,4 @@ class PostFragment : Fragment() {
             }
         }
     }
-
-
-
-
 }
