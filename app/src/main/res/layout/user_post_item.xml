@@ -23,10 +23,9 @@
             android:padding="5dp"
             android:scaleType="centerCrop"
             android:src="@drawable/profile_picture"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/Circular"
-            />
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivPostmage"
@@ -41,69 +40,83 @@
             android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginStart="8dp"
             card_view:layout_constraintStart_toEndOf="@+id/profile_picture_photo"
             card_view:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="8dp"
             tools:text="@string/name" />
 
         <TextView
             android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:textSize="12sp"
             card_view:layout_constraintStart_toEndOf="@+id/profile_picture_photo"
             card_view:layout_constraintTop_toBottomOf="@+id/username"
             tools:text="@string/time" />
+
 
         <TextView
             android:id="@+id/caption"
             android:layout_width="389dp"
             android:layout_height="29dp"
+            android:layout_marginTop="20dp"
             android:textSize="18sp"
-            android:layout_marginTop="8dp"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/ivPostmage"
             tools:text="@string/caption" />
 
-
-        <TextView
-            android:id="@+id/tvViews"
-            android:layout_width="122dp"
-            android:layout_height="32dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="8dp"
-            android:text="@string/like"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            android:paddingTop="10dp"
-            android:textStyle="bold"
-            android:drawablePadding="8dp"
+        <Button
+            android:id="@+id/like"
+            android:layout_width="57dp"
+            android:layout_height="35dp"
+            android:background="@drawable/ic_unlike"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:textOff=""
+            android:textOn=""
             card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintEnd_toStartOf="@+id/tvComment"
+            card_view:layout_constraintHorizontal_bias="0.158"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/caption"
-            card_view:drawableLeftCompat="@drawable/baseline_thumb_up_24" />
+            card_view:layout_constraintVertical_bias="0.863" />
+        <Button
+            android:id="@+id/unlike"
+            android:layout_width="57dp"
+            android:layout_height="35dp"
+            android:background="@drawable/ic_like"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:textOff=""
+            android:textOn=""
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintEnd_toStartOf="@+id/tvComment"
+            card_view:layout_constraintHorizontal_bias="0.158"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/caption"
+            card_view:layout_constraintVertical_bias="0.863" />
 
         <TextView
             android:id="@+id/tvComment"
             android:layout_width="122dp"
             android:layout_height="30dp"
             android:layout_marginTop="8dp"
+            android:drawablePadding="8dp"
+            android:paddingTop="10dp"
             android:text="@string/comment"
             android:textColor="@color/black"
             android:textSize="14sp"
-            android:drawablePadding="8dp"
-            android:paddingTop="10dp"
             android:textStyle="bold"
+            card_view:drawableLeftCompat="@drawable/baseline_comment_24"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintStart_toEndOf="@+id/tvViews"
             card_view:layout_constraintTop_toBottomOf="@+id/caption"
-            card_view:drawableLeftCompat="@drawable/baseline_comment_24" />
+            card_view:layout_constraintVertical_bias="0.75" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
@@ -21,7 +22,7 @@ import com.kai.momentz.view.ViewModelFactory
 import com.kai.momentz.view.chat.ChatListFragment
 import com.kai.momentz.view.map.MapsFragment
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), TimelineAdapter.LikeListener {
 
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var binding: FragmentHomeBinding
@@ -108,11 +109,36 @@ class HomeFragment : Fragment() {
             else -> return super.onOptionsItemSelected(item)
         }
     }
+    override fun onLikeClicked(id:Int, itemView:View){
+        homeViewModel.likePost(token, id.toString())
+        setLikeUnlikeButton(itemView)
+    }
 
+    override fun onUnlikeClicked(id:Int, itemView: View){
+        homeViewModel.unlikePost(token, id.toString())
+        setLikeUnlikeButton(itemView)
+    }
+
+    private fun setLikeUnlikeButton(itemView: View){
+        homeViewModel.likeResponse.observe(requireActivity()){data ->
+            if (data != null){
+                if(data.status == "200"){
+                    if(itemView.findViewById<View>(R.id.unlike).isVisible){
+                        itemView.findViewById<View>(R.id.unlike).visibility = View.GONE
+                        itemView.findViewById<View>(R.id.like).visibility = View.VISIBLE
+                    }else{
+                        itemView.findViewById<View>(R.id.unlike).visibility = View.VISIBLE
+                        itemView.findViewById<View>(R.id.like).visibility = View.GONE
+                    }
+                }
+            }
+        }
+
+    }
     private fun setTimeline(timeline: List<TimelineDataItem?>?) {
         val listTimeline = TimelineAdapter(
             timeline as List<TimelineDataItem>,
-            fragmentManager)
+            fragmentManager, this)
         binding.rvUser.adapter = listTimeline
     }
 
