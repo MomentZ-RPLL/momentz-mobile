@@ -151,8 +151,9 @@ interface ApiService {
         @Part("lat") lat : Double?,
         @Part("lon") lon : Double?,
     ): Call<ErrorResponse>
-    @POST("/post/1/comments")
-    fun createComment(
+
+    @GET("/posts/{postId}")
+    fun getPost(
 
     )
 
