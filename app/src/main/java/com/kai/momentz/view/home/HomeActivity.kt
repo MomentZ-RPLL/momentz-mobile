@@ -26,12 +26,12 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        val fragmentManager = supportFragmentManager
         if (savedInstanceState == null) {
             val homeFragment = HomeFragment()
-            supportFragmentManager.beginTransaction()
+            fragmentManager.beginTransaction()
                 .replace(R.id.frame_container, homeFragment, HomeFragment::class.java.simpleName)
-                .commit()
+                .commitAllowingStateLoss()
         }
 
         setupViewModel()
@@ -46,31 +46,32 @@ class HomeActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.navigation_home -> {
                     val homeFragment = HomeFragment()
-                    fragmentManager.beginTransaction().replace(R.id.frame_container, homeFragment, HomeFragment::class.java.simpleName).commit()
+                    fragmentManager.beginTransaction().replace(R.id.frame_container, homeFragment, HomeFragment::class.java.simpleName)
+                        .commitAllowingStateLoss()
                     true
                 }
                 R.id.navigation_search -> {
                     val searchFragment = SearchFragment()
-                    fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-                    fragmentManager.beginTransaction().replace(R.id.frame_container, searchFragment, SearchFragment::class.java.simpleName).commit()
+//                    fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                    fragmentManager.beginTransaction().replace(R.id.frame_container, searchFragment, SearchFragment::class.java.simpleName).commitAllowingStateLoss()
                     true
                 }
                 R.id.navigation_post -> {
                     val postFragment = PostFragment()
-                    fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-                    fragmentManager.beginTransaction().replace(R.id.frame_container, postFragment, PostFragment::class.java.simpleName).commit()
+//                    fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                    fragmentManager.beginTransaction().replace(R.id.frame_container, postFragment, PostFragment::class.java.simpleName).commitAllowingStateLoss()
                     true
                 }
                 R.id.navigation_notifications -> {
                     val notificationFragment = NotificationFragment()
-                    fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-                    fragmentManager.beginTransaction().replace(R.id.frame_container, notificationFragment, NotificationFragment::class.java.simpleName).commit()
+//                    fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                    fragmentManager.beginTransaction().replace(R.id.frame_container, notificationFragment, NotificationFragment::class.java.simpleName).commitAllowingStateLoss()
                     true
                 }
                 R.id.navigation_profile -> {
                     val profileFragment = ProfileFragment()
-                    fragmentManager.popBackStackImmediate("ProfileFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE)
-                    fragmentManager.beginTransaction().replace(R.id.frame_container, profileFragment, ProfileFragment::class.java.simpleName).commit()
+//                    fragmentManager.popBackStackImmediate("ProfileFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                    fragmentManager.beginTransaction().replace(R.id.frame_container, profileFragment, ProfileFragment::class.java.simpleName).commitAllowingStateLoss()
                     true
                 }
 
