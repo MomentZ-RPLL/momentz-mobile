@@ -152,6 +152,7 @@ interface ApiService {
         @Part("lat") lat : Double?,
         @Part("lon") lon : Double?,
     ): Call<ErrorResponse>
+
     @POST("/post/1/comments")
     fun createComment(
         @Header("Cookie") token: String,
@@ -164,6 +165,7 @@ interface ApiService {
         @Header("Cookie") token: String,
         @Path("id") id: String
     ): Response<LikeResponse>
+
     @POST("/posts/{id}/likes")
     fun postLike(
         @Header("Cookie") token: String,

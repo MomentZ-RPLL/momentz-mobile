@@ -78,7 +78,7 @@ class CommentFragment : Fragment() {
             .load(comment.postMedia)
             .skipMemoryCache(true)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .into(binding.postImage)
+            .into(binding.ivPostmage)
     }
     private fun setComment(comment: Datas?){
         val listComment = CommentAdapter(comment as List<CommentsItem> ,

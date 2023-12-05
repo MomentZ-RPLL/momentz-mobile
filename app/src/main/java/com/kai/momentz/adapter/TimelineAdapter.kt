@@ -57,17 +57,13 @@ class TimelineAdapter (private val listTimeline: List<TimelineDataItem>, private
                     .replace(R.id.frame_container,newFragment)
                     .addToBackStack(null)
                     .commit()
-                val intent = Intent(itemView.context, CommentFragment::class.java)
-                intent.putExtra("Comment Fragment", listPostItem.username)
-                itemView.context.startActivity(intent)
+            }
 
-                like.setOnClickListener{
-                    listener.onLikeClicked(listPostItem.idPost ?: 0, itemView)
-                }
-                unlike.setOnClickListener{
-                    listener.onUnlikeClicked(listPostItem.idPost ?: 0, itemView)
-                }
-
+            like.setOnClickListener{
+                listener.onLikeClicked(listPostItem.idPost ?: 0, itemView)
+            }
+            unlike.setOnClickListener{
+                listener.onUnlikeClicked(listPostItem.idPost ?: 0, itemView)
             }
         }
     }
