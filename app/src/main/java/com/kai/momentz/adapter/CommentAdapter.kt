@@ -9,10 +9,11 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kai.momentz.R
+import com.kai.momentz.model.response.CommentsDetailItem
 import com.kai.momentz.model.response.CommentsItem
 import com.kai.momentz.utils.getDate
 
-class CommentAdapter(private val listComment: List<CommentsItem>,
+class CommentAdapter(private val listComment: List<CommentsDetailItem>,
                      private val fragmentManager: FragmentManager?) : RecyclerView.Adapter<CommentAdapter.ListViewHolder>() {
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -21,10 +22,11 @@ class CommentAdapter(private val listComment: List<CommentsItem>,
         private var time: TextView = itemView.findViewById(R.id.time_comment)
         private var comment: TextView = itemView.findViewById(R.id.comment_user)
 
-        fun bind(listCommentItem: CommentsItem?, fragmentManager: FragmentManager?) {
+        fun bind(listCommentItem: CommentsDetailItem?, fragmentManager: FragmentManager?) {
             Glide.with(itemView.context)
                 .load(listCommentItem!!.profilePicture)
                 .into(imgProfile)
+
             username.text = listCommentItem.username
             time.text = listCommentItem.createdAt
             comment.text=listCommentItem.comment

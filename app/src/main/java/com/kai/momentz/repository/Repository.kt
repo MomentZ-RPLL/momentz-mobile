@@ -13,6 +13,7 @@ import com.kai.momentz.model.response.FollowResponse
 import com.kai.momentz.model.response.FollowingResponse
 import com.kai.momentz.model.response.LikeNotificationResponse
 import com.kai.momentz.model.response.LikeResponse
+import com.kai.momentz.model.response.PostDetailResponse
 import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.model.response.RegisterResponse
 import com.kai.momentz.model.response.SearchUserResponse
@@ -60,7 +61,7 @@ abstract class Repository {
 
     abstract suspend fun getTimeline(token: String):Result<TimelineResponse>
 
-    abstract suspend fun getDetailPost(token: String, id:String): Result<CommentResponse>
+    abstract suspend fun getDetailPost(token: String, userId:String): Result<PostDetailResponse>
 
     abstract suspend fun getChatList(token: String): Result<ChatListResponse>
 
@@ -71,5 +72,6 @@ abstract class Repository {
     abstract suspend fun postLike( token: String, id:String ): Result<LikeResponse>
 
     abstract suspend fun postUnlike(token: String, id:String):Result<LikeResponse>
+
 
 }

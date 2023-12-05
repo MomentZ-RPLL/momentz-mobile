@@ -14,8 +14,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.kai.momentz.adapter.CommentAdapter
 import com.kai.momentz.databinding.FragmentCommentBinding
+import com.kai.momentz.model.response.CommentsDetailItem
 import com.kai.momentz.model.response.CommentsItem
 import com.kai.momentz.model.response.Datas
+import com.kai.momentz.model.response.PostDetailResponse
 import com.kai.momentz.view.ViewModelFactory
 
 class CommentFragment : Fragment() {
@@ -24,7 +26,6 @@ class CommentFragment : Fragment() {
     private lateinit var binding : FragmentCommentBinding
     private lateinit var token:String
     private lateinit var fragmentManager: FragmentManager
-    private lateinit var captionTextView: TextView
     private lateinit var usernameTextView: TextView
 
     override fun onCreateView(
@@ -52,18 +53,18 @@ class CommentFragment : Fragment() {
             ViewModelFactory.getUserInstance(requireActivity())
         )[CommentViewModel::class.java]
 
+
         commentViewModel.getUser().observe(requireActivity()){user ->
             if (user!=null){
                 token = user.token
                 if (idPost != null) {
-                    commentViewModel.getPost(user.token, idPost)
+                    commentViewModel.getDetailPost(user.token, idPost)
                 }
             }
         }
-        commentViewModel.commentResponse.observe(requireActivity()){comment ->
-            if(comment != null){
-                setComment(comment.data)
-                setupUser(comment.data)
+        commentViewModel.postDetailResponse.observe(requireActivity()){postData ->
+            if(postData != null){
+                setupView(postData)
             }else{
                 Toast.makeText(requireActivity(),"Unknown Error", Toast.LENGTH_SHORT).show()
             }
@@ -72,19 +73,23 @@ class CommentFragment : Fragment() {
             showLoading(it)
         }
     }
-    private fun setupUser(comment: Datas?){
-        captionTextView.text = comment!!.caption
+
+
+    private fun setupView(postDetail: PostDetailResponse){
         Glide.with(this)
-            .load(comment.postMedia)
+            .load(postDetail.data!!.postMedia)
             .skipMemoryCache(true)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .into(binding.ivPostmage)
+
+        setComment(postDetail.data.comments!!)
     }
-    private fun setComment(comment: Datas?){
-        val listComment = CommentAdapter(comment as List<CommentsItem> ,
-        fragmentManager)
+    private fun setComment(comments: List<CommentsDetailItem?>){
+        val reversedCommentList = comments.reversed()
+        val listComment = CommentAdapter(reversedCommentList as List<CommentsDetailItem>, fragmentManager)
         binding.rvComment.adapter = listComment
     }
+
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
             binding.progressBar.visibility = View.VISIBLE
