@@ -11,6 +11,7 @@ import com.kai.momentz.model.response.FollowNotificationResponse
 import com.kai.momentz.model.response.FollowResponse
 import com.kai.momentz.model.response.FollowingResponse
 import com.kai.momentz.model.response.LikeNotificationResponse
+import com.kai.momentz.model.response.LikeResponse
 import com.kai.momentz.model.response.LoginResponse
 import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.model.response.RegisterResponse
@@ -152,9 +153,23 @@ interface ApiService {
         @Part("lon") lon : Double?,
     ): Call<ErrorResponse>
 
-    @GET("/posts/{postId}")
-    fun getPost(
+    @POST("/post/1/comments")
+    fun createComment(
+        @Header("Cookie") token: String,
+        @Path("id") id: String,
 
     )
+
+    @DELETE("/users/{id}/likes")
+    suspend fun postUnlike(
+        @Header("Cookie") token: String,
+        @Path("id") id: String
+    ): Response<LikeResponse>
+
+    @POST("/posts/{id}/likes")
+    fun postLike(
+        @Header("Cookie") token: String,
+        @Path("id") id: String
+    ): Response<LikeResponse>
 
 }

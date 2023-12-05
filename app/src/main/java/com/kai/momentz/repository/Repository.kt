@@ -7,10 +7,12 @@ import com.kai.momentz.model.response.ChatDetailResponse
 import com.kai.momentz.model.response.ChatListResponse
 import com.kai.momentz.model.response.CommentNotificationResponse
 import com.kai.momentz.model.response.CommentResponse
+import com.kai.momentz.model.response.ErrorResponse
 import com.kai.momentz.model.response.FollowNotificationResponse
 import com.kai.momentz.model.response.FollowResponse
 import com.kai.momentz.model.response.FollowingResponse
 import com.kai.momentz.model.response.LikeNotificationResponse
+import com.kai.momentz.model.response.LikeResponse
 import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.model.response.RegisterResponse
 import com.kai.momentz.model.response.SearchUserResponse
@@ -63,7 +65,11 @@ abstract class Repository {
     abstract suspend fun getChatList(token: String): Result<ChatListResponse>
 
     abstract suspend fun getChatDetail(token: String, id: String): Result<ChatDetailResponse>
+
     abstract suspend fun sendChat(token: String, id: String, message: SendMessageRequest): Result<SendChatResponse>
-    abstract suspend fun sendComment(token: String, id:String  )
+
+    abstract suspend fun postLike( token: String, id:String ): Result<LikeResponse>
+
+    abstract suspend fun postUnlike(token: String, id:String):Result<LikeResponse>
 
 }

@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
@@ -19,7 +20,7 @@ import com.kai.momentz.utils.getTime
 import com.kai.momentz.view.comment.CommentFragment
 
 
-class TimelineAdapter (private val listTimeline: List<TimelineDataItem>, private val fragmentManager : FragmentManager?) : RecyclerView.Adapter<TimelineAdapter.ListViewHolder>(){
+class TimelineAdapter (private val listTimeline: List<TimelineDataItem>, private val fragmentManager : FragmentManager?, private var listener:LikeListener) : RecyclerView.Adapter<TimelineAdapter.ListViewHolder>(){
 
 
     class ListViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
@@ -28,8 +29,11 @@ class TimelineAdapter (private val listTimeline: List<TimelineDataItem>, private
         private var postPhoto: ImageView = itemView.findViewById(R.id.ivPostmage)
         private var caption : TextView = itemView.findViewById(R.id.caption)
         private var time : TextView = itemView.findViewById(R.id.time)
+        private var like : Button = itemView.findViewById(R.id.like)
+        private var unlike : Button = itemView.findViewById(R.id.unlike)
 
-        fun bind(listPostItem: TimelineDataItem, fragmentManager: FragmentManager?){
+
+        fun bind(listPostItem: TimelineDataItem, fragmentManager: FragmentManager?, listener : LikeListener){
             Glide.with(itemView.context)
                 .load(listPostItem!!.postMedia)
                 .into(postPhoto)
@@ -54,6 +58,13 @@ class TimelineAdapter (private val listTimeline: List<TimelineDataItem>, private
                     .addToBackStack(null)
                     .commit()
             }
+
+            like.setOnClickListener{
+                listener.onLikeClicked(listPostItem.idPost ?: 0, itemView)
+            }
+            unlike.setOnClickListener{
+                listener.onUnlikeClicked(listPostItem.idPost ?: 0, itemView)
+            }
         }
     }
 
@@ -65,7 +76,13 @@ class TimelineAdapter (private val listTimeline: List<TimelineDataItem>, private
     override fun getItemCount() = listTimeline.size
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.bind(listTimeline[position],fragmentManager)
+        holder.bind(listTimeline[position],fragmentManager, listener )
+    }
+
+    interface LikeListener{
+        fun onLikeClicked(id: Int, itemView: View)
+
+        fun onUnlikeClicked(id:Int, itemView:View)
     }
 
 }
