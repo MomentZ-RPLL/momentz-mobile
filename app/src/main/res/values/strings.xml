@@ -106,4 +106,10 @@
     <string name="desc_menu_3">Keep connect with your friend</string>
     <string name="desc_menu_4">Start Your Journey!</string>
 
+    <string name="timeline_map">TimelineMap</string>
+    <string name="normal_type">Normal</string>
+    <string name="satellite_type">Satellite</string>
+    <string name="terrain_type">Terrain</string>
+    <string name="hybrid_type">Hybrid</string>
+
 </resources>

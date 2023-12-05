@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.kai.momentz.R
 import com.kai.momentz.adapter.TimelineAdapter
 import com.kai.momentz.databinding.FragmentHomeBinding
-import com.kai.momentz.model.response.DataItem
+import com.kai.momentz.model.response.TimelineDataItem
 import com.kai.momentz.view.ViewModelFactory
 import com.kai.momentz.view.chat.ChatListFragment
 import com.kai.momentz.view.map.MapsFragment
@@ -84,7 +84,6 @@ class HomeFragment : Fragment() {
 
     @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        val fragmentManager = parentFragmentManager
         when (item.itemId) {
             R.id.chatMenu -> {
                 val chatFragment = ChatListFragment()
@@ -109,9 +108,10 @@ class HomeFragment : Fragment() {
             else -> return super.onOptionsItemSelected(item)
         }
     }
-    private fun setTimeline(timeline: List<DataItem?>?) {
+
+    private fun setTimeline(timeline: List<TimelineDataItem?>?) {
         val listTimeline = TimelineAdapter(
-            timeline as List<DataItem>,
+            timeline as List<TimelineDataItem>,
             fragmentManager)
         binding.rvUser.adapter = listTimeline
     }

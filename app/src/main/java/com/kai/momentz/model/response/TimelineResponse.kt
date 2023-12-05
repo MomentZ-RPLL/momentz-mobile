@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class TimelineResponse(
 
 	@field:SerializedName("data")
-	val data: List<DataItem?>? = null,
+	val data: List<TimelineDataItem?>? = null,
 
 	@field:SerializedName("message")
 	val message: String? = null,
@@ -13,7 +13,7 @@ data class TimelineResponse(
 	@field:SerializedName("status")
 	val status: String? = null
 )
-data class DataItem(
+data class TimelineDataItem(
 
 	@field:SerializedName("comments")
 	val comments: List<CommentsItem?>? = null,
