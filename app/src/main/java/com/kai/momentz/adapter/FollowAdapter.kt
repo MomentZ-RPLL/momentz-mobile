@@ -48,6 +48,7 @@ class FollowAdapter(private val listFollow: List<FollowItem>,
                 val newFragment = ProfileFragment()
                 val bundle = Bundle()
                 bundle.putString("username", listFollowItem.username)
+                bundle.putString("id", listFollowItem.idUser.toString())
                 newFragment.arguments = bundle
 
                 fragmentManager!!.beginTransaction()

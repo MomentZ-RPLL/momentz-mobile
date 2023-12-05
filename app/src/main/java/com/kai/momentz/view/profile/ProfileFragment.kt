@@ -76,14 +76,14 @@ class ProfileFragment : Fragment(), View.OnClickListener {
         profileViewModel.getUser().observe(requireActivity()){ user ->
             if(user != null){
                 currentUserData = user
+                if(dataUsername != null && dataUsername != user.username){
+                        profileId = dataId!!
+                        profileViewModel.getProfile(user.token, dataUsername.toString())
+                        binding.message.visibility = View.VISIBLE
+                        binding.editProfile.visibility = View.GONE
+                        binding.follow.visibility = View.VISIBLE
+                        followViewModel.getFollowing(user.token, user.id)
 
-                if(dataUsername != null){
-                    profileId = dataId!!
-                    profileViewModel.getProfile(user.token, dataUsername.toString())
-                    binding.message.visibility = View.VISIBLE
-                    binding.editProfile.visibility = View.GONE
-                    binding.follow.visibility = View.VISIBLE
-                    followViewModel.getFollowing(user.token, user.id)
                 }else {
                     profileId = user.id
                     profileViewModel.getProfile(user.token, user.username)

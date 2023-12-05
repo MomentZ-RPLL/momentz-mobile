@@ -93,7 +93,7 @@
 
 
                 <TextView
-                    android:id="@+id/tvViews"
+                    android:id="@+id/tvLike"
                     android:layout_width="122dp"
                     android:layout_height="32dp"
                     android:layout_gravity="center"
