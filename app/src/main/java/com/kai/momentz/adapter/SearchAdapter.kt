@@ -32,7 +32,7 @@ class SearchAdapter(private val searchList: List<SearchDataItem>,
             username.text = listSearchItem.username
 
             itemView.setOnClickListener{
-                listener.onViewClicked(listSearchItem.username ?: "", itemView)
+                listener.onViewClicked(listSearchItem.username ?: "", listSearchItem.idUser.toString(), itemView)
             }
         }
     }
@@ -49,6 +49,6 @@ class SearchAdapter(private val searchList: List<SearchDataItem>,
     }
 
     interface SearchAdapterListener {
-        fun onViewClicked(username: String, itemView: View)
+        fun onViewClicked(username: String, id: String, itemView: View)
     }
 }

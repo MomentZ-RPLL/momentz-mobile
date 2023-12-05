@@ -67,6 +67,7 @@ class FollowNotificationAdapter(private val listFollowNotification: List<FollowN
                 val newFragment = ProfileFragment()
                 val bundle = Bundle()
                 bundle.putString("username", listNotificationItem.username)
+                bundle.putString("id", listNotificationItem.userId.toString())
                 newFragment.arguments = bundle
 
                 fragmentManager!!.beginTransaction()
