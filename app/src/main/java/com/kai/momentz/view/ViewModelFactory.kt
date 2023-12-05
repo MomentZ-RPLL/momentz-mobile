@@ -9,6 +9,7 @@ import com.kai.momentz.view.chat.ChatViewModel
 import com.kai.momentz.view.follow.FollowViewModel
 import com.kai.momentz.view.home.HomeViewModel
 import com.kai.momentz.view.login.LoginViewModel
+import com.kai.momentz.view.map.MapViewModel
 import com.kai.momentz.view.notification.NotificationViewModel
 import com.kai.momentz.view.post.PostViewModel
 import com.kai.momentz.view.profile.ProfileViewModel
@@ -45,6 +46,9 @@ class ViewModelFactory(private val repository: Repository)  : ViewModelProvider.
             }
             modelClass.isAssignableFrom(PostViewModel::class.java) -> {
                 PostViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(MapViewModel::class.java) -> {
+                MapViewModel(repository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)

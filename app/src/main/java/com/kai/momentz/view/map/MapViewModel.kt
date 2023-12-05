@@ -1,17 +1,15 @@
-package com.kai.momentz.view.home
+package com.kai.momentz.view.map
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kai.momentz.model.datastore.User
-import com.kai.momentz.model.response.ErrorResponse
 import com.kai.momentz.model.response.TimelineResponse
 import com.kai.momentz.repository.Repository
 import kotlinx.coroutines.launch
 
-
-class HomeViewModel(private val repository: Repository) : ViewModel() {
+class MapViewModel(private val repository: Repository) : ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -34,6 +32,4 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
     fun getUser(): LiveData<User>{
         return repository.getUser()
     }
-
-
 }

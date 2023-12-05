@@ -12,13 +12,13 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kai.momentz.R
-import com.kai.momentz.model.response.DataItem
+import com.kai.momentz.model.response.TimelineDataItem
 import com.kai.momentz.utils.getDate
 import com.kai.momentz.utils.getTime
 import com.kai.momentz.view.comment.CommentFragment
 
 
-class TimelineAdapter (private val listTimeline: List<DataItem>, private val fragmentManager : FragmentManager?) : RecyclerView.Adapter<TimelineAdapter.ListViewHolder>(){
+class TimelineAdapter (private val listTimeline: List<TimelineDataItem>, private val fragmentManager : FragmentManager?) : RecyclerView.Adapter<TimelineAdapter.ListViewHolder>(){
 
 
     class ListViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
@@ -28,7 +28,7 @@ class TimelineAdapter (private val listTimeline: List<DataItem>, private val fra
         private var caption : TextView = itemView.findViewById(R.id.caption)
         private var time : TextView = itemView.findViewById(R.id.time)
 
-        fun bind(listPostItem: DataItem, fragmentManager: FragmentManager?){
+        fun bind(listPostItem: TimelineDataItem, fragmentManager: FragmentManager?){
             Glide.with(itemView.context)
                 .load(listPostItem.postmedia)
                 .into(postPhoto)
