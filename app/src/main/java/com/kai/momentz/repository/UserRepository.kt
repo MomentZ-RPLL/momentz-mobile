@@ -275,6 +275,10 @@ class UserRepository(private val apiService: ApiService, private val pref: UserP
         }
     }
 
+    override suspend fun sendComment(token: String, id: String) {
+        TODO("Not yet implemented")
+    }
+
     override fun setIsFirst(isFirst: Boolean) {
         GlobalScope.launch {
             pref.setIsFirst(isFirst)

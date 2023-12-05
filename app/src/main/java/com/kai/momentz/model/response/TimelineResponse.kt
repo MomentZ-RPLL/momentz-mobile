@@ -23,8 +23,6 @@ data class TimelineDataItem(
 
 	@field:SerializedName("post_media")
 	val postMedia: String? = null,
-	@field:SerializedName("post_media")
-	val postmedia: String? = null,
 
 	@field:SerializedName("caption")
 	val caption: String? = null,
