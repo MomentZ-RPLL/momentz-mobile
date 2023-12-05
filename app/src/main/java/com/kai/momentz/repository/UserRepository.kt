@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import com.kai.momentz.data.UserPreference
 import com.kai.momentz.model.datastore.User
+import com.kai.momentz.model.request.SendCommentRequest
 import com.kai.momentz.model.request.SendMessageRequest
 import com.kai.momentz.model.response.ChatDetailResponse
 import com.kai.momentz.model.response.ChatListResponse
@@ -15,6 +16,7 @@ import com.kai.momentz.model.response.FollowResponse
 import com.kai.momentz.model.response.FollowingResponse
 import com.kai.momentz.model.response.LikeNotificationResponse
 import com.kai.momentz.model.response.LikeResponse
+import com.kai.momentz.model.response.PostCommentResponse
 import com.kai.momentz.model.response.PostDetailResponse
 import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.model.response.RegisterResponse
@@ -165,6 +167,24 @@ class UserRepository(private val apiService: ApiService, private val pref: UserP
     override suspend fun postUnlike(token: String, id: String): Result<LikeResponse> {
         return try {
             val response = apiService.postUnlike("token=$token", id)
+            if (response.isSuccessful) {
+                val responseBody = response.body()
+                Result.success(responseBody!!)
+            } else {
+                Result.failure(Exception(response.errorBody()?.string() ?: "Unknown error"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun postComment(
+        token: String,
+        id: String,
+        comment: String
+    ): Result<PostCommentResponse> {
+        return try {
+            val response = apiService.postComment("token=$token", id, SendCommentRequest(comment))
             if (response.isSuccessful) {
                 val responseBody = response.body()
                 Result.success(responseBody!!)

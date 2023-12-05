@@ -6,13 +6,12 @@ import com.kai.momentz.model.request.SendMessageRequest
 import com.kai.momentz.model.response.ChatDetailResponse
 import com.kai.momentz.model.response.ChatListResponse
 import com.kai.momentz.model.response.CommentNotificationResponse
-import com.kai.momentz.model.response.CommentResponse
-import com.kai.momentz.model.response.ErrorResponse
 import com.kai.momentz.model.response.FollowNotificationResponse
 import com.kai.momentz.model.response.FollowResponse
 import com.kai.momentz.model.response.FollowingResponse
 import com.kai.momentz.model.response.LikeNotificationResponse
 import com.kai.momentz.model.response.LikeResponse
+import com.kai.momentz.model.response.PostCommentResponse
 import com.kai.momentz.model.response.PostDetailResponse
 import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.model.response.RegisterResponse
@@ -72,6 +71,8 @@ abstract class Repository {
     abstract suspend fun postLike( token: String, id:String ): Result<LikeResponse>
 
     abstract suspend fun postUnlike(token: String, id:String):Result<LikeResponse>
+
+    abstract suspend fun postComment(token: String, id:String, comment: String):Result<PostCommentResponse>
 
 
 }

@@ -1,6 +1,7 @@
 package com.kai.momentz.retrofit
 
 import com.kai.momentz.model.request.LoginRequest
+import com.kai.momentz.model.request.SendCommentRequest
 import com.kai.momentz.model.request.SendMessageRequest
 import com.kai.momentz.model.response.ChatDetailResponse
 import com.kai.momentz.model.response.ChatListResponse
@@ -13,6 +14,7 @@ import com.kai.momentz.model.response.FollowingResponse
 import com.kai.momentz.model.response.LikeNotificationResponse
 import com.kai.momentz.model.response.LikeResponse
 import com.kai.momentz.model.response.LoginResponse
+import com.kai.momentz.model.response.PostCommentResponse
 import com.kai.momentz.model.response.PostDetailResponse
 import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.model.response.RegisterResponse
@@ -147,11 +149,12 @@ interface ApiService {
         @Part("lon") lon : Double?,
     ): Call<ErrorResponse>
 
-    @POST("/post/1/comments")
-    fun createComment(
+    @POST("/posts/{postId}/comments")
+    suspend fun postComment(
         @Header("Cookie") token: String,
-        @Path("id") id: String,
-    )
+        @Path("postId") id: String,
+        @Body comment: SendCommentRequest
+    ): Response<PostCommentResponse>
 
     @DELETE("/users/{id}/likes")
     suspend fun postUnlike(

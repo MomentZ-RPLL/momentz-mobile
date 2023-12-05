@@ -51,6 +51,8 @@ class TimelineAdapter (private val listTimeline: List<TimelineDataItem>, private
                 val newFragment = CommentFragment()
                 val bundle = Bundle()
                 bundle.putString("idPost", listPostItem.idPost.toString())
+                bundle.putString("profileImage", listPostItem.profilePicture)
+                bundle.putString("username", listPostItem.username)
                 newFragment.arguments = bundle
 
                 fragmentManager!!.beginTransaction()
