@@ -1,5 +1,6 @@
 package com.kai.momentz.adapter
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kai.momentz.R
 import com.kai.momentz.model.response.LikeNotificationDataItem
+import com.kai.momentz.view.comment.CommentFragment
 
 class LikeNotificationAdapter(private val listNotification: List<LikeNotificationDataItem>,
                               private val fragmentManager: FragmentManager?) : RecyclerView.Adapter<LikeNotificationAdapter.ListViewHolder>() {
@@ -44,15 +46,17 @@ class LikeNotificationAdapter(private val listNotification: List<LikeNotificatio
             activity.text = "$space${itemView.context.getString(R.string.liked_your_post)}"
 
             itemView.setOnClickListener {
-//                val newFragment = ProfileFragment()
-//                val bundle = Bundle()
-//                bundle.putString("username", listNotificationItem.username)
-//                newFragment.arguments = bundle
-//
-//                fragmentManager!!.beginTransaction()
-//                    .replace(R.id.frame_container, newFragment)
-//                    .addToBackStack(null)
-//                    .commit()
+                val newFragment = CommentFragment()
+                val bundle = Bundle()
+                bundle.putString("idPost", listNotificationItem.idPost.toString())
+                bundle.putString("profileImage", listNotificationItem.profilePicture)
+                bundle.putString("username", listNotificationItem.username)
+                newFragment.arguments = bundle
+
+                fragmentManager!!.beginTransaction()
+                    .replace(R.id.frame_container,newFragment)
+                    .addToBackStack(null)
+                    .commit()
             }
         }
     }

@@ -22,7 +22,7 @@ import com.kai.momentz.utils.getTime
 import com.kai.momentz.view.ViewModelFactory
 import com.kai.momentz.view.profile.ProfileFragment
 
-class CommentFragment : Fragment() , View.OnClickListener{
+class CommentFragment : Fragment() , View.OnClickListener, CommentAdapter.CommentListener{
 
     private lateinit var commentViewModel: CommentViewModel
     private lateinit var binding : FragmentCommentBinding
@@ -114,7 +114,7 @@ class CommentFragment : Fragment() , View.OnClickListener{
 
     private fun setComment(comments: List<CommentsDetailItem?>){
         val reversedCommentList = comments.reversed()
-        val listComment = CommentAdapter(reversedCommentList as List<CommentsDetailItem>, fragmentManager)
+        val listComment = CommentAdapter(reversedCommentList as List<CommentsDetailItem>, this)
         binding.rvComment.adapter = listComment
 
     }
@@ -151,6 +151,20 @@ class CommentFragment : Fragment() , View.OnClickListener{
                 .addToBackStack(null)
                 .commit()
         }
+    }
+
+    override fun onUsernameClicked(id: Int, username: String, itemView: View) {
+        val fragmentManager = parentFragmentManager
+        val newFragment = ProfileFragment()
+        val bundle = Bundle()
+        bundle.putString("username", username)
+        bundle.putString("id", id.toString())
+        newFragment.arguments = bundle
+
+        fragmentManager.beginTransaction()
+            .replace(R.id.frame_container, newFragment)
+            .addToBackStack(null)
+            .commit()
     }
 
 
