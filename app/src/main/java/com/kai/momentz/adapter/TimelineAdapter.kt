@@ -29,8 +29,8 @@ class TimelineAdapter (private val listTimeline: List<TimelineDataItem>, private
         private var postPhoto: ImageView = itemView.findViewById(R.id.ivPostmage)
         private var caption : TextView = itemView.findViewById(R.id.caption)
         private var time : TextView = itemView.findViewById(R.id.time)
-        private var like : Button = itemView.findViewById(R.id.like)
-        private var unlike : Button = itemView.findViewById(R.id.unlike)
+        private var like : ImageView = itemView.findViewById(R.id.like)
+        private var unlike : ImageView = itemView.findViewById(R.id.unlike)
 
 
         fun bind(listPostItem: TimelineDataItem, fragmentManager: FragmentManager?, listener : LikeListener){

@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.kai.momentz.R
 import com.kai.momentz.adapter.CommentAdapter
 import com.kai.momentz.databinding.FragmentCommentBinding
 import com.kai.momentz.model.response.CommentsDetailItem
@@ -19,14 +20,17 @@ import com.kai.momentz.model.response.PostDetailResponse
 import com.kai.momentz.utils.getDate
 import com.kai.momentz.utils.getTime
 import com.kai.momentz.view.ViewModelFactory
+import com.kai.momentz.view.profile.ProfileFragment
 
-class CommentFragment : Fragment() , View.OnClickListener{
+class CommentFragment : Fragment() , View.OnClickListener, CommentAdapter.CommentListener{
 
     private lateinit var commentViewModel: CommentViewModel
     private lateinit var binding : FragmentCommentBinding
     private lateinit var token:String
     private lateinit var fragmentManager: FragmentManager
-    var postId:String? = null
+    private var postId:String? = null
+    private var username:String? = null
+    private var userId:String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -90,7 +94,8 @@ class CommentFragment : Fragment() , View.OnClickListener{
     @SuppressLint("SetTextI18n")
     private fun setupView(postDetail: PostDetailResponse){
 
-        val username = arguments?.getString("username")
+        username = arguments?.getString("username")
+        userId = postDetail.data!!.idUser.toString()
         val profileImage = arguments?.getString("profileImage")
 
         Glide.with(this)
@@ -101,13 +106,15 @@ class CommentFragment : Fragment() , View.OnClickListener{
             .load(profileImage)
             .into(binding.profilePicturePhoto)
 
+        binding.tvLike.text = postDetail.data.likes!!.count().toString()
+        binding.tvComment.text = postDetail.data.comments!!.count().toString()
         binding.username.text = username
         binding.time.text = "${getDate(postDetail.data.createdAt!!)}, ${getTime(postDetail.data.createdAt)} "
     }
 
     private fun setComment(comments: List<CommentsDetailItem?>){
         val reversedCommentList = comments.reversed()
-        val listComment = CommentAdapter(reversedCommentList as List<CommentsDetailItem>, fragmentManager)
+        val listComment = CommentAdapter(reversedCommentList as List<CommentsDetailItem>, this)
         binding.rvComment.adapter = listComment
 
     }
@@ -121,8 +128,8 @@ class CommentFragment : Fragment() , View.OnClickListener{
     }
 
     override fun onClick(v: View?) {
+        val fragmentManager = parentFragmentManager
         if(v == binding.back){
-            val fragmentManager = parentFragmentManager
             fragmentManager.popBackStack()
         }
         if(v == binding.postComment){
@@ -131,6 +138,33 @@ class CommentFragment : Fragment() , View.OnClickListener{
                 binding.commentTextView.text = null
             }
         }
+
+        if(v == binding.username){
+            val newFragment = ProfileFragment()
+            val bundle = Bundle()
+            bundle.putString("username", username)
+            bundle.putString("id", userId)
+            newFragment.arguments = bundle
+
+            fragmentManager.beginTransaction()
+                .replace(R.id.frame_container, newFragment)
+                .addToBackStack(null)
+                .commit()
+        }
+    }
+
+    override fun onUsernameClicked(id: Int, username: String, itemView: View) {
+        val fragmentManager = parentFragmentManager
+        val newFragment = ProfileFragment()
+        val bundle = Bundle()
+        bundle.putString("username", username)
+        bundle.putString("id", id.toString())
+        newFragment.arguments = bundle
+
+        fragmentManager.beginTransaction()
+            .replace(R.id.frame_container, newFragment)
+            .addToBackStack(null)
+            .commit()
     }
 
 

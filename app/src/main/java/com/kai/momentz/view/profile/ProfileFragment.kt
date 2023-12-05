@@ -44,6 +44,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
     private lateinit var dataProfile: DataProfile
     private lateinit var currentUserData: User
     private lateinit var profileId: String
+    private lateinit var usernameProfile: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,9 +77,9 @@ class ProfileFragment : Fragment(), View.OnClickListener {
         profileViewModel.getUser().observe(requireActivity()){ user ->
             if(user != null){
                 currentUserData = user
-
-                if(dataUsername != null){
+                if(dataUsername != null && dataUsername != user.username){
                     profileId = dataId!!
+                    usernameProfile = dataUsername
                     profileViewModel.getProfile(user.token, dataUsername.toString())
                     binding.message.visibility = View.VISIBLE
                     binding.editProfile.visibility = View.GONE
@@ -86,6 +87,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                     followViewModel.getFollowing(user.token, user.id)
                 }else {
                     profileId = user.id
+                    usernameProfile = user.username
                     profileViewModel.getProfile(user.token, user.username)
                 }
             }
@@ -127,6 +129,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                         binding.following.visibility = View.GONE
                     }
                 }
+                profileViewModel.getProfile(currentUserData.token, usernameProfile)
             }else{
                 Toast.makeText(requireContext(), getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
             }

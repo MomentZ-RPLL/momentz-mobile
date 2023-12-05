@@ -41,7 +41,7 @@ data class PostDetailData(
 	val lat: Any? = null,
 
 	@field:SerializedName("likes")
-	val likes: List<Any?>? = null
+	val likes: List<LikesDataItem?>? = null
 )
 
 data class CommentsDetailItem(
@@ -63,6 +63,30 @@ data class CommentsDetailItem(
 
 	@field:SerializedName("id_comment")
 	val idComment: Int? = null,
+
+	@field:SerializedName("id_user")
+	val idUser: Int? = null,
+
+	@field:SerializedName("username")
+	val username: String? = null
+)
+
+data class LikesDataItem(
+
+	@field:SerializedName("is_notified")
+	val isNotified: Int? = null,
+
+	@field:SerializedName("id_post")
+	val idPost: Int? = null,
+
+	@field:SerializedName("created_at")
+	val createdAt: String? = null,
+
+	@field:SerializedName("profile_picture")
+	val profilePicture: String? = null,
+
+	@field:SerializedName("id_like")
+	val idLike: Int? = null,
 
 	@field:SerializedName("id_user")
 	val idUser: Int? = null,

@@ -1,5 +1,6 @@
 package com.kai.momentz.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +15,8 @@ import com.kai.momentz.model.response.CommentsItem
 import com.kai.momentz.utils.getDate
 import com.kai.momentz.utils.getTime
 
-class CommentAdapter(private val listComment: List<CommentsDetailItem>,
-                     private val fragmentManager: FragmentManager?) : RecyclerView.Adapter<CommentAdapter.ListViewHolder>() {
+class CommentAdapter(private val listComment: List<CommentsDetailItem>, private var listener: CommentListener
+) : RecyclerView.Adapter<CommentAdapter.ListViewHolder>() {
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var imgProfile : ImageView = itemView.findViewById(R.id.img_user_profile)
@@ -23,7 +24,8 @@ class CommentAdapter(private val listComment: List<CommentsDetailItem>,
         private var time: TextView = itemView.findViewById(R.id.time_comment)
         private var comment: TextView = itemView.findViewById(R.id.comment_user)
 
-        fun bind(listCommentItem: CommentsDetailItem?, fragmentManager: FragmentManager?) {
+        @SuppressLint("SetTextI18n")
+        fun bind(listCommentItem: CommentsDetailItem?, listener : CommentListener) {
             Glide.with(itemView.context)
                 .load(listCommentItem!!.profilePicture)
                 .into(imgProfile)
@@ -31,6 +33,10 @@ class CommentAdapter(private val listComment: List<CommentsDetailItem>,
             username.text = listCommentItem.username
             time.text = "${getDate(listCommentItem.createdAt!!)}, ${getTime(listCommentItem.createdAt)} "
             comment.text=listCommentItem.comment
+
+            username.setOnClickListener{
+                listener.onUsernameClicked(listCommentItem.idUser ?: 0, listCommentItem.username!!, itemView)
+            }
         }
     }
 
@@ -42,6 +48,10 @@ class CommentAdapter(private val listComment: List<CommentsDetailItem>,
     override fun getItemCount() = listComment.size
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.bind(listComment[position],fragmentManager)
+        holder.bind(listComment[position], listener)
+    }
+
+    interface CommentListener{
+        fun onUsernameClicked(id: Int, username:String, itemView: View)
     }
 }

@@ -1,5 +1,6 @@
 package com.kai.momentz.adapter
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kai.momentz.R
 import com.kai.momentz.model.response.CommentNotificationDataItem
+import com.kai.momentz.view.comment.CommentFragment
 
 class CommentNotificationAdapter(private val listCommentNotification: List<CommentNotificationDataItem>,
                                  private val fragmentManager: FragmentManager?) : RecyclerView.Adapter<CommentNotificationAdapter.ListViewHolder>() {
@@ -48,6 +50,17 @@ class CommentNotificationAdapter(private val listCommentNotification: List<Comme
             activity.text = "$space${itemView.context.getString(R.string.commented_on_your_post)}"
 
             itemView.setOnClickListener {
+                val newFragment = CommentFragment()
+                val bundle = Bundle()
+                bundle.putString("idPost", listNotificationItem.idPost.toString())
+                bundle.putString("profileImage", listNotificationItem.profilePicture)
+                bundle.putString("username", listNotificationItem.username)
+                newFragment.arguments = bundle
+
+                fragmentManager!!.beginTransaction()
+                    .replace(R.id.frame_container,newFragment)
+                    .addToBackStack(null)
+                    .commit()
             }
         }
     }
