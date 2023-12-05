@@ -47,12 +47,12 @@ class FollowerFollowingFragment() : Fragment(), FollowAdapter.FollowAdapterListe
             this,
             ViewModelFactory.getUserInstance(requireActivity())
         )[FollowViewModel::class.java]
-
+        val dataId = arguments?.getString("id")
         followViewModel.getUser().observe(requireActivity()){user ->
             if(user != null){
                 token = user.token
-                followViewModel.getFollowers(user.token, user.id)
-                followViewModel.getFollowing(user.token, user.id)
+                followViewModel.getFollowers(user.token, dataId!!)
+                followViewModel.getFollowing(user.token, dataId)
             }
         }
 

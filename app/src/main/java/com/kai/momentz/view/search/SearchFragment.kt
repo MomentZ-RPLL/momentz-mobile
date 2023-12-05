@@ -80,11 +80,12 @@ class SearchFragment : Fragment(), SearchAdapter.SearchAdapterListener {
         }
     }
 
-    override fun onViewClicked(username: String, itemView: View) {
+    override fun onViewClicked(username: String, id:String, itemView: View) {
         val fragmentManager = parentFragmentManager
         val newFragment = ProfileFragment()
         val bundle = Bundle()
         bundle.putString("username", username)
+        bundle.putString("id", id)
         newFragment.arguments = bundle
 
         fragmentManager.beginTransaction()

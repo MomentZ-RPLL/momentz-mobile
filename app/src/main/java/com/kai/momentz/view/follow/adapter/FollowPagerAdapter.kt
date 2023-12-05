@@ -8,7 +8,7 @@ import com.kai.momentz.view.follow.FollowerFollowingFragment
 import com.kai.momentz.view.home.HomeFragment
 import com.kai.momentz.view.profile.ProfileFragment
 
-class FollowPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activity){
+class FollowPagerAdapter(activity: AppCompatActivity, var id: String) : FragmentStateAdapter(activity){
     override fun getItemCount(): Int {
         return 2
     }
@@ -17,6 +17,7 @@ class FollowPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(act
         val fragment = FollowerFollowingFragment()
         fragment.arguments = Bundle().apply {
             putInt(FollowerFollowingFragment.ARG_SECTION_NUMBER, position + 1)
+            putString("id", id)
         }
         return fragment
     }
