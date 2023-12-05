@@ -29,12 +29,15 @@ class CommentViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun postComment(
-        token:String,
-        comment:String
-    ){
-
-    }
+//    fun postComment(
+//        token:String,
+//        comment:String
+//    ){
+//        viewModelScope.launch {
+//            _isLoading.value = true
+//            val result = repository.create
+//        }
+//    }
 
     fun getUser(): LiveData<User>{
         return repository.getUser()

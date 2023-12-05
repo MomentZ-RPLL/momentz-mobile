@@ -15,14 +15,14 @@ data class TimelineResponse(
 )
 data class DataItem(
 
-	@field:SerializedName("comments")
-	val comments: List<CommentsItem?>? = null,
-
 	@field:SerializedName("like_count")
 	val likeCount: Int? = null,
 
-	@field:SerializedName("postmedia")
-	val postmedia: String? = null,
+	@field:SerializedName("id_post")
+	val idPost: Int? = null,
+
+	@field:SerializedName("post_media")
+	val postMedia: String? = null,
 
 	@field:SerializedName("caption")
 	val caption: String? = null,

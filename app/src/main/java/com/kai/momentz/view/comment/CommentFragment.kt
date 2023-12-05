@@ -1,12 +1,12 @@
 package com.kai.momentz.view.comment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,8 +17,6 @@ import com.kai.momentz.databinding.FragmentCommentBinding
 import com.kai.momentz.model.response.CommentsItem
 import com.kai.momentz.model.response.Datas
 import com.kai.momentz.view.ViewModelFactory
-import android.content.Intent
-
 
 class CommentFragment : Fragment() {
 
@@ -40,7 +38,6 @@ class CommentFragment : Fragment() {
         fragmentManager = parentFragmentManager
         return binding.root
     }
-
     override fun onViewCreated(view:View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
 
@@ -48,6 +45,8 @@ class CommentFragment : Fragment() {
     }
 
     private fun setupViewModel(){
+        val idPost = arguments?.getString("idPost")
+
         commentViewModel = ViewModelProvider(
             this,
             ViewModelFactory.getUserInstance(requireActivity())
@@ -56,14 +55,15 @@ class CommentFragment : Fragment() {
         commentViewModel.getUser().observe(requireActivity()){user ->
             if (user!=null){
                 token = user.token
-                commentViewModel.getPost(user.token, user.id)
+                if (idPost != null) {
+                    commentViewModel.getPost(user.token, idPost)
+                }
             }
         }
-
         commentViewModel.commentResponse.observe(requireActivity()){comment ->
             if(comment != null){
                 setComment(comment.data)
-                setupUser()
+                setupUser(comment.data)
             }else{
                 Toast.makeText(requireActivity(),"Unknown Error", Toast.LENGTH_SHORT).show()
             }
@@ -72,15 +72,19 @@ class CommentFragment : Fragment() {
             showLoading(it)
         }
     }
-    private fun setupUser(){
-
+    private fun setupUser(comment: Datas?){
+        captionTextView.text = comment!!.caption
+        Glide.with(this)
+            .load(comment.postMedia)
+            .skipMemoryCache(true)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .into(binding.postImage)
     }
     private fun setComment(comment: Datas?){
         val listComment = CommentAdapter(comment as List<CommentsItem> ,
         fragmentManager)
         binding.rvComment.adapter = listComment
     }
-
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
             binding.progressBar.visibility = View.VISIBLE
@@ -88,4 +92,6 @@ class CommentFragment : Fragment() {
             binding.progressBar.visibility = View.GONE
         }
     }
+
+
 }

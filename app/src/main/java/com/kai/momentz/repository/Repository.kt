@@ -63,8 +63,7 @@ abstract class Repository {
     abstract suspend fun getChatList(token: String): Result<ChatListResponse>
 
     abstract suspend fun getChatDetail(token: String, id: String): Result<ChatDetailResponse>
-
     abstract suspend fun sendChat(token: String, id: String, message: SendMessageRequest): Result<SendChatResponse>
-
+    abstract suspend fun sendComment(token: String, id:String  )
 
 }

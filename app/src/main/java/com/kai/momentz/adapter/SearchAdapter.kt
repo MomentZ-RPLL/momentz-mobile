@@ -34,7 +34,6 @@ class SearchAdapter(private val searchList: List<SearchDataItem>,
             itemView.setOnClickListener{
                 listener.onViewClicked(listSearchItem.username ?: "", itemView)
             }
-
         }
     }
 

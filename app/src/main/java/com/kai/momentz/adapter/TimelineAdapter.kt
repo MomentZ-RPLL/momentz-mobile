@@ -1,6 +1,7 @@
 package com.kai.momentz.adapter
 
 import android.content.Intent
+import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +30,7 @@ class TimelineAdapter (private val listTimeline: List<DataItem>, private val fra
 
         fun bind(listPostItem: DataItem, fragmentManager: FragmentManager?){
             Glide.with(itemView.context)
-                .load(listPostItem!!.postmedia)
+                .load(listPostItem!!.postMedia)
                 .into(postPhoto)
 
             Glide.with(itemView.context)
@@ -41,10 +42,15 @@ class TimelineAdapter (private val listTimeline: List<DataItem>, private val fra
             caption.text = listPostItem.caption
 
             itemView.setOnClickListener {
-                val intent = Intent(itemView.context, CommentFragment::class.java)
-                intent.putExtra("Comment Fragment", listPostItem.username)
-                intent.putExtra("Comment Fragment", listPostItem.)
-                itemView.context.startActivity(intent)
+                val newFragment = CommentFragment()
+                val bundle = Bundle()
+                bundle.putString("idPost", listPostItem.idPost.toString())
+                newFragment.arguments = bundle
+
+                fragmentManager!!.beginTransaction()
+                    .replace(R.id.frame_container,newFragment)
+                    .addToBackStack(null)
+                    .commit()
             }
         }
     }
@@ -59,7 +65,6 @@ class TimelineAdapter (private val listTimeline: List<DataItem>, private val fra
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         holder.bind(listTimeline[position],fragmentManager)
     }
-
 
 }
 
