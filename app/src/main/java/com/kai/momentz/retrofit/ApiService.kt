@@ -13,6 +13,7 @@ import com.kai.momentz.model.response.FollowingResponse
 import com.kai.momentz.model.response.LikeNotificationResponse
 import com.kai.momentz.model.response.LikeResponse
 import com.kai.momentz.model.response.LoginResponse
+import com.kai.momentz.model.response.PostDetailResponse
 import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.model.response.RegisterResponse
 import com.kai.momentz.model.response.SearchUserResponse
@@ -51,13 +52,6 @@ interface ApiService {
     suspend fun getTimeline(
         @Header("Cookie") token: String,
     ): Response<TimelineResponse>
-
-
-    @GET("/posts")
-    suspend fun getDetailPost(
-        @Header("Cookie") token : String,
-        @Path("id") id: String
-    ): Response<CommentResponse>
 
     @POST("/users/login")
     fun loginUser(
@@ -157,7 +151,6 @@ interface ApiService {
     fun createComment(
         @Header("Cookie") token: String,
         @Path("id") id: String,
-
     )
 
     @DELETE("/users/{id}/likes")
@@ -166,10 +159,15 @@ interface ApiService {
         @Path("id") id: String
     ): Response<LikeResponse>
 
-    @POST("/posts/{id}/likes")
-    fun postLike(
+    @POST("/posts/{id}")
+    suspend fun postLike(
         @Header("Cookie") token: String,
         @Path("id") id: String
     ): Response<LikeResponse>
 
+    @GET("/posts/{postId}")
+    suspend fun getPostDetail(
+        @Header("Cookie") token: String,
+        @Path("postId") id: String
+    ): Response<PostDetailResponse>
 }

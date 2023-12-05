@@ -15,6 +15,7 @@ import com.kai.momentz.model.response.FollowResponse
 import com.kai.momentz.model.response.FollowingResponse
 import com.kai.momentz.model.response.LikeNotificationResponse
 import com.kai.momentz.model.response.LikeResponse
+import com.kai.momentz.model.response.PostDetailResponse
 import com.kai.momentz.model.response.ProfileResponse
 import com.kai.momentz.model.response.RegisterResponse
 import com.kai.momentz.model.response.SearchUserResponse
@@ -244,9 +245,9 @@ class UserRepository(private val apiService: ApiService, private val pref: UserP
             Result.failure(e)
         }    }
 
-    override suspend fun getDetailPost(token: String, id :String): Result<CommentResponse>{
+    override suspend fun getDetailPost(token: String, id :String): Result<PostDetailResponse>{
         return try{
-            val response = apiService.getDetailPost("token=$token", id)
+            val response = apiService.getPostDetail("token=$token", id)
             if ( response.isSuccessful){
                 val responseBody = response.body()
                 Result.success(responseBody!!)
