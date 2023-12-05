@@ -43,6 +43,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
     private lateinit var followingTextView: TextView
     private lateinit var dataProfile: DataProfile
     private lateinit var currentUserData: User
+    private lateinit var profileId: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,7 +60,9 @@ class ProfileFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setupViewModel(){
-        val data = arguments?.getString("username")
+        val dataUsername = arguments?.getString("username")
+        val dataId = arguments?.getString("id")
+
         profileViewModel = ViewModelProvider(
             this,
             ViewModelFactory.getUserInstance(requireContext())
@@ -74,13 +77,15 @@ class ProfileFragment : Fragment(), View.OnClickListener {
             if(user != null){
                 currentUserData = user
 
-                if(data != null){
-                    profileViewModel.getProfile(user.token, data.toString())
+                if(dataUsername != null){
+                    profileId = dataId!!
+                    profileViewModel.getProfile(user.token, dataUsername.toString())
                     binding.message.visibility = View.VISIBLE
                     binding.editProfile.visibility = View.GONE
                     binding.follow.visibility = View.VISIBLE
                     followViewModel.getFollowing(user.token, user.id)
                 }else {
+                    profileId = user.id
                     profileViewModel.getProfile(user.token, user.username)
                 }
             }
@@ -89,7 +94,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
         followViewModel.listFollowing.observe(requireActivity()) { following ->
             if(following != null){
                 for (i in following.data!!){
-                    if (data == i!!.username){
+                    if (dataUsername == i!!.username){
                         binding.follow.visibility = View.GONE
                         binding.following.visibility = View.VISIBLE
                         break
@@ -188,6 +193,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
         if(v == binding.followingBox){
             val bundle = Bundle()
             bundle.putString("tab", FollowFragment.FOLLOWING_TAB.toString())
+            bundle.putString("profileId", profileId)
 
             val followFragment = FollowFragment()
             followFragment.arguments = bundle
@@ -201,6 +207,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
         if(v == binding.followerBox){
             val bundle = Bundle()
             bundle.putString("tab", FollowFragment.FOLLOWER_TAB.toString())
+            bundle.putString("profileId", profileId)
 
             val followFragment = FollowFragment()
             followFragment.arguments = bundle

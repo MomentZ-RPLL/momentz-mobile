@@ -34,11 +34,12 @@ class FollowFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val data = arguments?.getString("tab")
+        val dataId = arguments?.getString("profileId")
 
         viewPager = view.findViewById(R.id.view_pager)
         tabs = view.findViewById(R.id.tabs)
 
-        val followsPagerAdapter = FollowPagerAdapter(requireActivity() as AppCompatActivity)
+        val followsPagerAdapter = FollowPagerAdapter(requireActivity() as AppCompatActivity, dataId!!)
         viewPager.adapter = followsPagerAdapter
 
 
