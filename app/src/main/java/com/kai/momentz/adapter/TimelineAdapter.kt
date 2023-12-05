@@ -33,7 +33,6 @@ class TimelineAdapter (private val listTimeline: List<TimelineDataItem>, private
                 .load(listPostItem.postmedia)
                 .into(postPhoto)
 
-            Log.d("tess", listPostItem.postmedia!!)
 
             Glide.with(itemView.context)
                 .load(listPostItem.profilePicture)
