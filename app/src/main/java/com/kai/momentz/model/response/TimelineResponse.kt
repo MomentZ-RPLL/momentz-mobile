@@ -32,9 +32,17 @@ data class TimelineDataItem(
 	@field:SerializedName("created_at")
 	val createdAt: String? = null,
 
+	@field:SerializedName("lat")
+	val lat: Double? = null,
+
+	@field:SerializedName("lon")
+	val lon: Double? = null,
+
 	@field:SerializedName("profile_picture")
 	val profilePicture: String? = null,
 
 	@field:SerializedName("username")
 	val username: String? = null
+
+
 )
