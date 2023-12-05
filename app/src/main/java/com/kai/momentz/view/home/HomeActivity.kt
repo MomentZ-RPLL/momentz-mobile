@@ -46,7 +46,6 @@ class HomeActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.navigation_home -> {
                     val homeFragment = HomeFragment()
-                    Log.d("tess", "ini")
                     fragmentManager.beginTransaction().replace(R.id.frame_container, homeFragment, HomeFragment::class.java.simpleName).commit()
                     true
                 }

@@ -33,7 +33,7 @@ class PostViewModel(private val repository : Repository) : ViewModel() {
     fun createPost(token:String, imageMultipart: MultipartBody.Part, caption : RequestBody, lat:Double?, lon:Double? ){
         _isLoading.value = true
         val apiService = ApiConfig().getApiService()
-        val postImage = apiService.createPost("Bearer $token", imageMultipart, caption, lat, lon)
+        val postImage = apiService.createPost("token=$token", imageMultipart, caption, lat, lon)
 
         postImage.enqueue(object : Callback<ErrorResponse> {
             override fun onResponse(

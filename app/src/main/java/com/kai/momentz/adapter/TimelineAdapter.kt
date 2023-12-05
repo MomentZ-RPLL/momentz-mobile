@@ -3,6 +3,7 @@ package com.kai.momentz.adapter
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +13,13 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kai.momentz.R
-import com.kai.momentz.model.response.DataItem
+import com.kai.momentz.model.response.TimelineDataItem
 import com.kai.momentz.utils.getDate
 import com.kai.momentz.utils.getTime
 import com.kai.momentz.view.comment.CommentFragment
 
 
-class TimelineAdapter (private val listTimeline: List<DataItem>, private val fragmentManager : FragmentManager?) : RecyclerView.Adapter<TimelineAdapter.ListViewHolder>(){
+class TimelineAdapter (private val listTimeline: List<TimelineDataItem>, private val fragmentManager : FragmentManager?) : RecyclerView.Adapter<TimelineAdapter.ListViewHolder>(){
 
 
     class ListViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
@@ -28,10 +29,16 @@ class TimelineAdapter (private val listTimeline: List<DataItem>, private val fra
         private var caption : TextView = itemView.findViewById(R.id.caption)
         private var time : TextView = itemView.findViewById(R.id.time)
 
-        fun bind(listPostItem: DataItem, fragmentManager: FragmentManager?){
+        fun bind(listPostItem: TimelineDataItem, fragmentManager: FragmentManager?){
             Glide.with(itemView.context)
+<<<<<<< HEAD
                 .load(listPostItem!!.postMedia)
+=======
+                .load(listPostItem.postmedia)
+>>>>>>> 011a2f7cea8660eae74de7d1a2bafd2cca57ea08
                 .into(postPhoto)
+
+            Log.d("tess", listPostItem.postmedia!!)
 
             Glide.with(itemView.context)
                 .load(listPostItem.profilePicture)
@@ -42,6 +49,7 @@ class TimelineAdapter (private val listTimeline: List<DataItem>, private val fra
             caption.text = listPostItem.caption
 
             itemView.setOnClickListener {
+<<<<<<< HEAD
                 val newFragment = CommentFragment()
                 val bundle = Bundle()
                 bundle.putString("idPost", listPostItem.idPost.toString())
@@ -51,6 +59,11 @@ class TimelineAdapter (private val listTimeline: List<DataItem>, private val fra
                     .replace(R.id.frame_container,newFragment)
                     .addToBackStack(null)
                     .commit()
+=======
+                val intent = Intent(itemView.context, CommentFragment::class.java)
+                intent.putExtra("Comment Fragment", listPostItem.username)
+                itemView.context.startActivity(intent)
+>>>>>>> 011a2f7cea8660eae74de7d1a2bafd2cca57ea08
             }
         }
     }
