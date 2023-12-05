@@ -109,7 +109,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
 
         profileViewModel.profileResponse.observe(requireActivity()) { user ->
             if(user != null){
-                dataProfile = DataProfile(name = user.data!!.name,
+                dataProfile = DataProfile(username = user.data!!.username,
                     bio = user.data.bio,
                     email = user.data.email,
                     profilePicture = user.data.profilePicture, idUser = user.data.idUser)
@@ -162,7 +162,8 @@ class ProfileFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setProfilePostData(post : List<PostsItem?>){
-        val listPostAdapter = ProfilePostAdapter(post.filterNotNull().reversed())
+        val fragmentManager = parentFragmentManager
+        val listPostAdapter = ProfilePostAdapter(post.filterNotNull().reversed(), fragmentManager, dataProfile.username!!, dataProfile.profilePicture!!)
         binding.rvPost.adapter = listPostAdapter
     }
 
