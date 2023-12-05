@@ -153,7 +153,7 @@ class MapsFragment : Fragment() {
 
                 // Menggunakan Glide untuk memuat gambar dari URL atau sumber daya lainnya
                 Glide.with(requireContext())
-                    .load(listStory.postmedia)
+                    .load(listStory.postMedia)
                     .listener(object : RequestListener<Drawable> {
                         override fun onLoadFailed(
                             e: GlideException?,
