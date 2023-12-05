@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kai.momentz.model.datastore.User
 import com.kai.momentz.model.response.CommentResponse
+import com.kai.momentz.model.response.PostCommentResponse
 import com.kai.momentz.model.response.PostDetailResponse
 import com.kai.momentz.model.response.TimelineResponse
 import com.kai.momentz.repository.Repository
@@ -17,6 +18,9 @@ class CommentViewModel(private val repository: Repository) : ViewModel() {
 
     private val _postDetailResponse = MutableLiveData<PostDetailResponse>()
     val postDetailResponse: LiveData<PostDetailResponse> = _postDetailResponse
+
+    private val _postCommentResponse = MutableLiveData<PostCommentResponse>()
+    val postCommentResponse: LiveData<PostCommentResponse> = _postCommentResponse
 
     fun getDetailPost(
         token:String,
@@ -30,15 +34,18 @@ class CommentViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-//    fun postComment(
-//        token:String,
-//        comment:String
-//    ){
-//        viewModelScope.launch {
-//            _isLoading.value = true
-//            val result = repository.create
-//        }
-//    }
+    fun postComment(
+        token:String,
+        id: String,
+        comment:String
+    ){
+        viewModelScope.launch {
+            _isLoading.value = true
+            val result = repository.postComment(token, id, comment)
+            _isLoading.value = false
+            _postCommentResponse.value = result.getOrNull()
+        }
+    }
 
     fun getUser(): LiveData<User>{
         return repository.getUser()

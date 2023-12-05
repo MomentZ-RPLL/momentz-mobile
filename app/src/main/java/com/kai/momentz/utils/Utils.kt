@@ -57,19 +57,22 @@ fun reduceFileImage(file: File): File {
 
 fun getDate(dateTimeString: String): String {
     val formatter = SimpleDateFormat("yyyy-MM-dd HH-mm-ss", Locale.getDefault())
+    formatter.timeZone = TimeZone.getTimeZone("GMT+7")
     val date = formatter.parse(dateTimeString)
 
     val dateFormatter = SimpleDateFormat("dd MMMM", Locale.getDefault())
+    dateFormatter.timeZone = TimeZone.getTimeZone("GMT+7")
 
     return dateFormatter.format(date!!)
-
 }
 
 fun getTime(dateTimeString: String): String {
     val formatter = SimpleDateFormat("yyyy-MM-dd HH-mm-ss", Locale.getDefault())
+    formatter.timeZone = TimeZone.getTimeZone("GMT+7")
     val date = formatter.parse(dateTimeString)
 
     val timeFormatter = SimpleDateFormat("HH:mm", Locale.getDefault())
+    timeFormatter.timeZone = TimeZone.getTimeZone("GMT+7")
 
     return timeFormatter.format(date!!)
 }

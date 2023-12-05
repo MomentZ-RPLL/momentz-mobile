@@ -12,6 +12,7 @@ import com.kai.momentz.R
 import com.kai.momentz.model.response.CommentsDetailItem
 import com.kai.momentz.model.response.CommentsItem
 import com.kai.momentz.utils.getDate
+import com.kai.momentz.utils.getTime
 
 class CommentAdapter(private val listComment: List<CommentsDetailItem>,
                      private val fragmentManager: FragmentManager?) : RecyclerView.Adapter<CommentAdapter.ListViewHolder>() {
@@ -28,7 +29,7 @@ class CommentAdapter(private val listComment: List<CommentsDetailItem>,
                 .into(imgProfile)
 
             username.text = listCommentItem.username
-            time.text = listCommentItem.createdAt
+            time.text = "${getDate(listCommentItem.createdAt!!)}, ${getTime(listCommentItem.createdAt)} "
             comment.text=listCommentItem.comment
         }
     }

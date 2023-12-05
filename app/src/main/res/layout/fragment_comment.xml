@@ -130,15 +130,15 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="390dp"
-            android:layout_height="329dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:padding="16dp">
+            android:layout_marginTop="8dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_comment"
-                android:layout_width="360dp"
-                android:layout_height="142dp"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
                 android:layout_marginTop="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -147,10 +147,9 @@
 
             <com.kai.momentz.customview.LoginInputEditText
                 android:id="@+id/commentTextView"
-                android:layout_width="353dp"
-                android:layout_height="53dp"
-                android:layout_margin="5dp"
-                android:layout_marginTop="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:drawablePadding="10dp"
                 android:hint="@string/tv_comment"
                 android:padding="15dp"
@@ -162,7 +161,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/rv_comment" />
 
             <com.kai.momentz.customview.DefaultButton
-                android:id="@+id/edit"
+                android:id="@+id/postComment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
