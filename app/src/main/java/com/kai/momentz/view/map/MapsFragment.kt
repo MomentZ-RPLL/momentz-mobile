@@ -48,6 +48,7 @@ import com.kai.momentz.R
 import com.kai.momentz.databinding.FragmentMapsBinding
 import com.kai.momentz.model.response.TimelineDataItem
 import com.kai.momentz.view.ViewModelFactory
+import com.kai.momentz.view.comment.CommentFragment
 
 class MapsFragment : Fragment() {
 
@@ -180,19 +181,25 @@ class MapsFragment : Fragment() {
                                 val finalBitmap = addTextAndCardBackground(resizedBitmap, listStory.username!!)
 
                                 val markerOptions = MarkerOptions().position(latLng)
-                                    .title(listStory.username)
                                     .icon(BitmapDescriptorFactory.fromBitmap(finalBitmap))
 
                                 val marker = mMap.addMarker(markerOptions)
                                 boundsBuilder.include(latLng)
 
                                 mMap.setOnMarkerClickListener { clickedMarker ->
-                                    if (clickedMarker == marker) {
-                                        showToast("Marker ${listStory.username} diklik")
-                                        true
-                                    } else {
-                                        false
-                                    }
+
+                                    val newFragment = CommentFragment()
+                                    val bundle = Bundle()
+                                    bundle.putString("idPost", listStory.idPost.toString())
+                                    bundle.putString("profileImage", listStory.profilePicture)
+                                    bundle.putString("username", listStory.username)
+                                    newFragment.arguments = bundle
+
+                                    fragmentManager!!.beginTransaction()
+                                        .replace(R.id.frame_container,newFragment)
+                                        .addToBackStack(null)
+                                        .commit()
+                                    true
                                 }
                             }
                             return true
