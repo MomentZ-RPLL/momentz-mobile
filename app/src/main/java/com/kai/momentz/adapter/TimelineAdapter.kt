@@ -31,11 +31,8 @@ class TimelineAdapter (private val listTimeline: List<TimelineDataItem>, private
 
         fun bind(listPostItem: TimelineDataItem, fragmentManager: FragmentManager?){
             Glide.with(itemView.context)
-<<<<<<< HEAD
                 .load(listPostItem!!.postMedia)
-=======
                 .load(listPostItem.postmedia)
->>>>>>> 011a2f7cea8660eae74de7d1a2bafd2cca57ea08
                 .into(postPhoto)
 
             Log.d("tess", listPostItem.postmedia!!)
@@ -49,7 +46,6 @@ class TimelineAdapter (private val listTimeline: List<TimelineDataItem>, private
             caption.text = listPostItem.caption
 
             itemView.setOnClickListener {
-<<<<<<< HEAD
                 val newFragment = CommentFragment()
                 val bundle = Bundle()
                 bundle.putString("idPost", listPostItem.idPost.toString())
@@ -59,11 +55,9 @@ class TimelineAdapter (private val listTimeline: List<TimelineDataItem>, private
                     .replace(R.id.frame_container,newFragment)
                     .addToBackStack(null)
                     .commit()
-=======
                 val intent = Intent(itemView.context, CommentFragment::class.java)
                 intent.putExtra("Comment Fragment", listPostItem.username)
                 itemView.context.startActivity(intent)
->>>>>>> 011a2f7cea8660eae74de7d1a2bafd2cca57ea08
             }
         }
     }
