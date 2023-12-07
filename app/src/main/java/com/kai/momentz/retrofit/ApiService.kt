@@ -156,13 +156,13 @@ interface ApiService {
         @Body comment: SendCommentRequest
     ): Response<PostCommentResponse>
 
-    @DELETE("/users/{id}/likes")
+    @DELETE("/posts/{id}/likes")
     suspend fun postUnlike(
         @Header("Cookie") token: String,
         @Path("id") id: String
     ): Response<LikeResponse>
 
-    @POST("/posts/{id}")
+    @POST("/posts/{id}/likes")
     suspend fun postLike(
         @Header("Cookie") token: String,
         @Path("id") id: String
