@@ -20,7 +20,7 @@ import com.kai.momentz.utils.getTime
 import com.kai.momentz.view.comment.CommentFragment
 
 
-class TimelineAdapter (private val listTimeline: List<TimelineDataItem>, private val fragmentManager : FragmentManager?, private var listener:LikeListener) : RecyclerView.Adapter<TimelineAdapter.ListViewHolder>(){
+class TimelineAdapter (private val listTimeline: List<TimelineDataItem>, private val fragmentManager : FragmentManager?, private val like : List<TimelineDataItem>,private var listener:LikeListener) : RecyclerView.Adapter<TimelineAdapter.ListViewHolder>(){
 
 
     class ListViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
@@ -33,7 +33,7 @@ class TimelineAdapter (private val listTimeline: List<TimelineDataItem>, private
         private var unlike : ImageView = itemView.findViewById(R.id.unlike)
 
 
-        fun bind(listPostItem: TimelineDataItem, fragmentManager: FragmentManager?, listener : LikeListener){
+        fun bind(listPostItem: TimelineDataItem, fragmentManager: FragmentManager?, listLikeItem: List<TimelineDataItem>,listener : LikeListener){
             Glide.with(itemView.context)
                 .load(listPostItem!!.postMedia)
                 .into(postPhoto)
@@ -42,6 +42,14 @@ class TimelineAdapter (private val listTimeline: List<TimelineDataItem>, private
             Glide.with(itemView.context)
                 .load(listPostItem.profilePicture)
                 .into(profilePhoto)
+
+            for (i in listLikeItem){
+                if (listPostItem.username == i.username){
+                    unlike.visibility = View.GONE
+                    like.visibility = View.VISIBLE
+
+                }
+            }
 
             time.text = "${getDate(listPostItem.createdAt!!)}, ${getTime(listPostItem.createdAt)} "
             username.text = listPostItem.username
@@ -78,7 +86,7 @@ class TimelineAdapter (private val listTimeline: List<TimelineDataItem>, private
     override fun getItemCount() = listTimeline.size
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.bind(listTimeline[position],fragmentManager, listener )
+        holder.bind(listTimeline[position],fragmentManager, like ,listener )
     }
 
     interface LikeListener{

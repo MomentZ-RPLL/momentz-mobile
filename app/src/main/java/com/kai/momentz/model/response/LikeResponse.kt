@@ -12,6 +12,7 @@ class LikeResponse(
 
     @field:SerializedName("status")
     val status: String? = null
+
 ) : Parcelable
 
 
